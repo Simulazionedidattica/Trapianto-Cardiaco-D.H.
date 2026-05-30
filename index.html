@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caso Clinico Pediatrico - Simulazione Interattiva</title>
+  
+  <style>
+    /* STRUTTURA FLUIDA ULTRA-WIDE A TUTTO SCHERMO */
+    html, body {
+      margin: 0 !important;
+      padding: 0 !important;
+      background-color: #f4f7fa !important;
+      font-family: 'Comfortaa', 'Cavolini', 'Chalkboard SE', 'Comic Sans MS', sans-serif !important;
+    }
+
+    /* CONTENITORE PRINCIPALE (SOSTITUISCE TW-PASSAGE) */
+    .passage-container {
+      background: #ffffff !important;
+      padding: 16px 24px !important;
+      border-radius: 12px !important;
+      border: 1px solid #e1e8ed !important;
+      box-shadow: 0 4px 12px rgba(149, 157, 165, 0.05) !important;
+      width: 98% !important;
+      max-width: 100% !important;
+      margin: 10px auto !important;
+      box-sizing: border-box !important;
+      text-align: justify !important;
+      display: none; /* Nasconde i passaggi non attivi */
+    }
+
+    /* MOSTRA SOLO IL PASSAGGIO ATTIVO */
+    .passage-container.active {
+      display: block !important;
+    }
+
+    /* INTESTAZIONE DI TESTATA */
+    .passage-header {
+      display: block;
+      font-size: 0.85em;
+      font-weight: 600;
+      color: #2f80ed;
+      border-bottom: 2px solid #e1e8ed;
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 1.5em !important;
+      font-weight: bold !important;
+      color: #2f80ed !important;
+      margin: 0 0 12px 0 !important;
+    }
+
+    /* BADGE ORIZZONTALE PAZIENTE */
+    .badge-paziente-orizzontale {
+      background-color: #e8f1fc !important;
+      border: 1px dashed #2f80ed !important;
+      border-radius: 8px !important;
+      padding: 8px 16px !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+      font-size: 0.95em !important;
+      color: #2f80ed !important;
+      margin-bottom: 12px !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    /* SEZIONE BLOCCHI AFFIANCATI */
+    .sezione-orizzontale-piena {
+      width: 100% !important;
+      display: flex !important;
+      gap: 14px !important;
+      margin-bottom: 12px !important;
+      box-sizing: border-box !important;
+    }
+
+    .box-orizzontale-pieno {
+      flex: 1 !important;
+      padding: 12px 14px !important;
+      border-radius: 8px !important;
+      font-size: 0.9em !important;
+      line-height: 1.4 !important;
+      color: #1a2530 !important;
+      box-shadow: inset 0 0 0 1px dashed rgba(0,0,0,0.05);
+    }
+
+    /* MONITOR CLINICO ESTESO WIDESCREEN */
+    .monitor-clinico-esteso {
+      background: #0d0e12 !important;
+      border: 1px solid #252830;
+      padding: 10px 18px !important;
+      border-radius: 8px;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      margin-bottom: 12px !important;
+    }
+
+    .monitor-flex-container {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 6px !important;
+    }
+
+    .monitor-channel {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      height: 34px !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .monitor-wave-area {
+      flex: 1 !important;
+      height: 100% !important;
+      position: relative !important;
+      overflow: hidden !important;
+      margin-right: 24px !important;
+    }
+
+    .wave-moving {
+      position: absolute !important;
+      width: 200% !important;
+      height: 100% !important;
+      top: 0;
+      left: 0;
+      background-repeat: repeat-x !important;
+      animation: scorrimentoFluido 2.5s linear infinite !important;
+    }
+
+    @keyframes scorrimentoFluido {
+      from { transform: translate3d(0, 0, 0); }
+      to { transform: translate3d(-50%, 0, 0); }
+    }
+
+    .wave-ecg { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30'%3E%3Cpath d='M0,15 L20,15 L23,7 L26,23 L29,15 L40,15 L44,2 L49,28 L54,15 L70,15 L73,10 L77,15 L100,15' fill='none' stroke='%2334c759' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important; background-size: 100px 100% !important; }
+    .wave-pleth { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 30'%3E%3Cpath d='M0,15 Q12.5,0 25,15 T50,15' fill='none' stroke='%232f80ed' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important; background-size: 50px 100% !important; }
+    .wave-resp { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30'%3E%3Cpath d='M0,15 Q25,3 50,15 T100,15' fill='none' stroke='%23f2c94c' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important; background-size: 100px 100% !important; }
+
+    .monitor-numeric-block {
+      min-width: 200px !important;
+      text-align: right !important;
+      font-size: 1.15em !important;
+      font-weight: bold !important;
+      white-space: nowrap !important;
+    }
+
+    .monitor-bottom-row {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      padding-top: 8px !important;
+    }
+
+    .monitor-static-box {
+      font-size: 0.9em !important;
+      font-weight: bold !important;
+      white-space: nowrap !important;
+    }
+
+    .c-verde { color: #34c759 !important; }
+    .c-azzurro { color: #2f80ed !important; }
+    .c-giallo { color: #f2c94c !important; }
+    .c-testo-monitor { color: #cbd5e1 !important; border-left: 2px solid #475569; padding-left: 10px; }
+    .c-rosso-clinico { color: #eb5757 !important; border-left: 2px solid #eb5757; padding-left: 10px; }
+
+    /* BOX INFORMATIVI CORPO PAGINA */
+    .alert-info-box-esteso {
+      background-color: #eef6ff !important;
+      border-left: 4px solid #2f80ed !important;
+      padding: 12px 16px !important;
+      border-radius: 8px !important;
+      font-size: 0.9em !important;
+      line-height: 1.45 !important;
+      color: #1a2530 !important;
+      margin-bottom: 12px !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    /* DOMANDE E SCELTE INTERATTIVE */
+    .box-domanda-urgente {
+      background-color: #fff9e6 !important;
+      border-left: 4px solid #f2c94c !important;
+      padding: 12px 14px !important;
+      border-radius: 8px !important;
+      font-size: 0.95em !important;
+      font-weight: bold !important;
+      color: #1a2530 !important;
+      margin: 0 0 10px 0 !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .Scelte {
+      margin-top: 0 !important;
+      padding-top: 4px !important;
+      width: 100% !important;
+    }
+
+    /* PULSANTI DI SCELTA NAVIGABILI */
+    .custom-link {
+      font-family: 'Comfortaa', 'Cavolini', 'Chalkboard SE', sans-serif !important;
+      color: #ffffff !important;
+      background-color: #2f80ed !important;
+      font-weight: bold !important;
+      text-decoration: none !important;
+      padding: 10px 16px !important;
+      border-radius: 6px !important;
+      display: inline-block !important;
+      margin: 4px 6px 4px 0 !important;
+      font-size: 0.95em !important;
+      box-shadow: 0 2px 4px rgba(47, 128, 237, 0.15);
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .custom-link:hover { 
+      background-color: #1b62c4 !important; 
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= PASSAGGIO 1: TRIAGE ================= -->
+  <div id="fase1" class="passage-container active">
+    <div class="passage-header">🔷 CASO CLINICO PEDIATRICO  |  Simulazione Interattiva</div>
+    <h1>FASE 1: ACCERTAMENTO AL TRIAGE</h1>
+
+    <div class="badge-paziente-orizzontale">
+        <span style="font-size: 1.8em;">👦🏻</span>
+        <div><strong>Paziente:</strong> Luca (15 anni) | <strong>Inquadramento:</strong> Follow-up Post-Trapianto Clinico Pediatrico | 🎒</div>
+    </div>
+
+    <div class="sezione-orizzontale-piena">
+        <div class="box-orizzontale-pieno" style="background-color: #f8f9fa; border-left: 4px solid #6c757d;">
+            <span><strong>🏥 Contesto DH:</strong></span>
+            <div>Infermiere DH Scompenso e Trapianti. Gestisci il controllo di Luca, trapiantato da 12 mesi per cardiomiopatia dilatativa genetica.</div>
+        </div>
+
+        <div class="box-orizzontale-pieno" style="background-color: #fff5f5; border-left: 4px solid #eb5757;">
+            <span style="color: #eb5757;"><strong>⚠️ Obiettività:</strong></span>
+            <div>Luca trascina i piedi, ha un colorito pallido-grigiastro, lo sguardo è spento e risponde solo a monosillabi.</div>
+        </div>
+
+        <div class="box-orizzontale-pieno" style="background-color: #eef6ff; border-left: 4px solid #2f80ed;">
+            <span style="color: #2f80ed;"><strong>🗣️ Riferito dalla madre:</strong></span>
+            <div><em>"Da giorni è stanchissimo, fa fatica a fare le scale ed è gonfio in viso... Ha saltato l'allenamento perché sentiva il cuore battere strano"</em>.</div>
+        </div>
+    </div>
+
+    <div class="box-domanda-urgente">
+        ❓ Qual è la tua prima azione assistenziale prioritaria in base al protocollo?
+    </div>
+
+    <div class="Scelte">
+        <button class="custom-link" onclick="goToPassage('parametri')">🔍 Rileva i parametri vitali ed esegui un ECG immediato</button>
+        <button class="custom-link" onclick="goToPassage('errore-farmaco')">💊 Somministri subito la dose di immunosoppressori</button>
+    </div>
+  </div>
+
+
+  <!-- ================= PASSAGGIO 2: PARAMETRI (MONITOR) ================= -->
+  <div id="parametri" class="passage-container">
+    <div class="passage-header">🔷 CASO CLINICO PEDIATRICO  |  Simulazione Interattiva</div>
+    <h1>FASE 2: MONITORAGGIO PARAMETRI VITALI</h1>
+
+    <div class="badge-paziente-orizzontale">
+        <span style="font-size: 1.8em;">👦🏻</span>
+        <div><strong>Paziente:</strong> Luca (15 anni) | <strong>Stato attuale:</strong> Monitoraggio Clinico in Corso | ⏱️</div>
+    </div>
+
+    <div class="monitor-clinico-esteso">
+      <div class="monitor-flex-container">
+        
+        <div class="monitor-channel c-verde">
+          <div class="monitor-wave-area"><div class="wave-moving wave-ecg"></div></div>
+          <div class="monitor-numeric-block">❤️ FC: 114 bpm</div>
+        </div>
+        
+        <div class="monitor-channel c-azzurro">
+          <div class="monitor-wave-area"><div class="wave-moving wave-pleth"></div></div>
+          <div class="monitor-numeric-block">🫁 SpO2: 95%</div>
+        </div>
+        
+        <div class="monitor-channel c-giallo">
+          <div class="monitor-wave-area"><div class="wave-moving wave-resp"></div></div>
+          <div class="monitor-numeric-block">⏱️ FR: 22 giri/min</div>
+        </div>
+        
+        <div class="monitor-bottom-row">
+          <div class="monitor-static-box c-testo-monitor">🌡️ T: 37.3 °C</div>
+          <div class="monitor-static-box c-rosso-clinico">🩸 NIBP: 128/84 mmHg</div>
+          <div class="monitor-static-box c-testo-monitor">⚖️ Peso: 62.8 kg</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="alert-info-box-esteso">
+        <strong>🩺 Esame Obiettivo:</strong> Presenza di turgore delle giugulari a 45° ed edema periorbitale e declive (fovea +1), indice di ritenzione idrosalina acuta da sospetto rigetto.
+    </div>
+
+    <div class="box-domanda-urgente">
+        ❓ Su quale aspetto assistenziale devi indagare prima di chiamare il medico?
+    </div>
+
+    <div class="Scelte">
+        <button class="custom-link" onclick="goToPassage('aderenza')">💬 Conduci un'intervista mirata sull'aderenza terapeutica</button>
+        <button class="custom-link" onclick="goToPassage('errore-isolamento')">🚪 Isoli il paziente in stanza a pressione negativa</button>
+    </div>
+  </div>
+
+
+  <!-- ================= PASSAGGIO 3: ADERENZA TERAPEUTICA ================= -->
+  <div id="aderenza" class="passage-container">
+    <div class="passage-header">🔷 CASO CLINICO PEDIATRICO  |  Simulazione Interattiva</div>
+    <h1>FASE 3: COLLOQUIO MIRATO E ANAMNESI</h1>
+
+    <div class="badge-paziente-orizzontale">
+        <span style="font-size: 1.8em;">💬</span>
+        <div><strong>Focus Anamnestico:</strong> Indagine sull'aderenza terapeutica | Stabilire una relazione terapeutica efficace</div>
+    </div>
+
+    <div class="sezione-orizzontale-piena">
+        <div class="box-orizzontale-pieno" style="background-color: #f0fdf4; border-left: 4px solid #22c55e;">
+            <span><strong>🎯 Approccio Infermieristico:</strong></span>
+            <div>Ti avvicini a Luca in modo non giudicante per esplorare la gestione domiciliare della terapia immunosoppressiva e dei controlli del bilancio idrico.</div>
+        </div>
+
+        <div class="box-orizzontale-pieno" style="background-color: #fffbeb; border-left: 4px solid #f59e0b;">
+            <span style="color: #d97706;"><strong>🗣️ Confessione di Luca:</strong></span>
+            <div>Guarda in basso e sussurra: <em>"La scorsa settimana siamo andati in gita con la scuola... Mi vergognavo a prendere le pillole davanti ai miei compagni e ne ho saltata qualcuna. E poi non ho pesato i liquidi come mi dice sempre la mamma."</em></div>
+        </div>
+    </div>
+
+    <div class="alert-info-box-esteso">
+        <strong>💡 Ragionamento Clinico:</strong> La mancata aderenza alla terapia immunosoppressiva (ciclosporina/tacrolimus) nel paziente trapiantato rappresenta la causa principale di rigetto acuto d'organo. Il turgore giugulare e l'aumento ponderale confermano lo scompenso congestizio secondario.
+    </div>
+
+    <div class="box-domanda-urgente">
+        ❓ Adesso che possiedi il quadro completo, qual è la modalità corretta di comunicazione con il medico?
+    </div>
+
+    <div class="Scelte">
+        <button class="custom-link" onclick="goToPassage('chiamata-medico')">📞 Contatti il medico strutturato utilizzando la tecnica SBAR</button>
+        <button class="custom-link" onclick="alert('Simulazione completata con successo! Ottimo lavoro di inquadramento clinico.')">🏁 Concludi ed elabora il piano assistenziale</button>
+    </div>
+  </div>
+
+
+  <!-- ================= PASSAGGIO 4: CHIAMATA MEDICO (SBAR) ================= -->
+  <div id="chiamata-medico" class="passage-container">
+    <div class="passage-header">🔷 CASO CLINICO PEDIATRICO  |  Simulazione Interattiva</div>
+    <h1>FASE 4: COMUNICAZIONE INTERPROFESSIONALE SBAR</h1>
+
+    <div class="badge-paziente-orizzontale">
+        <span style="font-size: 1.8em;">📞</span>
+        <div><strong>Interfaccia Medico-Infermiere:</strong> Trasmissione del caso in sicurezza (SBAR)</div>
+    </div>
+
+    <div class="alert-info-box-esteso" style="background-color: #f8fafc !important; border-left: 4px solid #475569 !important;">
+        <strong>📋 Struttura della comunicazione SBAR effettuata:</strong>
+        <p><strong>S (Situation):</strong> Luca, 15 anni, post-trapianto da 12 mesi, afferito in DH con segni evidenti di sovraccarico idrico e sospetto rigetto acuto.</p>
+        <p><strong>B (Background):</strong> Storia di cardiomiopatia dilatativa genetica. Trapianto cardiaco eseguito un anno fa.</p>
+        <p><strong>A (Assessment):</strong> FC 114 bpm, PA 128/84 mmHg, edema periorbitale e fovea +1, turgore giugulare. Dall'intervista emerge mancata aderenza terapeutica nell'ultima settimana.</p>
+        <p><strong>R (Recommendation):</strong> Si richiede valutazione medica immediata per impostazione terapia diuretica d'urgenza ed esecuzione dosaggio ematico dei livelli di immunosoppressori.</p>
+    </div>
+
+    <div class="box-domanda-urgente">
+        🏆 Obiettivi formativi raggiunti! La simulazione ha evidenziato l'importanza della tempestività nel triage e della precisione nell'anamnesi assistenziale.
+    </div>
+
+    <div class="Scelte">
+        <button class="custom-link" onclick="goToPassage('fase1')">🔄 Ricomincia la simulazione dall'inizio</button>
+    </div>
+  </div>
+
+
+  <!-- ================= SOTTO-SCENA DI ERRORE: IMMUNOSOPPRESSORI ================= -->
+  <div id="errore-farmaco" class="passage-container">
+    <div class="passage-header">🔷 CASO CLINICO PEDIATRICO  |  Simulazione Interattiva</div>
+    <h1>⚠️ ATTENZIONE - SCELTA NON CORRETTA</h1>
+    
+    <div class="alert-info-box-esteso" style="background-color: #fdf2f2 !important; border-left: 4px solid #eb5757 !important;">
+      <strong>Errore di valutazione clinica:</strong> Prima di somministrare farmaci (specialmente immunosoppressori di cui non conosciamo i livelli ematici attuali), è tassativo rilevare i parametri vitali ed eseguire un ECG per quantificare l'entità del deficit cardiovascolare acuto e del sovraccarico.
+    </div>
+
+    <div class="Scelte">
+      <button class="custom-link" onclick="goToPassage('fase1')">🔄 Torna alla Fase 1 e ripercorri il Triage</button>
+    </div>
+  </div>
+
+
+  <!-- ================= SOTTO-SCENA DI ERRORE: ISOLAMENTO ================= -->
+  <div id="errore-isolamento" class="passage-container">
+    <div class="passage-header">🔷 CASO CLINICO PEDIATRICO  |  Simulazione Interattiva</div>
+    <h1>⚠️ ATTENZIONE - PRIORITÀ NON CORRETTA</h1>
+    
+    <div class="alert-info-box-esteso" style="background-color: #fdf2f2 !important; border-left: 4px solid #eb5757 !important;">
+      <strong>Errore di pianificazione:</strong> Sebbene il paziente sia immunodepresso a causa della terapia post-trapianto, la sintomatologia attuale (stanchezza, edemi, turgore giugulare, tachicardia) depone chiaramente per uno **scompenso cardiaco acuto da sospetto rigetto organico**, non per una patologia infettiva a trasmissione aerea. Isolarlo prima di indagare l'aderenza ritarda l'intervento medico salvavita.
+    </div>
+
+    <div class="Scelte">
+      <button class="custom-link" onclick="goToPassage('parametri')">🔄 Torna alla Fase 2 e rivaluta le priorità</button>
+    </div>
+  </div>
+
+
+  <!-- ================= JAVASCRIPT ENGINE PER NAVIGAZIONE ================= -->
+  <script>
+    function goToPassage(passageId) {
+      // Nasconde tutti i passaggi presenti nella pagina
+      const passages = document.querySelectorAll('.passage-container');
+      passages.forEach(p => p.classList.remove('active'));
+      
+      // Mostra solo il passaggio selezionato tramite ID
+      const target = document.getElementById(passageId);
+      if(target) {
+        target.classList.add('active');
+        window.scrollTo(0, 0); // Riporta la pagina in alto ad ogni cambio
+      }
+    }
+  </script>
+
+</body>
+</html>
