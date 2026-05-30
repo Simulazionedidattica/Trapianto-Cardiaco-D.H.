@@ -98,6 +98,12 @@
       margin-bottom: 12px !important;
     }
 
+    /* MONITOR IN STATO CRITICO (ROSSO) */
+    .monitor-clinico-esteso.critico {
+      border: 2px solid #eb5757 !important;
+      box-shadow: 0 0 15px rgba(235, 87, 87, 0.3) !important;
+    }
+
     .monitor-flex-container {
       display: flex !important;
       flex-direction: column !important;
@@ -128,6 +134,11 @@
       left: 0;
       background-repeat: repeat-x !important;
       animation: scorrimentoFluido 2.5s linear infinite !important;
+    }
+
+    /* Animazione più veloce per lo stato critico */
+    .critico .wave-moving {
+      animation: scorrimentoFluido 1.2s linear infinite !important;
     }
 
     @keyframes scorrimentoFluido {
@@ -219,6 +230,14 @@
     }
     .custom-link:hover { 
       background-color: #1b62c4 !important; 
+    }
+    
+    /* Pulsante di allerta specifico */
+    .btn-allerta {
+      background-color: #eb5757 !important;
+    }
+    .btn-allerta:hover {
+      background-color: #c53737 !important;
     }
   </style>
 </head>
@@ -337,16 +356,66 @@
     </div>
 
     <div class="alert-info-box-esteso">
-        <strong>💡 Ragionamento Clinico:</strong> La mancata aderenza alla terapia immunosoppressiva (ciclosporina/tacrolimus) nel paziente trapiantato rappresenta la causa principale di rigetto acuto d'organo. Il turgore giugulare e l'aumento ponderale confermano lo scompenso congestizio secondario.
+        <strong>💡 Ragionamento Clinico:</strong> La mancata aderenza alla terapia immunosoppressiva nel paziente trapiantato rappresenta la causa principale di rigetto acuto d'organo. Mentre parli, noti che Luca inizia a respirare a bocca aperta e a fare uso dei muscoli accessori.
     </div>
 
     <div class="box-domanda-urgente">
-        ❓ Adesso che possiedi il quadro completo, qual è la modalità corretta di comunicazione con il medico?
+        ⚠️ <strong>CRITICITÀ IN CORSO:</strong> Luca interrompe la frase, esprime un colpo di tosse stizzosa e dice di sentirsi mancare il respiro. Cosa decidi di fare subito?
     </div>
 
     <div class="Scelte">
-        <button class="custom-link" onclick="goToPassage('chiamata-medico')">📞 Contatti il medico strutturato utilizzando la tecnica SBAR</button>
-        <button class="custom-link" onclick="alert('Simulazione completata con successo! Ottimo lavoro di inquadramento clinico.')">🏁 Concludi ed elabora il piano assistenziale</button>
+        <button class="custom-link btn-allerta" onclick="goToPassage('peggioramento-clinico')">🚨 Ricontrolli immediatamente il monitor e ti prepari al soccorso acuto</button>
+        <button class="custom-link" onclick="goToPassage('errore-attesa')">⏳ Lo rassicuri, gli offri un bicchiere d'acqua e finisci di compilare la cartella</button>
+    </div>
+  </div>
+
+
+  <!-- ================= PASSAGGIO 5: DETERIORAMENTO ACUTO PARAMETRI (MONITOR ROSSO) ================= -->
+  <div id="peggioramento-clinico" class="passage-container">
+    <div class="passage-header">🚨 EMERGENZA CLINICA IN CORSO  |  Deterioramento Parametri</div>
+    <h1>FASE 4: CRITICITÀ E INSTABILITÀ EMODINAMICA</h1>
+
+    <div class="badge-paziente-orizzontale" style="background-color: #fef2f2 !important; border: 1px dashed #eb5757 !important; color: #eb5757 !important;">
+        <span style="font-size: 1.8em;">⚠️</span>
+        <div><strong>Paziente:</strong> Luca | <strong>Condizione attuale:</strong> Dispnea severa, ortopnea, reperto di rantoli crepitanti basali bilaterali. Sospetto Edema Polmonare Acuto da disfunzione cardiaca d'organo.</div>
+    </div>
+
+    <!-- MONITOR IN STATO CRITICO CON ANIMAZIONE VELOCE -->
+    <div class="monitor-clinico-esteso critico">
+      <div class="monitor-flex-container">
+        
+        <div class="monitor-channel c-verde">
+          <div class="monitor-wave-area"><div class="wave-moving wave-ecg"></div></div>
+          <div class="monitor-numeric-block">❤️ FC: 142 bpm (Tachicardia)</div>
+        </div>
+        
+        <div class="monitor-channel c-azzurro">
+          <div class="monitor-wave-area"><div class="wave-moving wave-pleth"></div></div>
+          <div class="monitor-numeric-block">🫁 SpO2: 88% (Desaturazione Grave)</div>
+        </div>
+        
+        <div class="monitor-channel c-giallo">
+          <div class="monitor-wave-area"><div class="wave-moving wave-resp"></div></div>
+          <div class="monitor-numeric-block">⏱️ FR: 34 giri/min (Tachipnea)</div>
+        </div>
+        
+        <div class="monitor-bottom-row">
+          <div class="monitor-static-box c-testo-monitor">🌡️ T: 37.1 °C</div>
+          <div class="monitor-static-box c-rosso-clinico" style="color: #ff4d4d !important;">🩸 NIBP: 95/55 mmHg (Ipotensione)</div>
+          <div class="monitor-static-box c-testo-monitor">⚖️ Peso: 62.8 kg</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="box-domanda-urgente">
+        ❓ Il quadro clinico è precipitato in uno Scompenso Cardiaco Acuto Congestizio (EPA). Quali azioni metti in atto contemporaneamente?
+    </div>
+
+    <div class="Scelte">
+        <button class="custom-link" onclick="goToPassage('chiamata-medico')">📞 Posizione semiseduta, ossigenoterapia ad alti flussi e attivazione medica immediata via SBAR</button>
+        <button class="custom-link" onclick="goToPassage('errore-shock')">🛌 Lo metti in posizione di Trendelenburg (gambe sollevate) per l'ipotensione</button>
+        <button class="custom-link" onclick="goToPassage('errore-idrico')">💧 Avvii un bolo rapido di 500ml di Soluzione Fisiologica per alzare la pressione</button>
     </div>
   </div>
 
@@ -354,23 +423,23 @@
   <!-- ================= PASSAGGIO 4: CHIAMATA MEDICO (SBAR) ================= -->
   <div id="chiamata-medico" class="passage-container">
     <div class="passage-header">🔷 CASO CLINICO PEDIATRICO  |  Simulazione Interattiva</div>
-    <h1>FASE 4: COMUNICAZIONE INTERPROFESSIONALE SBAR</h1>
+    <h1>FASE 5: COMUNICAZIONE INTERPROFESSIONALE SBAR</h1>
 
     <div class="badge-paziente-orizzontale">
         <span style="font-size: 1.8em;">📞</span>
-        <div><strong>Interfaccia Medico-Infermiere:</strong> Trasmissione del caso in sicurezza (SBAR)</div>
+        <div><strong>Interfaccia Medico-Infermiere:</strong> Trasmissione del caso critico in emergenza</div>
     </div>
 
     <div class="alert-info-box-esteso" style="background-color: #f8fafc !important; border-left: 4px solid #475569 !important;">
-        <strong>📋 Struttura della comunicazione SBAR effettuata:</strong>
-        <p><strong>S (Situation):</strong> Luca, 15 anni, post-trapianto da 12 mesi, afferito in DH con segni evidenti di sovraccarico idrico e sospetto rigetto acuto.</p>
-        <p><strong>B (Background):</strong> Storia di cardiomiopatia dilatativa genetica. Trapianto cardiaco eseguito un anno fa.</p>
-        <p><strong>A (Assessment):</strong> FC 114 bpm, PA 128/84 mmHg, edema periorbitale e fovea +1, turgore giugulare. Dall'intervista emerge mancata aderenza terapeutica nell'ultima settimana.</p>
-        <p><strong>R (Recommendation):</strong> Si richiede valutazione medica immediata per impostazione terapia diuretica d'urgenza ed esecuzione dosaggio ematico dei livelli di immunosoppressori.</p>
+        <strong>📋 Struttura della comunicazione SBAR effettuata in regime d'urgenza:</strong>
+        <p><strong>S (Situation):</strong> Luca, 15 anni, post-trapianto da 12 mesi, in arresto respiratorio imminente / EPA da rigetto acuto organico.</p>
+        <p><strong>B (Background):</strong> Cardiomiopatia dilatativa post-trapianto cardiaco (1 anno fa). Anamnesi positiva per interruzione dell'immunosoppressione nell'ultima settimana.</p>
+        <p><strong>A (Assessment):</strong> FC 142 bpm ritmico, SpO2 88% in aria, FR 34/min con ortopnea e rantoli, PA 95/55 mmHg. Segni netti di sovraccarico refrattario.</p>
+        <p><strong>R (Recommendation):</strong> Richiesta presenza medica immediata al letto del paziente per somministrazione EV di diuretici dell'ansa (furosemide), supporto ventilatorio non invasivo (NIV) e dosaggi ematici urgenti.</p>
     </div>
 
     <div class="box-domanda-urgente">
-        🏆 Obiettivi formativi raggiunti! La simulazione ha evidenziato l'importanza della tempestività nel triage e della precisione nell'anamnesi assistenziale.
+        🏆 <strong>ECCELLENTE!</strong> Hai protetto il paziente posizionandolo correttamente, ottimizzato l'ossigenazione e guidato l'équipe medica con una comunicazione SBAR impeccabile e salvavita.
     </div>
 
     <div class="Scelte">
@@ -379,48 +448,64 @@
   </div>
 
 
-  <!-- ================= SOTTO-SCENA DI ERRORE: IMMUNOSOPPRESSORI ================= -->
+  <!-- ================= SOTTO-SCENE DI ERRORE VECCHIE E NUOVE ================= -->
+  
   <div id="errore-farmaco" class="passage-container">
     <div class="passage-header">🔷 CASO CLINICO PEDIATRICO  |  Simulazione Interattiva</div>
     <h1>⚠️ ATTENZIONE - SCELTA NON CORRETTA</h1>
-    
     <div class="alert-info-box-esteso" style="background-color: #fdf2f2 !important; border-left: 4px solid #eb5757 !important;">
       <strong>Errore di valutazione clinica:</strong> Prima di somministrare farmaci (specialmente immunosoppressori di cui non conosciamo i livelli ematici attuali), è tassativo rilevare i parametri vitali ed eseguire un ECG per quantificare l'entità del deficit cardiovascolare acuto e del sovraccarico.
     </div>
-
-    <div class="Scelte">
-      <button class="custom-link" onclick="goToPassage('fase1')">🔄 Torna alla Fase 1 e ripercorri il Triage</button>
-    </div>
+    <div class="Scelte"><button class="custom-link" onclick="goToPassage('fase1')">🔄 Torna alla Fase 1</button></div>
   </div>
 
-
-  <!-- ================= SOTTO-SCENA DI ERRORE: ISOLAMENTO ================= -->
   <div id="errore-isolamento" class="passage-container">
     <div class="passage-header">🔷 CASO CLINICO PEDIATRICO  |  Simulazione Interattiva</div>
     <h1>⚠️ ATTENZIONE - PRIORITÀ NON CORRETTA</h1>
-    
     <div class="alert-info-box-esteso" style="background-color: #fdf2f2 !important; border-left: 4px solid #eb5757 !important;">
-      <strong>Errore di pianificazione:</strong> Sebbene il paziente sia immunodepresso a causa della terapia post-trapianto, la sintomatologia attuale (stanchezza, edemi, turgore giugulare, tachicardia) depone chiaramente per uno **scompenso cardiaco acuto da sospetto rigetto organico**, non per una patologia infettiva a trasmissione aerea. Isolarlo prima di indagare l'aderenza ritarda l'intervento medico salvavita.
+      <strong>Errore di pianificazione:</strong> La sintomatologia attuale depone chiaramente per uno **scompenso cardiaco acuto da sospetto rigetto organico**, non per una patologia infettiva a trasmissione aerea. Isolarlo prima di indagare l'aderenza ritarda l'intervento medico salvavita.
     </div>
+    <div class="Scelte"><button class="custom-link" onclick="goToPassage('parametri')">🔄 Torna alla Fase 2</button></div>
+  </div>
 
-    <div class="Scelte">
-      <button class="custom-link" onclick="goToPassage('parametri')">🔄 Torna alla Fase 2 e rivaluta le priorità</button>
+  <div id="errore-attesa" class="passage-container">
+    <div class="passage-header">🔷 CASO CLINICO PEDIATRICO  |  Simulazione Interattiva</div>
+    <h1>⚠️ ATTENZIONE - ERRORE DI SOTTOVALUTAZIONE</h1>
+    <div class="alert-info-box-esteso" style="background-color: #fdf2f2 !important; border-left: 4px solid #eb5757 !important;">
+      <strong>Errore fatale:</strong> Nel paziente trapiantato di cuore con sospetto rigetto, la tosse stizzosa e l'ingravescenza della dispnea sono segni precoci e drammatici di Edema Polmonare Acuto. Aspettare e offrire acqua aumenta il rischio di ab ingestis e arresto cardiaco da ipossia. Il deterioramento dei parametri è ormai inevitabile.
     </div>
+    <div class="Scelte"><button class="custom-link btn-allerta" onclick="goToPassage('peggioramento-clinico')">🚨 Gestisci il peggioramento clinico immediato</button></div>
+  </div>
+
+  <div id="errore-shock" class="passage-container">
+    <div class="passage-header">🔷 CASO CLINICO PEDIATRICO  |  Simulazione Interattiva</div>
+    <h1>⚠️ ATTENZIONE - ERRORE DI POSIZIONAMENTO</h1>
+    <div class="alert-info-box-esteso" style="background-color: #fdf2f2 !important; border-left: 4px solid #eb5757 !important;">
+      <strong>Errore fisiopatologico grave:</strong> Anche se la pressione arteriosa è bassa, il problema principale è l'**Edema Polmonare Acuto**. Se sdrai il paziente o sollevi le gambe (Trendelenburg), aumenti drasticamente il ritorno venoso al cuore destro, allagando ulteriormente gli alveoli polmonari e peggiorando l'ipossia. Il paziente deve stare seduto con le gambe declivi per ridurre il precarico!
+    </div>
+    <div class="Scelte"><button class="custom-link" onclick="goToPassage('peggioramento-clinico')">🔄 Correggi la tua azione sul monitor</button></div>
+  </div>
+
+  <div id="errore-idrico" class="passage-container">
+    <div class="passage-header">🔷 CASO CLINICO PEDIATRICO  |  Simulazione Interattiva</div>
+    <h1>⚠️ ATTENZIONE - ERRORE DI FLUIDOTERAPIA</h1>
+    <div class="alert-info-box-esteso" style="background-color: #fdf2f2 !important; border-left: 4px solid #eb5757 !important;">
+      <strong>Errore terapeutico iatrogeno:</strong> L'ipotensione in questo caso è dovuta a shock cardiogeno (deficit di pompa del cuore rigettato) associato a gravissimo sovraccarico idrico (giugulari turgide ed edemi). Iniettare un bolo di liquidi sovraccarica ulteriormente il circolo, precipitando l'edema polmonare massivo. Il paziente ha bisogno di diuretici, non di fluidi!
+    </div>
+    <div class="Scelte"><button class="custom-link" onclick="goToPassage('peggioramento-clinico')">🔄 Correggi la tua azione sul monitor</button></div>
   </div>
 
 
   <!-- ================= JAVASCRIPT ENGINE PER NAVIGAZIONE ================= -->
   <script>
     function goToPassage(passageId) {
-      // Nasconde tutti i passaggi presenti nella pagina
       const passages = document.querySelectorAll('.passage-container');
       passages.forEach(p => p.classList.remove('active'));
       
-      // Mostra solo il passaggio selezionato tramite ID
       const target = document.getElementById(passageId);
       if(target) {
         target.classList.add('active');
-        window.scrollTo(0, 0); // Riporta la pagina in alto ad ogni cambio
+        window.scrollTo(0, 0);
       }
     }
   </script>
