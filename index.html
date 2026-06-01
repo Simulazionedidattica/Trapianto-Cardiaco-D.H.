@@ -3404,36 +3404,47 @@ h2 {
 }
 
 
-/* === REVISIONE GLOBALE PULITA — BASE SMART === */
+/* === VERSIONE FRESH + FIX VISIBILITÀ GITHUB === */
 :root{
   --font-main:'Comfortaa', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --fresh-blue:#2f80ed;
+  --fresh-violet:#7c5cff;
+  --fresh-mint:#4fd1c5;
+  --fresh-bg:#f5f9ff;
+  --fresh-ink:#071f3d;
+  --fresh-muted:#53647c;
 }
 html, body{
-  width:100vw !important;
-  height:100vh !important;
-  overflow:hidden !important;
+  width:100%;
+  min-height:100%;
 }
 body, body *{
   font-family:var(--font-main) !important;
   box-sizing:border-box !important;
 }
 
-/* Elimina tutte le parti che creavano confusione o blocchi */
+/* Sfondo più fresco e leggero */
+body{
+  background:
+    radial-gradient(circle at 12% 8%, rgba(79,209,197,.24), transparent 28%),
+    radial-gradient(circle at 88% 10%, rgba(124,92,255,.16), transparent 30%),
+    linear-gradient(135deg,#f7fbff,#ffffff 45%,#eef8ff) !important;
+  color:var(--fresh-ink) !important;
+}
+
+/* Rimuove parti che creavano errori/testi brutti */
 .reveal-control,
 .reveal-btn,
 .teacher-mode,
 [class*="teacher"],
+.mission-bar,
 .clue-row,
 .clue,
-.mission-bar,
 .beep-line,
-.urgent-banner,
-#hint,
-.hint{
+.urgent-banner{
   display:none !important;
   visibility:hidden !important;
   height:0 !important;
-  min-height:0 !important;
   max-height:0 !important;
   padding:0 !important;
   margin:0 !important;
@@ -3441,12 +3452,29 @@ body, body *{
   overflow:hidden !important;
 }
 
-/* Nessun elemento decorativo deve impedire il click */
+/* Tutto visibile: niente blocchi nascosti dal reveal */
+.info-card,
+.receipt,
+.report-card,
+.biopsy-stamp,
+.quiz,
+.echo-video-card,
+.biopsy-image-card,
+.biopsy-report-true,
+.philips-monitor,
+.metric-card,
+.clinical-message{
+  opacity:1 !important;
+  transform:none !important;
+  visibility:visible !important;
+}
+
+/* Correzione click: decorazioni/immagini non devono coprire le risposte */
+.scene-img,
 .image-box::before,
 .image-box::after,
 .text-box::before,
 .text-box::after,
-.scene-img,
 .echo-viewer,
 .echo-black,
 .echo-sector,
@@ -3460,174 +3488,148 @@ body, body *{
 .quiz,
 .quiz *,
 .answer,
+.btn,
 .footer,
-.footer *,
-#nextBtn,
-#prevBtn{
+.footer *{
   pointer-events:auto !important;
   position:relative !important;
-  z-index:999 !important;
+  z-index:50 !important;
 }
 
-/* Tutto visibile subito, niente reveal progressivo */
-.info-card,
-.receipt,
-.report-card,
-.biopsy-stamp,
-.echo-video-card,
-.biopsy-image-card,
-.biopsy-report-true,
-.philips-monitor,
-.quiz{
-  opacity:1 !important;
-  transform:none !important;
-  visibility:visible !important;
-}
-
-/* Layout una pagina */
-.app{
-  height:100vh !important;
-  overflow:hidden !important;
-}
+/* Header */
 .header{
-  height:74px !important;
   min-height:74px !important;
-  padding:10px 18px !important;
+  padding:12px 20px !important;
+  border-radius:0 0 30px 30px !important;
+  background:rgba(255,255,255,.88) !important;
+  border:1px solid rgba(255,255,255,.95) !important;
+  backdrop-filter:blur(14px) !important;
 }
 .brand-title{
-  font-size:clamp(1.3rem,1.8vw,2rem) !important;
+  font-size:clamp(1.35rem,1.9vw,2.15rem) !important;
   line-height:1.05 !important;
   font-weight:700 !important;
-  letter-spacing:-.035em !important;
+  letter-spacing:-.04em !important;
 }
 .brand-title small{
   display:none !important;
 }
 .hud-pill{
+  border-radius:999px !important;
   padding:8px 12px !important;
-  font-size:.9rem !important;
   font-weight:700 !important;
+  font-size:.88rem !important;
 }
 .progress{
   height:8px !important;
 }
 
-/* Slide: pulite e senza scroll */
+/* Slide: contenuto visibile. Se uno schermo è basso, il riquadro destro può scorrere leggermente invece di tagliare testo */
 .slide{
-  height:calc(100vh - 144px) !important;
-  max-height:calc(100vh - 144px) !important;
+  height:calc(100vh - 148px) !important;
+  max-height:calc(100vh - 148px) !important;
+  padding:16px 20px !important;
+  gap:18px !important;
+  grid-template-columns:.9fr 1.1fr !important;
   overflow:hidden !important;
-  padding:14px 18px !important;
-  gap:16px !important;
-  grid-template-columns:.92fr 1.08fr !important;
 }
 .image-box,
 .text-box{
   height:100% !important;
   max-height:100% !important;
-  overflow:hidden !important;
-  border-radius:30px !important;
-}
-.text-box{
-  display:flex !important;
-  flex-direction:column !important;
-  gap:10px !important;
-  padding:20px !important;
-  background:rgba(255,255,255,.96) !important;
+  border-radius:32px !important;
+  box-shadow:0 18px 48px rgba(7,31,61,.10) !important;
 }
 .image-box{
-  padding:14px !important;
+  overflow:hidden !important;
   background:linear-gradient(135deg,#f8fbff,#ffffff) !important;
 }
-
-/* Titoli più grandi e omogenei */
-.scene-top{
-  flex:0 0 auto !important;
-  margin:0 !important;
+.text-box{
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  scrollbar-width:thin !important;
+  scrollbar-color:#b8d4ef transparent !important;
+  display:flex !important;
+  flex-direction:column !important;
+  gap:12px !important;
+  padding:22px !important;
+  background:rgba(255,255,255,.94) !important;
 }
+.text-box::-webkit-scrollbar{width:7px;}
+.text-box::-webkit-scrollbar-thumb{background:#b8d4ef;border-radius:999px;}
+
+/* Titoli più leggibili */
 .scene-top h2,
 .text-box h2{
-  font-size:clamp(2.05rem,2.75vw,3.3rem) !important;
+  font-size:clamp(2.1rem,2.9vw,3.55rem) !important;
   line-height:1.02 !important;
   font-weight:700 !important;
   letter-spacing:-.045em !important;
-  color:#071f3d !important;
+  color:var(--fresh-ink) !important;
   margin:0 !important;
 }
 .tag{
-  font-size:.86rem !important;
-  font-weight:700 !important;
-  padding:8px 12px !important;
-  border-radius:999px !important;
-  background:#eef8ff !important;
-  color:#265f9f !important;
-}
-.alert-pill{
-  font-size:.9rem !important;
-  font-weight:700 !important;
-  padding:9px 12px !important;
-  border-radius:999px !important;
-}
-
-/* Testo storia leggibile */
-.narr{
-  max-height:none !important;
-  overflow:visible !important;
-  margin:0 !important;
-  font-size:clamp(1rem,1.1vw,1.16rem) !important;
-  line-height:1.38 !important;
-  font-weight:500 !important;
-  color:#31445d !important;
-}
-
-/* Etichetta segni e sintomi nel punto corretto */
-.clinical-label-clean{
   width:max-content !important;
-  flex:0 0 auto !important;
-  display:inline-flex !important;
-  align-items:center !important;
-  gap:8px !important;
-  padding:8px 13px !important;
+  padding:8px 12px !important;
   border-radius:999px !important;
   background:#eef8ff !important;
   border:1px solid #c8e7ff !important;
   color:#265f9f !important;
-  font-size:.88rem !important;
-  line-height:1 !important;
+  font-size:.86rem !important;
   font-weight:700 !important;
 }
+.alert-pill{
+  border-radius:999px !important;
+  font-size:.9rem !important;
+  font-weight:700 !important;
+  padding:9px 12px !important;
+}
+.narr{
+  max-height:none !important;
+  overflow:visible !important;
+  font-size:clamp(1rem,1.13vw,1.18rem) !important;
+  line-height:1.42 !important;
+  font-weight:500 !important;
+  color:#31445d !important;
+  margin:0 !important;
+}
 
-/* Card dati: meno piccole, più chiare */
+/* Segni e sintomi: più ordinati */
+.clinical-label-clean,
+.info-grid::before,
+.metric-grid::before{
+  font-family:var(--font-main) !important;
+}
 .info-grid,
 .metric-grid,
 .echo-summary-grid{
-  flex:0 0 auto !important;
-  gap:8px !important;
+  gap:10px !important;
 }
 .info-card,
 .metric-card,
 .echo-summary{
-  min-height:70px !important;
-  padding:10px !important;
-  border-radius:20px !important;
+  min-height:72px !important;
+  padding:11px !important;
+  border-radius:22px !important;
   background:#f8fbff !important;
   border:1px solid #dbeafe !important;
+  box-shadow:0 8px 18px rgba(7,31,61,.04) !important;
 }
 .info-card span,
 .metric-card span{
-  font-size:1.35rem !important;
+  font-size:1.4rem !important;
   margin-bottom:2px !important;
 }
 .info-card b,
 .metric-card b{
-  font-size:.88rem !important;
+  font-size:.9rem !important;
   line-height:1.1 !important;
   font-weight:700 !important;
 }
 .info-card small,
 .metric-card small{
-  font-size:.68rem !important;
-  line-height:1.1 !important;
+  font-size:.7rem !important;
+  line-height:1.15 !important;
   font-weight:500 !important;
 }
 .metric-card.danger,
@@ -3646,157 +3648,121 @@ body, body *{
   border-color:#8ce0bc !important;
 }
 
-/* Messaggi e quiz più leggibili */
+/* Messaggio chiave e quiz più freschi */
 .clinical-message{
-  padding:12px 14px !important;
-  border-radius:20px !important;
-  background:#effcf5 !important;
+  padding:13px 15px !important;
+  border-radius:22px !important;
+  background:linear-gradient(135deg,#effcf5,#ffffff) !important;
   border:1px solid #8ce0bc !important;
   color:#124c39 !important;
 }
 .clinical-message b{
-  font-size:.95rem !important;
-  margin-bottom:3px !important;
+  display:block !important;
+  font-size:.98rem !important;
+  color:#137d55 !important;
+  margin-bottom:4px !important;
 }
 .clinical-message p{
-  font-size:.88rem !important;
-  line-height:1.3 !important;
   margin:0 !important;
+  font-size:.9rem !important;
+  line-height:1.32 !important;
   font-weight:500 !important;
 }
 .quiz{
   margin-top:auto !important;
-  padding:13px !important;
-  border-radius:22px !important;
+  padding:14px !important;
+  border-radius:24px !important;
   background:#fff !important;
   border:1px solid #dbeafe !important;
-  box-shadow:0 10px 26px rgba(7,31,61,.08) !important;
+  box-shadow:0 14px 30px rgba(7,31,61,.08) !important;
 }
 .quiz h3{
-  font-size:clamp(1rem,1.12vw,1.24rem) !important;
+  font-size:clamp(1.02rem,1.15vw,1.25rem) !important;
   line-height:1.22 !important;
-  margin:0 0 8px !important;
+  margin:0 0 10px !important;
   font-weight:700 !important;
 }
 .answers{
   gap:8px !important;
 }
 .answer{
-  min-height:40px !important;
-  padding:10px 13px !important;
-  border-radius:17px !important;
+  min-height:42px !important;
+  padding:11px 14px !important;
+  border-radius:18px !important;
   font-size:.9rem !important;
   line-height:1.22 !important;
   font-weight:700 !important;
+  background:#fff !important;
 }
-.feedback{
-  font-size:.82rem !important;
-  line-height:1.25 !important;
+.answer:hover{
+  transform:translateY(-1px) !important;
+  box-shadow:0 8px 18px rgba(7,31,61,.08) !important;
 }
 
-/* Footer solo navigazione */
-.clean-footer{
-  height:70px !important;
-  min-height:70px !important;
-  display:flex !important;
-  align-items:center !important;
-  justify-content:space-between !important;
-  padding:10px 18px !important;
-  border-radius:28px 28px 0 0 !important;
-  background:rgba(255,255,255,.94) !important;
+/* Footer */
+.fresh-footer{
+  min-height:74px !important;
+  padding:10px 20px !important;
+  border-radius:30px 30px 0 0 !important;
+  background:rgba(255,255,255,.92) !important;
   border-top:1px solid rgba(7,31,61,.08) !important;
   box-shadow:0 -12px 34px rgba(7,31,61,.08) !important;
 }
-#prevBtn,
-#nextBtn{
-  position:static !important;
-  min-width:150px !important;
-  height:48px !important;
-  display:inline-flex !important;
-  align-items:center !important;
-  justify-content:center !important;
-  border-radius:22px !important;
-  padding:0 20px !important;
-  font-size:.95rem !important;
+.fresh-footer-note{
+  color:#265f9f !important;
+  background:#eef8ff !important;
+  border:1px solid #c8e7ff !important;
+  border-radius:999px !important;
+  padding:10px 14px !important;
+  font-size:.9rem !important;
   font-weight:700 !important;
 }
+#prevBtn,
 #nextBtn{
-  background:linear-gradient(135deg,#1f6fd6,#6c5ce7) !important;
-  color:white !important;
-  border:0 !important;
+  min-width:145px !important;
+  height:48px !important;
+  border-radius:22px !important;
+  font-weight:700 !important;
+  font-size:.95rem !important;
 }
-#prevBtn{
-  background:#fff !important;
-  color:#071f3d !important;
-  border:1px solid #dbeafe !important;
+#nextBtn{
+  background:linear-gradient(135deg,var(--fresh-blue),var(--fresh-violet)) !important;
 }
 #nextBtn:disabled{
   opacity:.48 !important;
   filter:grayscale(.2) !important;
 }
 
-/* Approfondimenti: leggibili e non microscopici */
+/* Debrief più leggibile */
 .debrief-page{
-  overflow:hidden !important;
-  padding:18px !important;
-}
-.debrief-inner{
-  width:min(1280px,96vw) !important;
-  height:calc(100vh - 36px) !important;
-  overflow:hidden !important;
+  overflow:auto !important;
+  background:linear-gradient(135deg,#f7fbff,#ffffff) !important;
 }
 .debrief-title{
   font-size:clamp(2.2rem,3.2vw,3.8rem) !important;
-  line-height:1.02 !important;
-  font-weight:700 !important;
-  margin:10px 0 14px !important;
-}
-.debrief-layout{
-  height:calc(100% - 105px) !important;
-  display:grid !important;
-  grid-template-columns:.82fr 1.18fr !important;
-  gap:16px !important;
-  overflow:hidden !important;
-}
-.debrief-copy-card,
-.pearls-card,
-.poster-card,
-.science-card,
-.aha-card{
-  height:100% !important;
-  overflow:hidden !important;
-  border-radius:26px !important;
-}
-.debrief-copy-card{
-  padding:18px !important;
-  background:#fff !important;
-  border:1px solid #dbeafe !important;
-  box-shadow:0 16px 36px rgba(7,31,61,.10) !important;
-}
-.debrief-copy-card h3{
-  font-size:1.05rem !important;
+  line-height:1.03 !important;
 }
 .debrief-copy-card p{
   font-size:1rem !important;
-  line-height:1.42 !important;
-  font-weight:500 !important;
+  line-height:1.45 !important;
 }
-.clinical-thinking-box{
-  font-size:.92rem !important;
-  line-height:1.32 !important;
+.pearl p{
+  font-size:.76rem !important;
+  line-height:1.28 !important;
 }
 
-/* Schermi bassi: compatta, ma non microscopica */
+/* Schermi bassi: compatto ma non invisibile */
 @media(max-height:760px){
-  .header{height:66px !important; min-height:66px !important;}
-  .clean-footer{height:60px !important; min-height:60px !important;}
-  .slide{height:calc(100vh - 126px) !important; max-height:calc(100vh - 126px) !important; padding:10px 14px !important;}
-  .text-box{padding:14px !important; gap:7px !important;}
-  .scene-top h2,.text-box h2{font-size:1.65rem !important;}
-  .narr{font-size:.78rem !important; line-height:1.26 !important;}
-  .clinical-label-clean{font-size:.62rem !important; padding:6px 9px !important;}
-  .info-card,.metric-card{min-height:50px !important; padding:7px !important;}
-  .info-card span,.metric-card span{font-size:1rem !important;}
+  .header{min-height:64px !important;padding:8px 14px !important;}
+  .fresh-footer{min-height:58px !important;padding:8px 14px !important;}
+  .slide{height:calc(100vh - 122px) !important;max-height:calc(100vh - 122px) !important;padding:10px 14px !important;gap:12px !important;}
+  .text-box{padding:14px !important;gap:8px !important;}
+  .scene-top h2,.text-box h2{font-size:1.55rem !important;}
+  .tag{font-size:.6rem !important;padding:6px 9px !important;}
+  .alert-pill{font-size:.62rem !important;padding:6px 9px !important;}
+  .narr{font-size:.74rem !important;line-height:1.28 !important;}
+  .info-card,.metric-card{min-height:48px !important;padding:7px !important;}
+  .info-card span,.metric-card span{font-size:1rem !important;margin-bottom:0 !important;}
   .info-card b,.metric-card b{font-size:.62rem !important;}
   .info-card small,.metric-card small{font-size:.52rem !important;}
   .clinical-message{padding:7px 9px !important;}
@@ -3804,8 +3770,1832 @@ body, body *{
   .clinical-message p{font-size:.56rem !important;}
   .quiz{padding:8px !important;}
   .quiz h3{font-size:.74rem !important;}
-  .answer{min-height:28px !important; padding:6px 8px !important; font-size:.62rem !important;}
-  #prevBtn,#nextBtn{min-width:112px !important; height:42px !important; font-size:.78rem !important;}
+  .answer{min-height:28px !important;padding:6px 8px !important;font-size:.62rem !important;}
+  #prevBtn,#nextBtn{min-width:108px !important;height:40px !important;font-size:.74rem !important;}
+  .fresh-footer-note{font-size:.62rem !important;padding:7px 10px !important;}
+}
+
+
+/* === SCHEDE APPROFONDIMENTO FULL PAGE - STILE SCIENTIFICO COMUNICATIVO === */
+.debrief-page{
+  padding:0 !important;
+  overflow:auto !important;
+  background:#f6f9ff !important;
+}
+.debrief-inner{
+  width:100% !important;
+  max-width:none !important;
+  min-height:100vh !important;
+  margin:0 !important;
+  padding:0 !important;
+  overflow:visible !important;
+}
+.debrief-label,
+.debrief-title{
+  display:none !important;
+}
+.debrief-layout{
+  display:block !important;
+  width:100% !important;
+  height:auto !important;
+  overflow:visible !important;
+}
+.debrief-layout > div:first-child{
+  display:none !important;
+}
+.science-dashboard{
+  min-height:calc(100vh - 78px);
+  display:grid;
+  grid-template-columns:250px 1fr;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(79,209,197,.18), transparent 28%),
+    radial-gradient(circle at 90% 5%, rgba(236,72,153,.13), transparent 32%),
+    #f7fbff;
+}
+.science-sidebar{
+  position:sticky;
+  top:0;
+  height:100vh;
+  padding:22px 18px;
+  background:rgba(255,255,255,.92);
+  border-right:1px solid #dbeafe;
+  box-shadow:10px 0 26px rgba(7,31,61,.05);
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+.side-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:700;
+  color:#071f3d;
+  font-size:.95rem;
+  margin-bottom:8px;
+}
+.side-title span{
+  width:34px;
+  height:34px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#ec4899,#7c5cff);
+  color:#fff;
+}
+.side-step{
+  display:grid;
+  grid-template-columns:30px 1fr auto;
+  gap:9px;
+  align-items:center;
+  padding:10px;
+  border-radius:18px;
+  color:#53647c;
+  font-size:.78rem;
+  border:1px solid transparent;
+}
+.side-step.active{
+  background:#fff1f8;
+  color:#be185d;
+  border-color:#fbcfe8;
+}
+.side-step.done .lock{
+  color:#10b981;
+}
+.side-step .num{
+  width:30px;
+  height:30px;
+  border-radius:999px;
+  display:grid;
+  place-items:center;
+  background:#eef2ff;
+  color:#312e81;
+  font-weight:700;
+  font-size:.72rem;
+}
+.side-step b{
+  display:block;
+  font-size:.78rem;
+  color:#071f3d;
+}
+.side-step small{
+  display:block;
+  font-size:.62rem;
+  line-height:1.1;
+}
+.side-back{
+  margin-top:auto;
+  padding:12px 14px;
+  border-radius:18px;
+  background:#f4f0ff;
+  color:#5b3ab5;
+  font-size:.78rem;
+  font-weight:700;
+  text-align:center;
+}
+.science-main{
+  padding:26px 30px 34px;
+}
+.science-toolbar{
+  display:flex;
+  justify-content:flex-end;
+  gap:12px;
+  margin-bottom:18px;
+}
+.tool-pill{
+  padding:10px 14px;
+  border-radius:999px;
+  background:#fff;
+  border:1px solid #e3edf8;
+  color:#071f3d;
+  font-size:.8rem;
+  font-weight:700;
+  box-shadow:0 10px 24px rgba(7,31,61,.05);
+}
+.science-head{
+  display:grid;
+  grid-template-columns:74px 1fr auto;
+  gap:18px;
+  align-items:center;
+  margin-bottom:20px;
+}
+.science-head-icon{
+  width:74px;
+  height:74px;
+  border-radius:28px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#ec4899,#7c5cff);
+  color:#fff;
+  font-size:2.3rem;
+  box-shadow:0 18px 34px rgba(236,72,153,.22);
+}
+.science-head h2{
+  margin:0;
+  font-size:clamp(2rem,3vw,3.4rem);
+  line-height:1.04;
+  letter-spacing:-.045em;
+  color:#071f3d;
+}
+.science-head p{
+  margin:6px 0 0;
+  font-size:1.05rem;
+  line-height:1.35;
+  color:#31445d;
+  font-weight:600;
+}
+.evidence-level{
+  display:grid;
+  gap:6px;
+  justify-items:end;
+  color:#53647c;
+  font-size:.72rem;
+  text-transform:uppercase;
+  font-weight:700;
+}
+.evidence-level strong{
+  padding:8px 12px;
+  border-radius:999px;
+  color:#047857;
+  background:#d1fae5;
+  text-transform:none;
+  font-size:.82rem;
+}
+.science-grid{
+  display:grid;
+  grid-template-columns:1.15fr .95fr .95fr;
+  gap:18px;
+  align-items:start;
+}
+.dash-card{
+  background:#fff;
+  border:1px solid #dbeafe;
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 16px 36px rgba(7,31,61,.07);
+}
+.dash-card.wide{
+  grid-column:span 2;
+}
+.dash-card.full{
+  grid-column:1 / -1;
+}
+.dash-card-head{
+  padding:13px 16px;
+  background:#071f3d;
+  color:#fff;
+  font-size:.95rem;
+  font-weight:700;
+  display:flex;
+  gap:8px;
+  align-items:center;
+  text-transform:uppercase;
+  letter-spacing:.01em;
+}
+.dash-card-body{
+  padding:16px;
+}
+.pattern-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:.85rem;
+}
+.pattern-table th{
+  color:#265f9f;
+  background:#f8fbff;
+  font-size:.72rem;
+  text-transform:uppercase;
+  padding:10px;
+  border-bottom:1px solid #e3edf8;
+}
+.pattern-table td{
+  padding:12px 10px;
+  border-bottom:1px solid #edf2f7;
+  color:#31445d;
+  line-height:1.3;
+}
+.pattern-table tr:last-child td{
+  border-bottom:0;
+}
+.sign-chip{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  color:#071f3d;
+  font-weight:700;
+}
+.sign-chip span{
+  width:36px;
+  height:36px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background:#eef8ff;
+  font-size:1.15rem;
+}
+.flow-steps{
+  display:grid;
+  gap:11px;
+}
+.flow-step{
+  display:grid;
+  grid-template-columns:54px 1fr;
+  gap:13px;
+  align-items:center;
+}
+.flow-step span{
+  width:54px;
+  height:54px;
+  border-radius:22px;
+  display:grid;
+  place-items:center;
+  background:#f8fbff;
+  border:1px solid #dbeafe;
+  font-size:1.45rem;
+  position:relative;
+}
+.flow-step:not(:last-child) span::after{
+  content:"";
+  position:absolute;
+  bottom:-18px;
+  width:4px;
+  height:18px;
+  background:linear-gradient(#4fd1c5,#7c5cff);
+  border-radius:999px;
+}
+.flow-step b{
+  display:block;
+  color:#071f3d;
+  font-size:.98rem;
+}
+.flow-step small{
+  display:block;
+  color:#53647c;
+  font-size:.78rem;
+  line-height:1.25;
+}
+.evidence-card{
+  padding:16px;
+  border-radius:22px;
+  background:#fff1f8;
+  border:1px solid #fbcfe8;
+  color:#071f3d;
+}
+.evidence-card h3{
+  margin:0 0 12px;
+  color:#db2777;
+  font-size:1.05rem;
+  line-height:1.2;
+}
+.evidence-card ul{
+  margin:0;
+  padding-left:20px;
+  display:grid;
+  gap:8px;
+}
+.evidence-card li{
+  color:#31445d;
+  font-size:.86rem;
+  line-height:1.35;
+  font-weight:600;
+}
+.nursing-list{
+  display:grid;
+  gap:10px;
+}
+.nursing-list div{
+  display:grid;
+  grid-template-columns:26px 1fr;
+  gap:10px;
+  align-items:start;
+  padding:10px 0;
+  border-bottom:1px solid #edf2f7;
+  color:#31445d;
+  font-size:.85rem;
+  line-height:1.35;
+  font-weight:600;
+}
+.nursing-list div:last-child{
+  border-bottom:0;
+}
+.nursing-list span{
+  width:26px;
+  height:26px;
+  border-radius:999px;
+  display:grid;
+  place-items:center;
+  background:#10b981;
+  color:#fff;
+  font-size:.8rem;
+  font-weight:700;
+}
+.take-home-panel{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+.take-quote{
+  min-height:142px;
+  padding:18px 20px;
+  border-radius:22px;
+  background:linear-gradient(135deg,#eef8ff,#fff);
+  border:1px solid #c8e7ff;
+  color:#074184;
+  font-size:1.15rem;
+  line-height:1.55;
+  font-weight:700;
+}
+.take-practice{
+  padding:18px 20px;
+  border-radius:22px;
+  background:linear-gradient(135deg,#f4f0ff,#fff);
+  border:1px solid #ddd3ff;
+}
+.take-practice h3{
+  margin:0 0 12px;
+  color:#5b3ab5;
+  font-size:1rem;
+  text-transform:uppercase;
+}
+.take-practice ol{
+  margin:0;
+  padding-left:22px;
+  color:#31445d;
+  display:grid;
+  gap:8px;
+  font-size:.88rem;
+  line-height:1.35;
+  font-weight:600;
+}
+.references-box{
+  margin-top:18px;
+  padding:14px 16px;
+  border-radius:22px;
+  background:#fff;
+  border:1px solid #dbeafe;
+  color:#31445d;
+  font-size:.72rem;
+  line-height:1.35;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px 18px;
+}
+.references-box b{
+  color:#071f3d;
+}
+@media(max-width:1200px){
+  .science-dashboard{
+    grid-template-columns:1fr;
+  }
+  .science-sidebar{
+    display:none;
+  }
+  .science-grid{
+    grid-template-columns:1fr;
+  }
+  .dash-card.wide{
+    grid-column:auto;
+  }
+  .take-home-panel{
+    grid-template-columns:1fr;
+  }
+}
+@media(max-height:780px) and (min-width:1200px){
+  .science-main{padding:16px 24px;}
+  .science-toolbar{display:none;}
+  .science-head{grid-template-columns:52px 1fr auto;margin-bottom:12px;}
+  .science-head-icon{width:52px;height:52px;border-radius:20px;font-size:1.6rem;}
+  .science-head h2{font-size:2rem;}
+  .science-head p{font-size:.78rem;}
+  .science-grid{gap:12px;}
+  .dash-card-head{padding:8px 12px;font-size:.68rem;}
+  .dash-card-body{padding:10px;}
+  .pattern-table th{font-size:.5rem;padding:7px;}
+  .pattern-table td{font-size:.62rem;padding:8px;}
+  .sign-chip span{width:28px;height:28px;border-radius:10px;font-size:.9rem;}
+  .flow-step{grid-template-columns:38px 1fr;gap:8px;}
+  .flow-step span{width:38px;height:38px;border-radius:15px;font-size:1rem;}
+  .flow-step:not(:last-child) span::after{bottom:-14px;height:14px;}
+  .flow-step b{font-size:.68rem;}
+  .flow-step small{font-size:.56rem;}
+  .evidence-card{padding:10px;border-radius:16px;}
+  .evidence-card h3{font-size:.72rem;margin-bottom:7px;}
+  .evidence-card li{font-size:.58rem;}
+  .nursing-list div{font-size:.58rem;padding:6px 0;grid-template-columns:20px 1fr;}
+  .nursing-list span{width:20px;height:20px;font-size:.62rem;}
+  .take-home-panel{gap:10px;}
+  .take-quote{min-height:80px;font-size:.72rem;padding:10px;}
+  .take-practice{padding:10px;}
+  .take-practice h3{font-size:.66rem;margin-bottom:7px;}
+  .take-practice ol{font-size:.58rem;gap:4px;}
+  .references-box{font-size:.5rem;margin-top:10px;padding:8px;gap:6px 10px;}
+}
+
+
+/* === FIX GLOBALE: INTRO COMPATTA + SCHEDE SENZA SCROLL === */
+
+/* Ogni slide deve occupare una sola pagina */
+.stage{overflow:hidden !important;}
+.slide{overflow:hidden !important;}
+.slide.active{overflow:hidden !important;}
+
+/* INTRO: scheda realmente introduttiva, compatta, senza scroll */
+.intro-challenge-slide{
+  display:none !important;
+}
+.intro-challenge-slide.active{
+  display:block !important;
+  height:100% !important;
+  overflow:hidden !important;
+}
+.intro-challenge{
+  width:100%;
+  height:100%;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  gap:12px;
+}
+.intro-top{
+  display:grid;
+  grid-template-columns:1fr 360px;
+  gap:12px;
+  min-height:0;
+}
+.intro-copy,
+.intro-alert,
+.storyline-card,
+.quick-chart,
+.intro-quiz{
+  background:rgba(255,255,255,.92);
+  border:1px solid rgba(219,234,254,.95);
+  box-shadow:0 18px 46px rgba(7,31,61,.10);
+}
+.intro-copy{
+  border-radius:30px;
+  padding:22px 26px;
+  min-height:0;
+}
+.intro-copy h2{
+  margin:10px 0 8px;
+  font-size:clamp(2.1rem,3.4vw,4.1rem);
+  line-height:.98;
+  letter-spacing:-.055em;
+  color:#071f3d;
+}
+.intro-copy h2 span{color:#ec4899;}
+.intro-copy p{
+  margin:0;
+  max-width:900px;
+  color:#31445d;
+  font-size:clamp(.92rem,1.15vw,1.18rem);
+  line-height:1.35;
+  font-weight:700;
+}
+.intro-alert{
+  border-radius:30px;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  background:linear-gradient(135deg,#071f3d,#103e75);
+  color:white;
+}
+.intro-alert b{font-size:1.1rem;}
+.intro-alert p{margin:10px 0 0;color:#dff7ff;font-size:.9rem;line-height:1.35;font-weight:700;}
+
+.storyline-card{
+  border-radius:30px;
+  padding:16px 18px;
+  overflow:hidden;
+}
+.storyline-title{
+  color:#071f3d;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.02em;
+  font-size:.9rem;
+  margin-bottom:12px;
+}
+.storyline{
+  position:relative;
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:10px;
+}
+.storyline::before{
+  content:"";
+  position:absolute;
+  left:5%;
+  right:5%;
+  top:32px;
+  height:4px;
+  border-radius:999px;
+  background:linear-gradient(90deg,#ec4899,#8b5cf6,#2f80ed,#10b981,#f97316,#ef4444);
+}
+.story-node{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-rows:58px auto auto;
+  justify-items:center;
+  text-align:center;
+  gap:6px;
+  padding:8px;
+  border-radius:20px;
+  background:#fff;
+  border:1px solid #e3edf8;
+  min-height:154px;
+}
+.story-node span{
+  width:58px;height:58px;border-radius:22px;display:grid;place-items:center;
+  background:#f8fbff;border:1px solid #dbeafe;font-size:1.7rem;
+  box-shadow:0 10px 22px rgba(7,31,61,.08);
+}
+.story-node b{
+  color:#071f3d;
+  font-size:.8rem;
+  line-height:1.05;
+}
+.story-node small{
+  color:#53647c;
+  font-size:.62rem;
+  line-height:1.15;
+  font-weight:800;
+}
+.story-node.n1{background:#fff7fb;border-color:#fbcfe8;}
+.story-node.n2{background:#f8f6ff;border-color:#ddd3ff;}
+.story-node.n3{background:#f5fbff;border-color:#c8e7ff;}
+.story-node.n4{background:#f2fff8;border-color:#8ce0bc;}
+.story-node.n5{background:#fff8ef;border-color:#fed7aa;}
+.story-node.n6{background:#fff5f6;border-color:#ffc6d1;}
+
+.intro-bottom{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  min-height:0;
+}
+.quick-chart{
+  border-radius:26px;
+  padding:14px 16px;
+}
+.quick-chart h3,
+.intro-quiz h3{
+  margin:0 0 10px;
+  color:#071f3d;
+  font-size:1rem;
+  line-height:1.2;
+}
+.quick-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+.quick-grid div{
+  padding:10px;
+  border-radius:16px;
+  background:#f8fbff;
+  border:1px solid #dbeafe;
+}
+.quick-grid b{
+  display:block;
+  color:#265f9f;
+  font-size:.68rem;
+  text-transform:uppercase;
+}
+.quick-grid span{
+  display:block;
+  color:#071f3d;
+  font-size:.78rem;
+  line-height:1.15;
+  font-weight:800;
+  margin-top:3px;
+}
+.intro-quiz{
+  border-radius:26px;
+  padding:14px 16px;
+  margin-top:0 !important;
+}
+
+/* Pagine di approfondimento: no scroll, tutto in una schermata */
+.debrief-page{
+  padding:0 !important;
+  overflow:hidden !important;
+}
+.debrief-page.active{
+  display:block !important;
+}
+.debrief-inner{
+  width:100vw !important;
+  max-width:100vw !important;
+  height:100vh !important;
+  max-height:100vh !important;
+  overflow:hidden !important;
+  margin:0 !important;
+  padding:0 !important;
+}
+.debrief-label,
+.debrief-title,
+.debrief-copy-card,
+.science-toolbar,
+.references-box,
+.science-sidebar{
+  display:none !important;
+}
+.debrief-layout{
+  height:100% !important;
+  display:block !important;
+  overflow:hidden !important;
+}
+
+/* AHA cards compatte */
+.science-dashboard{
+  height:100vh !important;
+  min-height:100vh !important;
+  display:block !important;
+  overflow:hidden !important;
+  padding:78px 18px 74px !important; /* spazio header/footer */
+  background:
+    radial-gradient(circle at 10% 0%, rgba(79,209,197,.16), transparent 28%),
+    radial-gradient(circle at 90% 5%, rgba(236,72,153,.12), transparent 32%),
+    #f7fbff !important;
+}
+.science-main{
+  height:100% !important;
+  padding:0 !important;
+  overflow:hidden !important;
+  display:grid !important;
+  grid-template-rows:auto 1fr auto !important;
+  gap:10px !important;
+}
+.science-head{
+  display:grid !important;
+  grid-template-columns:54px 1fr auto !important;
+  gap:12px !important;
+  align-items:center !important;
+  margin:0 !important;
+}
+.science-head-icon{
+  width:54px !important;
+  height:54px !important;
+  border-radius:20px !important;
+  font-size:1.6rem !important;
+}
+.science-head h2{
+  margin:0 !important;
+  font-size:clamp(1.45rem,2.25vw,2.6rem) !important;
+  line-height:1.02 !important;
+}
+.science-head p{
+  margin:4px 0 0 !important;
+  font-size:.78rem !important;
+  line-height:1.25 !important;
+}
+.evidence-level{font-size:.56rem !important;}
+.evidence-level strong{
+  font-size:.62rem !important;
+  padding:6px 9px !important;
+}
+
+.science-grid{
+  min-height:0 !important;
+  height:100% !important;
+  display:grid !important;
+  grid-template-columns:1.1fr .9fr .9fr !important;
+  grid-template-rows:1fr 1fr !important;
+  gap:10px !important;
+  overflow:hidden !important;
+}
+.dash-card{
+  min-height:0 !important;
+  height:100% !important;
+  border-radius:18px !important;
+  overflow:hidden !important;
+  box-shadow:0 12px 28px rgba(7,31,61,.07) !important;
+}
+.dash-card.wide{
+  grid-column:span 2 !important;
+}
+.dash-card.full{
+  grid-column:1 / -1 !important;
+}
+.dash-card-head{
+  padding:8px 11px !important;
+  font-size:.66rem !important;
+  line-height:1 !important;
+  min-height:32px !important;
+}
+.dash-card-body{
+  height:calc(100% - 32px) !important;
+  padding:10px !important;
+  overflow:hidden !important;
+}
+.pattern-table{
+  font-size:.62rem !important;
+}
+.pattern-table th{
+  font-size:.5rem !important;
+  padding:6px !important;
+}
+.pattern-table td{
+  padding:7px 6px !important;
+  line-height:1.18 !important;
+}
+.sign-chip{
+  gap:6px !important;
+}
+.sign-chip span{
+  width:27px !important;
+  height:27px !important;
+  border-radius:10px !important;
+  font-size:.9rem !important;
+}
+.flow-steps{
+  gap:7px !important;
+}
+.flow-step{
+  grid-template-columns:34px 1fr !important;
+  gap:8px !important;
+}
+.flow-step span{
+  width:34px !important;
+  height:34px !important;
+  border-radius:13px !important;
+  font-size:.95rem !important;
+}
+.flow-step:not(:last-child) span::after{
+  height:10px !important;
+  bottom:-10px !important;
+}
+.flow-step b{font-size:.66rem !important;}
+.flow-step small{font-size:.52rem !important;line-height:1.15 !important;}
+
+.evidence-card{
+  height:100% !important;
+  padding:10px !important;
+  border-radius:16px !important;
+}
+.evidence-card h3{
+  font-size:.72rem !important;
+  margin:0 0 8px !important;
+}
+.evidence-card ul{
+  gap:5px !important;
+  padding-left:16px !important;
+}
+.evidence-card li{
+  font-size:.55rem !important;
+  line-height:1.18 !important;
+}
+.nursing-list{
+  gap:0 !important;
+}
+.nursing-list div{
+  grid-template-columns:20px 1fr !important;
+  gap:7px !important;
+  padding:6px 0 !important;
+  font-size:.56rem !important;
+  line-height:1.18 !important;
+}
+.nursing-list span{
+  width:20px !important;
+  height:20px !important;
+  font-size:.62rem !important;
+}
+.take-home-panel{
+  grid-template-columns:1fr 1fr !important;
+  gap:10px !important;
+  height:100% !important;
+}
+.take-quote,
+.take-practice{
+  min-height:0 !important;
+  height:100% !important;
+  padding:10px !important;
+  border-radius:16px !important;
+}
+.take-quote{
+  font-size:.68rem !important;
+  line-height:1.28 !important;
+}
+.take-practice h3{
+  font-size:.62rem !important;
+  margin:0 0 6px !important;
+}
+.take-practice ol{
+  font-size:.52rem !important;
+  gap:4px !important;
+  line-height:1.16 !important;
+  padding-left:16px !important;
+}
+
+/* Evita che il footer copra i contenuti */
+.footer,
+.fresh-footer{
+  z-index:9999 !important;
+}
+
+/* Se lo schermo è molto piccolo, riduci ancora ma senza scroll */
+@media(max-height:760px){
+  .intro-copy{padding:14px 18px;border-radius:22px;}
+  .intro-copy h2{font-size:2rem;margin:6px 0;}
+  .intro-copy p{font-size:.68rem;}
+  .intro-alert{padding:12px;border-radius:22px;}
+  .intro-alert b{font-size:.72rem;}
+  .intro-alert p{font-size:.56rem;}
+  .storyline-card{padding:10px 12px;border-radius:22px;}
+  .storyline-title{font-size:.62rem;margin-bottom:8px;}
+  .storyline{gap:6px;}
+  .storyline::before{top:24px;height:3px;}
+  .story-node{min-height:112px;padding:5px;border-radius:14px;grid-template-rows:42px auto auto;}
+  .story-node span{width:42px;height:42px;border-radius:14px;font-size:1.2rem;margin-bottom:0;}
+  .story-node b{font-size:.5rem;}
+  .story-node small{font-size:.4rem;}
+  .quick-chart,.intro-quiz{padding:8px;border-radius:18px;}
+  .quick-chart h3,.intro-quiz h3{font-size:.62rem;margin-bottom:6px;}
+  .quick-grid{gap:5px;}
+  .quick-grid div{padding:6px;border-radius:10px;}
+  .quick-grid b{font-size:.45rem;}
+  .quick-grid span{font-size:.5rem;}
+}
+
+
+/* === LAVORO SUL FILE NO-SCROLL: FONT + TERAPIA REPARTO + TEACH-BACK === */
+
+/* Testi più leggibili nelle schede scientifiche, mantenendo no-scroll */
+.science-head h2{
+  font-size:clamp(1.9rem,2.65vw,3.2rem) !important;
+}
+.science-head p{
+  font-size:clamp(.95rem,1.05vw,1.15rem) !important;
+  line-height:1.34 !important;
+}
+.pattern-table td{
+  font-size:.82rem !important;
+  line-height:1.32 !important;
+}
+.pattern-table th{
+  font-size:.68rem !important;
+}
+.flow-step b{
+  font-size:.95rem !important;
+}
+.flow-step small{
+  font-size:.76rem !important;
+  line-height:1.25 !important;
+}
+.evidence-card h3{
+  font-size:1rem !important;
+}
+.evidence-card li{
+  font-size:.82rem !important;
+  line-height:1.34 !important;
+}
+.nursing-list div{
+  font-size:.82rem !important;
+  line-height:1.32 !important;
+}
+.take-quote{
+  font-size:1.02rem !important;
+  line-height:1.45 !important;
+}
+.take-practice ol{
+  font-size:.82rem !important;
+  line-height:1.34 !important;
+}
+
+/* Rispetto compattezza su schermi bassi */
+@media(max-height:780px) and (min-width:1200px){
+  .pattern-table td{font-size:.68rem !important;}
+  .flow-step b{font-size:.7rem !important;}
+  .flow-step small{font-size:.58rem !important;}
+  .evidence-card li{font-size:.62rem !important;}
+  .nursing-list div{font-size:.62rem !important;}
+  .take-quote{font-size:.72rem !important;}
+  .take-practice ol{font-size:.6rem !important;}
+}
+
+/* Scheda terapia stile reparto */
+.therapy-sheet{
+  height:100%;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  gap:10px;
+  padding:16px;
+  border-radius:28px;
+  background:#fff;
+  border:1px solid #dbeafe;
+  box-shadow:0 18px 42px rgba(7,31,61,.10);
+  overflow:hidden;
+}
+.therapy-sheet-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding-bottom:10px;
+  border-bottom:2px solid #e4edf5;
+}
+.therapy-sheet-head b{
+  color:#071f3d;
+  font-size:1.05rem;
+}
+.therapy-sheet-head span{
+  padding:7px 10px;
+  border-radius:999px;
+  background:#fff3f5;
+  color:#9b1d34;
+  border:1px solid #ffc6d1;
+  font-weight:900;
+  font-size:.75rem;
+}
+.med-table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0 8px;
+}
+.med-table th{
+  text-align:left;
+  color:#265f9f;
+  font-size:.68rem;
+  text-transform:uppercase;
+  padding:0 8px;
+}
+.med-table td{
+  background:#f8fbff;
+  border-top:1px solid #dbeafe;
+  border-bottom:1px solid #dbeafe;
+  color:#31445d;
+  font-size:.78rem;
+  font-weight:700;
+  padding:10px 8px;
+  line-height:1.2;
+}
+.med-table td:first-child{
+  border-left:1px solid #dbeafe;
+  border-radius:16px 0 0 16px;
+  color:#071f3d;
+}
+.med-table td:last-child{
+  border-right:1px solid #dbeafe;
+  border-radius:0 16px 16px 0;
+}
+.med-table tr.high td{
+  background:#fff3f5;
+  border-color:#ffc6d1;
+}
+.med-table tr.monitor td{
+  background:#fffbea;
+  border-color:#f6d77a;
+}
+.therapy-note{
+  display:grid;
+  grid-template-columns:34px 1fr;
+  gap:10px;
+  padding:11px;
+  border-radius:18px;
+  background:#effcf5;
+  border:1px solid #8ce0bc;
+  color:#124c39;
+}
+.therapy-note span{
+  width:34px;
+  height:34px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  background:white;
+}
+.therapy-note b{
+  display:block;
+  color:#137d55;
+  font-size:.8rem;
+}
+.therapy-note small{
+  display:block;
+  font-size:.68rem;
+  line-height:1.22;
+  font-weight:700;
+}
+
+/* Teach-back sheet */
+.teachback-card{
+  height:100%;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  gap:12px;
+  padding:16px;
+  border-radius:28px;
+  background:#fff;
+  border:1px solid #dbeafe;
+  box-shadow:0 18px 42px rgba(7,31,61,.10);
+  overflow:hidden;
+}
+.teachback-head{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:#071f3d;
+  font-weight:900;
+  font-size:1.05rem;
+}
+.teachback-head span{
+  width:42px;
+  height:42px;
+  border-radius:16px;
+  display:grid;
+  place-items:center;
+  background:#eef8ff;
+  font-size:1.3rem;
+}
+.dialogue{
+  display:grid;
+  gap:9px;
+}
+.bubble{
+  padding:11px 13px;
+  border-radius:20px;
+  line-height:1.3;
+  font-size:.82rem;
+  font-weight:700;
+}
+.bubble.nurse{
+  background:#eef8ff;
+  border:1px solid #c8e7ff;
+  color:#074184;
+  border-bottom-left-radius:6px;
+}
+.bubble.family{
+  background:#fff1f8;
+  border:1px solid #fbcfe8;
+  color:#9d174d;
+  border-bottom-right-radius:6px;
+}
+.teachback-check{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+.teachback-check div{
+  padding:10px;
+  border-radius:16px;
+  background:#effcf5;
+  border:1px solid #8ce0bc;
+  color:#124c39;
+  font-size:.68rem;
+  line-height:1.2;
+  font-weight:900;
+  text-align:center;
+}
+
+@media(max-height:780px){
+  .therapy-sheet,.teachback-card{padding:10px;border-radius:20px;}
+  .therapy-sheet-head b,.teachback-head{font-size:.72rem;}
+  .therapy-sheet-head span{font-size:.52rem;padding:5px 7px;}
+  .med-table th{font-size:.46rem;}
+  .med-table td{font-size:.55rem;padding:6px;}
+  .therapy-note{padding:7px;grid-template-columns:26px 1fr;}
+  .therapy-note span{width:26px;height:26px;}
+  .therapy-note b{font-size:.55rem;}
+  .therapy-note small{font-size:.48rem;}
+  .bubble{font-size:.56rem;padding:7px 9px;border-radius:14px;}
+  .teachback-check div{font-size:.48rem;padding:6px;}
+}
+
+
+/* === ECOCARDIOGRAFIA REALISTICA SIMULATA - DISFUNZIONE VENTRICOLARE === */
+.real-echo-panel{height:100%;display:grid;grid-template-rows:auto 1fr auto;border-radius:28px;overflow:hidden;background:#030814;border:5px solid #16243a;box-shadow:0 24px 60px rgba(3,8,20,.34);color:#fff}
+.real-echo-header{height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:#0c1728;border-bottom:1px solid #253a56;font-family:monospace!important;font-size:.82rem;font-weight:800;color:#dff7ff}
+.real-echo-body{position:relative;margin:14px;border-radius:22px;overflow:hidden;background:radial-gradient(circle at 50% 14%,rgba(255,255,255,.08),transparent 18%),repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 22px),repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px 22px),#020712;box-shadow:inset 0 0 60px rgba(0,0,0,.75)}
+.real-echo-sector{position:absolute;left:8%;right:8%;top:5%;bottom:8%;clip-path:polygon(50% 0%,97% 100%,3% 100%);background:repeating-radial-gradient(circle at 50% 0%,rgba(215,235,255,.28) 0 3px,rgba(215,235,255,.08) 3px 9px,rgba(255,255,255,.02) 9px 14px),conic-gradient(from 218deg at 50% 2%,transparent 0deg,rgba(210,235,255,.40) 16deg,rgba(150,190,220,.22) 34deg,transparent 58deg);filter:contrast(1.18) brightness(.95);opacity:.92}
+.real-echo-noise{position:absolute;inset:0;opacity:.30;background-image:radial-gradient(circle,rgba(255,255,255,.26) 0 1px,transparent 1.2px),radial-gradient(circle,rgba(107,228,255,.12) 0 1px,transparent 1.2px);background-size:9px 11px,13px 15px;animation:echoNoise 1.1s steps(2,end) infinite;mix-blend-mode:screen}
+@keyframes echoNoise{0%{transform:translate(0,0);opacity:.24}50%{transform:translate(-3px,2px);opacity:.34}100%{transform:translate(2px,-2px);opacity:.28}}
+.real-heart{position:absolute;width:28%;height:26%;left:36%;top:50%;transform-origin:center center;animation:depressedLV 1.15s ease-in-out infinite;filter:drop-shadow(0 0 16px rgba(225,245,255,.45))}
+.real-heart:before,.real-heart:after{content:"";position:absolute;inset:0;border-radius:48% 52% 58% 42%;border:3px solid rgba(235,250,255,.65);background:radial-gradient(circle at 48% 36%,rgba(255,255,255,.55),rgba(160,205,230,.24) 42%,rgba(0,0,0,.04) 68%)}
+.real-heart:after{width:42%;height:76%;left:29%;top:10%;border-color:rgba(5,8,16,.65);background:rgba(3,8,20,.55);box-shadow:0 0 22px rgba(255,255,255,.22) inset}
+@keyframes depressedLV{0%,100%{transform:scale(1.02) rotate(-2deg)}45%{transform:scale(.93) rotate(-2deg)}60%{transform:scale(.96) rotate(-2deg)}}
+.real-wall{position:absolute;width:42%;height:36%;left:29%;top:45%;border-radius:50%;border:2px dashed rgba(255,255,255,.36);animation:wallWeak 1.15s ease-in-out infinite}
+@keyframes wallWeak{0%,100%{transform:scale(1);opacity:.55}50%{transform:scale(.95);opacity:.9}}
+.color-doppler-red,.color-doppler-blue{position:absolute;width:15%;height:19%;border-radius:52% 48% 55% 45%;top:58%;opacity:.74;filter:blur(.3px) saturate(1.2);mix-blend-mode:screen;animation:dopplerMove 1.15s ease-in-out infinite}
+.color-doppler-red{left:51%;background:radial-gradient(circle,#ff4757,#ff475770 58%,transparent 72%)}
+.color-doppler-blue{left:42%;background:radial-gradient(circle,#2563eb,#2563eb70 58%,transparent 72%);animation-delay:.16s}
+@keyframes dopplerMove{0%,100%{transform:scale(.74) translateY(6px);opacity:.42}50%{transform:scale(1.14) translateY(-4px);opacity:.85}}
+.real-scan-line{position:absolute;top:0;left:50%;width:2px;height:100%;background:linear-gradient(180deg,transparent,rgba(107,228,255,.85),transparent);transform-origin:top center;animation:scanReal 2.4s ease-in-out infinite}
+@keyframes scanReal{0%,100%{transform:rotate(-24deg)}50%{transform:rotate(24deg)}}
+.real-echo-meta{position:absolute;z-index:5;top:14px;font-family:monospace!important;font-size:.78rem;line-height:1.32;font-weight:800;color:#fff;text-shadow:0 1px 3px #000}
+.real-echo-meta.left{left:16px}.real-echo-meta.right{right:16px;text-align:right;color:#ffedf2}.real-echo-meta.right strong{color:#ff416c;font-size:1.35rem}
+.real-ecg{position:absolute;left:18px;right:18px;bottom:50px;height:34px;overflow:hidden;border-top:1px solid rgba(107,228,255,.35)}
+.real-ecg svg{width:220%;height:100%;animation:ecgSlide 4s linear infinite}
+@keyframes ecgSlide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.real-controls{position:absolute;left:18px;right:18px;bottom:15px;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;font-family:monospace!important;font-weight:800;font-size:.78rem;color:#fff}
+.real-playbar{height:7px;border-radius:999px;background:#263143;overflow:hidden}.real-playbar i{display:block;height:100%;width:38%;border-radius:999px;background:linear-gradient(90deg,#8b5cf6,#6be4ff);animation:playProgress 4s linear infinite}
+@keyframes playProgress{from{width:8%}to{width:96%}}
+.real-echo-footer{padding:11px 15px;background:#0c1728;border-top:1px solid #253a56;display:flex;justify-content:space-between;gap:10px;color:#dff7ff;font-size:.8rem;line-height:1.2;font-weight:800}.real-echo-footer b{color:#ffb4c4}
+.echo-real-left{padding:10px!important;background:#f8fbff!important}
+@media(max-height:780px){.real-echo-header{height:36px;font-size:.58rem;padding:0 10px}.real-echo-body{margin:9px;border-radius:16px}.real-echo-meta{font-size:.52rem}.real-echo-meta.right strong{font-size:.9rem}.real-ecg{bottom:38px;height:24px}.real-controls{bottom:9px;font-size:.52rem}.real-echo-footer{padding:7px 9px;font-size:.56rem}}
+
+
+/* === FIX ECO + SEGNI/SINTOMI PROGRESSIVI === */
+.svg-echo-monitor{height:100%;display:grid;grid-template-rows:auto 1fr auto;border-radius:28px;overflow:hidden;background:#030814;border:5px solid #16243a;box-shadow:0 24px 60px rgba(3,8,20,.34)}
+.svg-echo-top{height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:#0c1728;border-bottom:1px solid #253a56;color:#dff7ff;font-family:monospace!important;font-size:.82rem;font-weight:800}
+.echo-svg{width:100%;height:100%;display:block;background:#020814}
+.svg-echo-footer{padding:11px 15px;background:#0c1728;border-top:1px solid #253a56;color:#dff7ff;font-size:.82rem;line-height:1.25;font-weight:800}
+.svg-echo-footer b{color:#ffb4c4}
+.echo-real-left{padding:10px!important;background:#f8fbff!important}
+.heart-loop{transform-origin:450px 410px;animation:heartWeakSvg 1.1s ease-in-out infinite}
+.doppler-loop{transform-origin:455px 425px;animation:dopplerSvg 1.1s ease-in-out infinite}
+.scanline-svg{transform-origin:450px 38px;animation:scanSvg 2.4s ease-in-out infinite}
+.echo-speckles{animation:speckleSvg 1.2s steps(2,end) infinite}
+.ecg-svg{animation:ecgPulseSvg 1.1s ease-in-out infinite}
+@keyframes heartWeakSvg{0%,100%{transform:scale(1.02)}45%{transform:scale(.92)}62%{transform:scale(.96)}}
+@keyframes dopplerSvg{0%,100%{transform:scale(.78);opacity:.48}50%{transform:scale(1.12);opacity:.88}}
+@keyframes scanSvg{0%,100%{transform:rotate(-24deg)}50%{transform:rotate(24deg)}}
+@keyframes speckleSvg{0%{transform:translate(0,0)}50%{transform:translate(-3px,2px)}100%{transform:translate(2px,-2px)}}
+@keyframes ecgPulseSvg{0%,100%{opacity:.75}50%{opacity:1}}
+
+/* Barra docente per far uscire i segni piano piano */
+.symptom-reveal-bar{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:18px;
+  background:#eef8ff;
+  border:1px solid #c8e7ff;
+  color:#074184;
+  font-weight:900;
+}
+.symptom-reveal-bar span{font-size:.9rem}
+.symptom-reveal-btn{
+  border:0;
+  border-radius:999px;
+  padding:8px 12px;
+  background:#071f3d;
+  color:#fff;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 8px 18px rgba(7,31,61,.12);
+}
+.symptom-hidden{
+  opacity:.08!important;
+  filter:grayscale(1);
+  transform:translateY(4px);
+  pointer-events:none!important;
+  transition:opacity .28s ease, transform .28s ease, filter .28s ease;
+}
+.symptom-visible{
+  opacity:1!important;
+  filter:none;
+  transform:none;
+  pointer-events:auto!important;
+  transition:opacity .28s ease, transform .28s ease, filter .28s ease;
+}
+.symptom-reveal-bar.done{
+  background:#effcf5;
+  border-color:#8ce0bc;
+  color:#124c39;
+}
+.symptom-reveal-bar.done .symptom-reveal-btn{
+  background:#18a66a;
+}
+@media(max-height:780px){
+  .svg-echo-top{height:34px;font-size:.56rem;padding:0 9px}
+  .svg-echo-footer{padding:7px 9px;font-size:.54rem}
+  .symptom-reveal-bar{padding:6px 8px;border-radius:13px}
+  .symptom-reveal-bar span{font-size:.56rem}
+  .symptom-reveal-btn{font-size:.5rem;padding:5px 7px}
+}
+
+
+.huddle-fab{position:fixed;right:22px;bottom:86px;z-index:12000;border:0;border-radius:999px;padding:13px 18px;background:linear-gradient(135deg,#071f3d,#2f80ed,#7c5cff);color:#fff;font-weight:900;box-shadow:0 18px 42px rgba(7,31,61,.22);cursor:pointer;display:flex;align-items:center;gap:9px}
+.huddle-modal{position:fixed;inset:0;z-index:13000;display:none;place-items:center;background:rgba(7,31,61,.46);backdrop-filter:blur(10px)}
+.huddle-modal.open{display:grid}
+.huddle-card{width:min(1180px,92vw);max-height:88vh;border-radius:34px;background:radial-gradient(circle at 10% 0%,rgba(107,228,255,.18),transparent 30%),radial-gradient(circle at 90% 0%,rgba(236,72,153,.15),transparent 30%),#fff;border:1px solid rgba(255,255,255,.88);box-shadow:0 34px 90px rgba(7,31,61,.28);overflow:hidden;display:grid;grid-template-rows:auto 1fr auto}
+.huddle-head{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:22px 26px;background:linear-gradient(135deg,#071f3d,#113c72);color:#fff}
+.huddle-head h2{margin:0;font-size:clamp(1.55rem,2.6vw,3rem);line-height:1.05;letter-spacing:-.045em}.huddle-head p{margin:6px 0 0;color:#dff7ff;font-weight:800}
+.huddle-close{width:44px;height:44px;border-radius:18px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.12);color:#fff;font-size:1.35rem;cursor:pointer}
+.huddle-body{padding:22px 26px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}.huddle-block{border-radius:26px;padding:18px;border:1px solid #dbeafe;background:#fff;box-shadow:0 16px 34px rgba(7,31,61,.08);min-height:230px}
+.huddle-block b{display:flex;align-items:center;gap:9px;color:#071f3d;font-size:1.05rem;margin-bottom:12px}.huddle-block p{margin:0;color:#31445d;font-size:.95rem;line-height:1.45;font-weight:700}
+.huddle-block ul{margin:0;padding-left:18px;color:#31445d;display:grid;gap:9px;font-weight:700;font-size:.9rem;line-height:1.35}
+.huddle-block.challenge{background:#fff1f8;border-color:#fbcfe8}.huddle-block.action{background:#effcf5;border-color:#8ce0bc}.huddle-block.radar{background:#eef8ff;border-color:#c8e7ff}
+.radar-bars{display:grid;gap:11px;margin-top:8px}.radar-bars div{display:grid;grid-template-columns:95px 1fr 36px;gap:8px;align-items:center;font-size:.78rem;font-weight:900;color:#31445d}
+.radar-bars i{height:10px;border-radius:999px;background:#e8f0fb;overflow:hidden;position:relative}.radar-bars i:after{content:"";position:absolute;left:0;top:0;bottom:0;width:var(--v);border-radius:999px;background:linear-gradient(90deg,#6be4ff,#2f80ed,#18a66a)}.radar-bars span{text-align:right;color:#071f3d}
+.huddle-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 26px;background:#f8fbff;border-top:1px solid #dbeafe}.huddle-question{font-weight:900;color:#071f3d;font-size:1rem}.huddle-timer{min-width:150px;text-align:center;padding:11px 14px;border-radius:999px;background:#071f3d;color:#fff;font-family:monospace!important;font-size:1.1rem;font-weight:900}.huddle-start{border:0;border-radius:999px;padding:12px 18px;background:linear-gradient(135deg,#ec4899,#7c5cff);color:#fff;font-weight:900;cursor:pointer}
+.confetti-piece{position:fixed;z-index:15000;width:10px;height:14px;border-radius:3px;pointer-events:none;top:-20px;animation:confettiDrop 1.6s ease-in forwards}@keyframes confettiDrop{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+.challenge-toast{position:fixed;left:50%;top:92px;transform:translateX(-50%);z-index:14000;background:#071f3d;color:#fff;padding:13px 18px;border-radius:999px;box-shadow:0 18px 42px rgba(7,31,61,.25);font-weight:900;opacity:0;pointer-events:none}.challenge-toast.show{animation:toastShow 2s ease both}@keyframes toastShow{0%{opacity:0;transform:translate(-50%,-12px)}15%,80%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,-12px)}}
+@media(max-width:900px){.huddle-body{grid-template-columns:1fr;max-height:60vh;overflow:auto}.huddle-foot{flex-direction:column;align-items:stretch}.huddle-fab{right:14px;bottom:76px;padding:10px 13px;font-size:.8rem}}
+@media(max-height:780px){.huddle-head{padding:14px 18px}.huddle-head h2{font-size:1.45rem}.huddle-head p{font-size:.72rem}.huddle-body{padding:14px 18px;gap:10px}.huddle-block{min-height:150px;padding:12px;border-radius:20px}.huddle-block b{font-size:.76rem;margin-bottom:8px}.huddle-block p,.huddle-block ul{font-size:.62rem;line-height:1.25}.radar-bars div{grid-template-columns:70px 1fr 28px;font-size:.55rem}.huddle-foot{padding:12px 18px}.huddle-question{font-size:.72rem}.huddle-timer{font-size:.85rem;padding:8px 10px}}
+
+
+/* === NUOVE SCENE: DH CORTICOSTEROIDI 3 GIORNI + PEGGIORAMENTO === */
+.dh-therapy-board,.critical-monitor{
+  height:100%;
+  border-radius:28px;
+  overflow:hidden;
+  background:#fff;
+  border:1px solid #dbeafe;
+  box-shadow:0 18px 42px rgba(7,31,61,.10);
+  display:grid;
+  gap:10px;
+  padding:16px;
+}
+.dh-therapy-board{grid-template-rows:auto 1fr auto auto;}
+.dh-board-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding-bottom:10px;
+  border-bottom:2px solid #e4edf5;
+}
+.dh-board-head b{display:block;color:#071f3d;font-size:1rem;}
+.dh-board-head small{display:block;color:#53647c;font-size:.72rem;font-weight:800;margin-top:2px;}
+.dh-board-head span{
+  padding:8px 11px;border-radius:999px;background:#eef8ff;border:1px solid #c8e7ff;color:#265f9f;font-weight:900;font-size:.72rem;
+}
+.dh-prescription{
+  display:grid;
+  gap:8px;
+  align-content:start;
+}
+.dh-prescription h3,.dh-trend h3{
+  margin:0 0 4px;color:#071f3d;font-size:.96rem;line-height:1.15;
+}
+.dh-rx-row{
+  display:grid;
+  grid-template-columns:160px 1fr;
+  gap:10px;
+  padding:10px;
+  border-radius:17px;
+  background:#f8fbff;
+  border:1px solid #dbeafe;
+}
+.dh-rx-row b{color:#071f3d;font-size:.74rem;line-height:1.15;}
+.dh-rx-row span{color:#53647c;font-size:.68rem;line-height:1.2;font-weight:800;}
+.dh-rx-row.red{background:#fff3f5;border-color:#ffc6d1;}
+.dh-rx-row.amber{background:#fffbea;border-color:#f6d77a;}
+.dh-mini-monitor{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+}
+.dh-mini-monitor div{
+  padding:9px;border-radius:16px;background:#f8fbff;border:1px solid #dbeafe;
+}
+.dh-mini-monitor label,.dh-mini-monitor small{display:block;color:#53647c;font-size:.56rem;font-weight:900;}
+.dh-mini-monitor strong{display:block;color:#071f3d;font-size:1.22rem;line-height:1.05;}
+.dh-note{
+  display:block;
+  padding:11px 12px;
+  border-radius:18px;
+  background:#effcf5;
+  border:1px solid #8ce0bc;
+  color:#124c39;
+}
+.dh-note b{display:block;color:#137d55;font-size:.78rem;margin-bottom:4px;}
+.dh-note p{margin:0;font-size:.66rem;line-height:1.22;font-weight:800;}
+.dh-note.amber{background:#fffbea;border-color:#f6d77a;color:#654000;}
+.dh-note.amber b{color:#654000;}
+.dh-trend{
+  display:grid;
+  gap:9px;
+  align-content:start;
+}
+.trend-row{
+  display:grid;
+  grid-template-columns:80px 1fr 78px;
+  gap:10px;
+  align-items:center;
+  padding:9px;
+  border-radius:16px;
+  background:#f8fbff;
+  border:1px solid #dbeafe;
+}
+.trend-row label{font-size:.65rem;font-weight:900;color:#31445d;}
+.trend-row i{height:10px;border-radius:999px;background:#e8f0fb;position:relative;overflow:hidden;}
+.trend-row i::after{content:"";position:absolute;left:0;top:0;bottom:0;width:var(--v);border-radius:999px;background:linear-gradient(90deg,#ffb22c,#ff416c);}
+.trend-row b{font-size:.68rem;color:#071f3d;text-align:right;}
+
+.critical-monitor{
+  padding:0;
+  background:#050b16;
+  border:5px solid #16243a;
+  grid-template-rows:48px 1fr;
+  color:#fff;
+}
+.critical-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 16px;
+  background:#0c1728;
+  border-bottom:1px solid #253a56;
+  color:#dff7ff;
+  font-family:monospace!important;
+  font-weight:900;
+  font-size:.78rem;
+}
+.critical-top strong{
+  padding:7px 10px;
+  border-radius:999px;
+  background:#ff416c;
+  color:white;
+  animation:alarmBlink 1s infinite;
+}
+@keyframes alarmBlink{0%,100%{opacity:1}50%{opacity:.45}}
+.critical-screen{
+  position:relative;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-template-rows:auto auto 1fr auto;
+  gap:10px;
+  padding:14px;
+  background:
+    radial-gradient(circle at 20% 12%,rgba(255,65,108,.14),transparent 32%),
+    radial-gradient(circle at 80% 0%,rgba(107,228,255,.12),transparent 32%),
+    #030814;
+}
+.crit-param{
+  border-radius:20px;
+  padding:12px;
+  background:#091426;
+  border:1px solid #263a56;
+  box-shadow:inset 0 0 24px rgba(0,0,0,.18);
+}
+.crit-param label{display:block;font-family:monospace!important;color:#dff7ff;font-weight:900;font-size:.72rem;}
+.crit-param strong{display:block;font-family:monospace!important;font-size:2rem;line-height:1;color:white;margin:5px 0;}
+.crit-param small{display:block;color:#dff7ff;font-weight:800;font-size:.68rem;}
+.crit-param.red{border-color:#ff416c;background:rgba(255,65,108,.16);}
+.crit-param.red strong{color:#ff6b8b;animation:alarmBlink 1.1s infinite;}
+.crit-param.amber{border-color:#ffb22c;background:rgba(255,178,44,.13);}
+.crit-param.amber strong{color:#ffcf77;}
+.critical-ecg{
+  grid-column:1 / -1;
+  height:118px;
+  border-radius:20px;
+  background:#020712;
+  border:1px solid #263a56;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+}
+.critical-ecg svg{width:200%;height:100%;animation:criticalEcgMove 2.4s linear infinite;}
+.crit-ecg-line{fill:none;stroke:#43e0a9;stroke-width:5;stroke-linecap:round;}
+@keyframes criticalEcgMove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.alarm-banner{
+  grid-column:1 / -1;
+  padding:12px 14px;
+  border-radius:18px;
+  background:#fff3f5;
+  border:1px solid #ffc6d1;
+  color:#9b1d34;
+  font-weight:900;
+  font-size:.88rem;
+  text-align:center;
+}
+.danger-message{background:#fff3f5!important;border-color:#ffc6d1!important;color:#9b1d34!important;}
+.danger-message b{color:#9b1d34!important;}
+
+@media(max-height:780px){
+  .dh-therapy-board{padding:10px;border-radius:20px;gap:6px;}
+  .dh-board-head b{font-size:.62rem}.dh-board-head small{font-size:.48rem}.dh-board-head span{font-size:.48rem;padding:5px 7px}
+  .dh-prescription h3,.dh-trend h3{font-size:.62rem}
+  .dh-rx-row{grid-template-columns:100px 1fr;padding:6px;border-radius:12px}.dh-rx-row b{font-size:.5rem}.dh-rx-row span{font-size:.45rem}
+  .dh-mini-monitor{gap:5px}.dh-mini-monitor div{padding:6px}.dh-mini-monitor strong{font-size:.82rem}.dh-mini-monitor label,.dh-mini-monitor small{font-size:.42rem}
+  .dh-note{padding:7px}.dh-note b{font-size:.52rem}.dh-note p{font-size:.44rem}
+  .trend-row{grid-template-columns:55px 1fr 55px;padding:6px}.trend-row label,.trend-row b{font-size:.48rem}.trend-row i{height:7px}
+  .critical-monitor{grid-template-rows:34px 1fr}.critical-top{font-size:.52rem;padding:0 9px}
+  .critical-screen{gap:6px;padding:8px}.crit-param{padding:7px;border-radius:14px}.crit-param label{font-size:.48rem}.crit-param strong{font-size:1.2rem}.crit-param small{font-size:.44rem}
+  .critical-ecg{height:72px}.alarm-banner{font-size:.58rem;padding:7px}
+}
+
+
+/* === FIX VISIBILITÀ TEAM HUDDLE + SCHEDE 3/15 4/15 5/15 === */
+
+/* Team Huddle visibile solo alla fine/slide storia di Martina */
+.huddle-fab{
+  display:none !important;
+}
+body.show-huddle .huddle-fab{
+  display:flex !important;
+}
+
+/* Schede di approfondimento: aumenta leggibilità e riduce taglio testo */
+.science-dashboard{
+  padding:72px 16px 66px !important;
+}
+.science-main{
+  gap:8px !important;
+}
+.science-head{
+  grid-template-columns:48px 1fr auto !important;
+  gap:10px !important;
+}
+.science-head-icon{
+  width:48px !important;
+  height:48px !important;
+  border-radius:18px !important;
+  font-size:1.45rem !important;
+}
+.science-head h2{
+  font-size:clamp(1.55rem,2.25vw,2.8rem) !important;
+  line-height:1.02 !important;
+}
+.science-head p{
+  font-size:.86rem !important;
+  line-height:1.24 !important;
+}
+.science-grid{
+  grid-template-columns:1.05fr .9fr .9fr !important;
+  grid-template-rows:1fr .92fr !important;
+  gap:9px !important;
+}
+
+/* Pattern clinico più leggibile e sempre visibile */
+.pattern-table{
+  table-layout:fixed !important;
+  width:100% !important;
+}
+.pattern-table th{
+  font-size:.58rem !important;
+  padding:7px 8px !important;
+  line-height:1.1 !important;
+}
+.pattern-table td{
+  font-size:.72rem !important;
+  padding:8px 8px !important;
+  line-height:1.22 !important;
+  vertical-align:top !important;
+  white-space:normal !important;
+  word-break:normal !important;
+}
+.pattern-table th:first-child,
+.pattern-table td:first-child{
+  width:42% !important;
+}
+.pattern-table th:last-child,
+.pattern-table td:last-child{
+  width:58% !important;
+}
+.sign-chip{
+  align-items:flex-start !important;
+  gap:7px !important;
+  line-height:1.15 !important;
+  white-space:normal !important;
+}
+.sign-chip span{
+  flex:0 0 30px !important;
+  width:30px !important;
+  height:30px !important;
+  border-radius:12px !important;
+  font-size:1rem !important;
+}
+
+/* Flow/evidenze/nursing più compatti ma leggibili */
+.flow-step{
+  grid-template-columns:38px 1fr !important;
+  gap:8px !important;
+}
+.flow-step span{
+  width:38px !important;
+  height:38px !important;
+  border-radius:15px !important;
+  font-size:1rem !important;
+}
+.flow-step b{
+  font-size:.74rem !important;
+}
+.flow-step small{
+  font-size:.61rem !important;
+  line-height:1.18 !important;
+}
+.evidence-card h3{
+  font-size:.78rem !important;
+  line-height:1.15 !important;
+}
+.evidence-card li{
+  font-size:.63rem !important;
+  line-height:1.24 !important;
+}
+.nursing-list div{
+  font-size:.64rem !important;
+  line-height:1.22 !important;
+  padding:6px 0 !important;
+}
+.take-quote{
+  font-size:.74rem !important;
+  line-height:1.32 !important;
+}
+.take-practice ol{
+  font-size:.62rem !important;
+  line-height:1.22 !important;
+}
+
+/* Se le schede 3/15, 4/15 e 5/15 sono molto piene, garantisce che il box non tagli il contenuto */
+.dash-card-body{
+  overflow:hidden !important;
+}
+.dash-card:first-child .dash-card-body{
+  padding:9px !important;
+}
+
+/* schermi bassi */
+@media(max-height:780px) and (min-width:1200px){
+  .science-dashboard{padding:64px 12px 58px !important;}
+  .science-head-icon{width:40px !important;height:40px !important;border-radius:14px !important;font-size:1.2rem !important;}
+  .science-head h2{font-size:1.65rem !important;}
+  .science-head p{font-size:.62rem !important;}
+  .pattern-table th{font-size:.46rem !important;padding:5px 6px !important;}
+  .pattern-table td{font-size:.55rem !important;padding:5px 6px !important;line-height:1.16 !important;}
+  .sign-chip span{width:24px !important;height:24px !important;flex-basis:24px !important;border-radius:9px !important;font-size:.78rem !important;}
+  .flow-step{grid-template-columns:30px 1fr !important;gap:6px !important;}
+  .flow-step span{width:30px !important;height:30px !important;border-radius:11px !important;font-size:.85rem !important;}
+  .flow-step b{font-size:.55rem !important;}
+  .flow-step small{font-size:.46rem !important;}
+  .evidence-card li{font-size:.5rem !important;}
+  .nursing-list div{font-size:.5rem !important;}
+  .take-quote{font-size:.56rem !important;}
+  .take-practice ol{font-size:.5rem !important;}
+}
+
+
+/* === TREND DH + COMPATTAZIONE SCHEDE SCIENTIFICHE === */
+
+/* Schede scientifiche più compatte, più testo leggibile, meno spazi vuoti */
+.science-dashboard{
+  padding:70px 14px 64px !important;
+}
+.science-main{
+  gap:7px !important;
+}
+.science-head{
+  grid-template-columns:46px 1fr auto !important;
+  gap:10px !important;
+}
+.science-head-icon{
+  width:46px !important;
+  height:46px !important;
+  border-radius:17px !important;
+  font-size:1.35rem !important;
+}
+.science-head h2{
+  font-size:clamp(1.65rem,2.35vw,2.9rem) !important;
+}
+.science-head p{
+  font-size:.9rem !important;
+  line-height:1.22 !important;
+}
+.science-grid{
+  gap:8px !important;
+  grid-template-columns:1.08fr .92fr .92fr !important;
+  grid-template-rows:1fr .9fr !important;
+}
+.dash-card{
+  border-radius:18px !important;
+}
+.dash-card-head{
+  min-height:30px !important;
+  padding:8px 11px !important;
+  font-size:.7rem !important;
+}
+.dash-card-body{
+  height:calc(100% - 30px) !important;
+  padding:9px 10px !important;
+}
+.pattern-table td{
+  font-size:.76rem !important;
+  padding:7px 8px !important;
+  line-height:1.2 !important;
+}
+.pattern-table th{
+  font-size:.58rem !important;
+  padding:6px 8px !important;
+}
+.flow-step{
+  grid-template-columns:36px 1fr !important;
+  gap:7px !important;
+}
+.flow-step span{
+  width:36px !important;
+  height:36px !important;
+  border-radius:14px !important;
+  font-size:.95rem !important;
+}
+.flow-step b{
+  font-size:.76rem !important;
+}
+.flow-step small{
+  font-size:.62rem !important;
+  line-height:1.16 !important;
+}
+.evidence-card{
+  padding:10px !important;
+}
+.evidence-card h3{
+  font-size:.82rem !important;
+}
+.evidence-card li{
+  font-size:.66rem !important;
+}
+.nursing-list div{
+  font-size:.68rem !important;
+}
+.take-quote{
+  font-size:.78rem !important;
+}
+.take-practice ol{
+  font-size:.66rem !important;
+}
+
+/* Trend dashboard */
+.trend-dashboard{
+  height:100%;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  gap:10px;
+  padding:14px;
+  border-radius:28px;
+  background:#fff;
+  border:1px solid #dbeafe;
+  box-shadow:0 18px 42px rgba(7,31,61,.10);
+  overflow:hidden;
+}
+.trend-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding-bottom:9px;
+  border-bottom:2px solid #e4edf5;
+}
+.trend-head b{
+  display:block;
+  color:#071f3d;
+  font-size:.92rem;
+}
+.trend-head small{
+  display:block;
+  color:#53647c;
+  font-size:.68rem;
+  font-weight:800;
+  margin-top:2px;
+}
+.trend-head span{
+  padding:7px 10px;
+  border-radius:999px;
+  background:#fff3f5;
+  color:#9b1d34;
+  border:1px solid #ffc6d1;
+  font-size:.68rem;
+  font-weight:900;
+}
+.trend-chart{
+  min-height:0;
+  border-radius:24px;
+  background:#fff;
+  border:1px solid #dbeafe;
+  overflow:hidden;
+}
+.trend-chart svg{
+  width:100%;
+  height:100%;
+  display:block;
+}
+.grid-lines line{
+  stroke:#e6eef8;
+  stroke-width:2;
+}
+.axis-day{
+  stroke:#c8e7ff;
+  stroke-width:3;
+  stroke-dasharray:7 7;
+}
+.axis-label{
+  fill:#071f3d;
+  font-size:22px;
+  font-weight:900;
+}
+.trend-line{
+  fill:none;
+  stroke-width:8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.red-line{stroke:url(#dangerGrad);}
+.orange-line{stroke:#ffb22c;}
+.blue-line{stroke:url(#safeGrad);}
+.red-dot{fill:#ff416c;}
+.orange-dot{fill:#ffb22c;}
+.blue-dot{fill:#2f80ed;}
+.label-red,.label-orange,.label-blue{
+  font-size:19px;
+  font-weight:900;
+}
+.label-red{fill:#9b1d34;}
+.label-orange{fill:#9a5a00;}
+.label-blue{fill:#074184;}
+.warning-title{
+  fill:#9b1d34;
+  font-size:22px;
+  font-weight:900;
+}
+.warning-text{
+  fill:#071f3d;
+  font-size:18px;
+  font-weight:800;
+}
+.trend-legend{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+}
+.trend-legend div{
+  display:grid;
+  grid-template-columns:18px 1fr;
+  gap:7px;
+  align-items:center;
+  padding:8px;
+  border-radius:16px;
+  background:#f8fbff;
+  border:1px solid #dbeafe;
+}
+.legend-dot{
+  width:14px;
+  height:14px;
+  border-radius:999px;
+}
+.legend-dot.red{background:#ff416c;}
+.legend-dot.orange{background:#ffb22c;}
+.legend-dot.blue{background:#2f80ed;}
+.legend-dot.green{background:#18a66a;}
+.trend-legend b{
+  color:#071f3d;
+  font-size:.62rem;
+  line-height:1;
+}
+.trend-legend small{
+  grid-column:2;
+  color:#53647c;
+  font-size:.52rem;
+  font-weight:800;
+  line-height:1.1;
+}
+
+@media(max-height:780px){
+  .science-dashboard{padding:62px 10px 56px !important;}
+  .science-head h2{font-size:1.7rem !important;}
+  .science-head p{font-size:.62rem !important;}
+  .pattern-table td{font-size:.55rem !important;}
+  .flow-step b{font-size:.56rem !important;}
+  .flow-step small{font-size:.46rem !important;}
+  .evidence-card li,.nursing-list div,.take-practice ol{font-size:.5rem !important;}
+  .take-quote{font-size:.56rem !important;}
+  .trend-dashboard{padding:9px;border-radius:20px;gap:6px;}
+  .trend-head b{font-size:.58rem}.trend-head small{font-size:.44rem}.trend-head span{font-size:.44rem;padding:5px 7px}
+  .trend-chart{border-radius:16px}
+  .axis-label{font-size:15px}.label-red,.label-orange,.label-blue{font-size:13px}.warning-title{font-size:15px}.warning-text{font-size:12px}
+  .trend-legend{gap:5px}.trend-legend div{padding:5px;border-radius:11px}.trend-legend b{font-size:.42rem}.trend-legend small{font-size:.36rem}.legend-dot{width:10px;height:10px}
 }
 
 </style>
@@ -3838,7 +5628,7 @@ body, body *{
         <div class="tag">PROLOGO · CASO CLINICO INTERATTIVO</div>
         <h2>Follow-up nel Trapianto Cardiaco Pediatrico</h2>
       </div>
-      <div class="alert-pill">🫀 Clinical Reasoning</div>
+      <div class="alert-pill">🫀 Ragionamento clinico</div>
     </div>
 
     <p class="narr intro-main-text">
@@ -3884,32 +5674,59 @@ body, body *{
   </div>
 </section>
 
-<section class="slide" data-index="1">
-  <div class="image-box">
-    <div class="scene-img f1"></div>
-    <div class="image-label">📷 1/12</div>
-  </div>
-  <div class="text-box">
-    <div class="scene-top">
-      <div>
-        <div class="tag">SCENA 01 · ACCESSO</div>
-        <h2>Accesso non programmato al Day Hospital</h2>
+
+<section class="slide intro-challenge-slide" data-index="1">
+  <div class="intro-challenge">
+    <div class="intro-top">
+      <div class="intro-copy">
+        <div class="tag">SCENA 01 · INTRODUZIONE</div>
+        <h2>La storia di <span>Martina</span></h2>
+        <p>Una paziente pediatrica ad alta complessità: cardiomiopatia dilatativa, Berlin Heart, trapianto, rigetto e retrapianto. Oggi arriva al Day Hospital con nuovi segni di allarme.</p>
       </div>
-      <div class="alert-pill">🚨 Accesso non programmato</div>
+      <div class="intro-alert">
+        <b>🎯 Challenge per gli studenti</b>
+        <p>Riconoscere precocemente il deterioramento e collegare storia clinica, segni, parametri, referti e priorità assistenziali.</p>
+      </div>
     </div>
-    <p class="narr">Ore 08:17. La madre accompagna Martina al Day Hospital Trapianti Cardiaci Pediatrici senza attendere il controllo programmato. Martina ha 12 anni, è seguita fin dai primi mesi di vita per cardiomiopatia dilatativa severa, ha avuto Berlin Heart come ponte al primo trapianto e circa un anno fa è stata sottoposta a retrapianto cardiaco. Oggi appare stanca, pallida e poco sorridente.</p>
-    
-    <div class="reveal-control"><span><span class="pulse-dot"></span> Modalità docente: fai uscire gli segni e sintomi progressivamente</span><button class="reveal-btn" type="button">Mostra prossimo segni e sintomio</button></div>
-    
-    <div class="clinical-label-clean">🩺 Segni e sintomi</div>
-<div class="info-grid"><div class="info-card"><span>🫀</span>Cardiomiopatia dilatativa a pochi mesi</div><div class="info-card"><span>🔁</span>Retrapianto circa 1 anno fa</div><div class="info-card"><span>⚠️</span>Storia di scompenso e rigetto cronico</div></div>
-    <div class="quiz">
-      <h3>Quale elemento rende Martina una paziente ad alta complessità?</h3>
-      <div class="answers"><button class="answer" data-correct="false">La sola età adolescenziale</button><button class="answer" data-correct="true">La storia di Berlin Heart, trapianto, retrapianto e rigetto cronico</button><button class="answer" data-correct="false">La presenza di febbre elevata</button></div>
-      <div class="feedback" data-feedback="Corretto: la storia cardiochirurgica e immunologica aumenta molto il rischio clinico." data-rationale="La storia di Berlin Heart, primo trapianto, retrapianto e rigetto cronico identifica una paziente fragile: piccoli cambiamenti clinici possono indicare rapidamente scompenso o rigetto."></div>
+
+    <div class="storyline-card">
+      <div class="storyline-title">Timeline clinica essenziale · dalla nascita ad oggi</div>
+      <div class="storyline">
+        <div class="story-node n1"><span>👶</span><b>Nascita</b><small>CMP dilatativa severa</small></div>
+        <div class="story-node n2"><span>🫀</span><b>Primi mesi</b><small>Berlin Heart EXCOR · bridge to transplant</small></div>
+        <div class="story-node n3"><span>💚</span><b>1° anno</b><small>Primo trapianto cardiaco</small></div>
+        <div class="story-node n4"><span>⚠️</span><b>Infanzia</b><small>Rigetto acuto e cronico</small></div>
+        <div class="story-node n5"><span>📉</span><b>Pre-adolescenza</b><small>Quadro restrittivo · candidata a retrapianto</small></div>
+        <div class="story-node n6"><span>🚨</span><b>Oggi</b><small>Accesso non programmato</small></div>
+      </div>
+    </div>
+
+    <div class="intro-bottom">
+      <div class="quick-chart">
+        <h3>📂 Cartella clinica rapida</h3>
+        <div class="quick-grid">
+          <div><b>Età</b><span>12 anni</span></div>
+          <div><b>Storia</b><span>CMP dilatativa</span></div>
+          <div><b>Supporto</b><span>Berlin Heart nei primi mesi</span></div>
+          <div><b>Trapianti</b><span>Primo trapianto + retrapianto</span></div>
+          <div><b>Rischio</b><span>Rigetto / disfunzione graft</span></div>
+          <div><b>Accesso</b><span>Non programmato</span></div>
+        </div>
+      </div>
+
+      <div class="quiz intro-quiz">
+        <h3>Quale elemento rende Martina una paziente ad alta complessità?</h3>
+        <div class="answers">
+          <button class="answer" data-correct="false">La sola età adolescenziale</button>
+          <button class="answer" data-correct="true">La storia di Berlin Heart, trapianto, retrapianto e rigetto</button>
+          <button class="answer" data-correct="false">La presenza isolata di pallore</button>
+        </div>
+        <div class="feedback" data-feedback="Corretto: la traiettoria clinica rende Martina ad alto rischio." data-rationale="La storia di cardiomiopatia dilatativa, supporto Berlin Heart, primo trapianto, rigetti e retrapianto rende ogni nuovo sintomo clinicamente rilevante."></div>
+      </div>
     </div>
   </div>
 </section>
+
 
 <section class="slide" data-index="2">
   <div class="image-box">
@@ -3926,9 +5743,12 @@ body, body *{
     </div>
     <p class="narr">La madre riferisce che da circa una settimana Martina è cambiata: dorme spesso, mangia poco, non vuole uscire con le amiche e si ferma quando sale le scale. La notte dorme con due cuscini perché riferisce di respirare meglio. Ha notato gonfiore alle caviglie e un aumento del peso corporeo.</p>
     
-    <div class="reveal-control"><span><span class="pulse-dot"></span> Modalità docente: fai uscire gli segni e sintomi progressivamente</span><button class="reveal-btn" type="button">Mostra prossimo segni e sintomio</button></div>
+    <div class="reveal-control"><span><span class="pulse-dot"></span> </span><button class="reveal-btn" type="button"></button></div>
     
-    <div class="clinical-label-clean">🩺 Segni e sintomi</div>
+    <div class="symptom-reveal-bar">
+      <span>🩺 Segni e sintomi</span>
+      <button type="button" class="symptom-reveal-btn">Mostra progressivamente</button>
+    </div>
 <div class="info-grid"><div class="info-card"><span>🫁</span>Dispnea da sforzo</div><div class="info-card"><span>🛏️</span>Ortopnea</div><div class="info-card"><span>⚖️</span>Aumento ponderale</div><div class="info-card"><span>🦶</span>Edemi declivi</div></div>
     <div class="quiz">
       <h3>Quale gruppo di dati orienta maggiormente verso scompenso cardiaco?</h3>
@@ -3953,9 +5773,12 @@ body, body *{
     </div>
     <p class="narr">Martina viene accompagnata sul lettino. È pallida, poco reattiva e meno vivace del solito. Durante il breve tragitto dalla sala d’attesa all’ambulatorio manifesta lieve dispnea. L’infermiera osserva colorito, postura, lavoro respiratorio, stato di coscienza ed eventuale edema periferico.</p>
     
-    <div class="reveal-control"><span><span class="pulse-dot"></span> Modalità docente: fai uscire gli segni e sintomi progressivamente</span><button class="reveal-btn" type="button">Mostra prossimo segni e sintomio</button></div>
+    <div class="reveal-control"><span><span class="pulse-dot"></span> </span><button class="reveal-btn" type="button"></button></div>
     
-    <div class="clinical-label-clean">🩺 Segni e sintomi</div>
+    <div class="symptom-reveal-bar">
+      <span>🩺 Segni e sintomi</span>
+      <button type="button" class="symptom-reveal-btn">Mostra progressivamente</button>
+    </div>
 <div class="info-grid"><div class="info-card"><span>😶‍🌫️</span>Pallore</div><div class="info-card"><span>💨</span>Dispnea minima</div><div class="info-card"><span>🧠</span>Poca reattività</div><div class="info-card"><span>🦶</span>Edemi</div></div>
     <div class="mission-bar">Segni e sintomi raccolti <span><i></i></span></div>
     <div class="clue-row">
@@ -3999,7 +5822,10 @@ body, body *{
   <div class="text-box smart-right">
     <div class="scene-top"><div><div class="tag">SCENA 04 · PARAMETRI</div><h2>I parametri vitali parlano</h2></div><div class="alert-pill">📊 Pattern critico</div></div>
     
-    <div class="clinical-label-clean">🩺 Segni e sintomi</div>
+    <div class="symptom-reveal-bar">
+      <span>🩺 Segni e sintomi</span>
+      <button type="button" class="symptom-reveal-btn">Mostra progressivamente</button>
+    </div>
 <div class="metric-grid">
       <div class="metric-card danger"><span>❤️</span><b>FC 125</b><small>Tachicardia</small></div>
       <div class="metric-card"><span>🩺</span><b>PA 95/60</b><small>Perfusione da monitorare</small></div>
@@ -4032,9 +5858,12 @@ body, body *{
     </div>
     <p class="narr">L’infermiera indaga con delicatezza l’assunzione della terapia. La madre riferisce che alcune dosi pomeridiane potrebbero essere state dimenticate durante la scuola. In una paziente retrapiantata, la mancata aderenza alla terapia immunosoppressiva rappresenta un segnale estremamente rilevante.</p>
     
-    <div class="reveal-control"><span><span class="pulse-dot"></span> Modalità docente: fai uscire gli segni e sintomi progressivamente</span><button class="reveal-btn" type="button">Mostra prossimo segni e sintomio</button></div>
+    <div class="reveal-control"><span><span class="pulse-dot"></span> </span><button class="reveal-btn" type="button"></button></div>
     
-    <div class="clinical-label-clean">🩺 Segni e sintomi</div>
+    <div class="symptom-reveal-bar">
+      <span>🩺 Segni e sintomi</span>
+      <button type="button" class="symptom-reveal-btn">Mostra progressivamente</button>
+    </div>
 <div class="info-grid"><div class="info-card"><span>💊</span>Tacrolimus</div><div class="info-card"><span>🛡️</span>Protezione del graft</div><div class="info-card"><span>⏱️</span>Orari regolari</div><div class="info-card"><span>🚩</span>Dosi dimenticate</div></div>
     <div class="quiz">
       <h3>Perché questo dato è critico?</h3>
@@ -4063,7 +5892,10 @@ body, body *{
     <div class="scene-top"><div><div class="tag">SCENA 06 · ESAMI</div><h2>Esami ematici urgenti</h2></div><div class="alert-pill">🧪 BNP ↑ · Tac ↓</div></div>
     <p class="narr">Gli esami mostrano BNP elevato e Tacrolimus sotto range. La PCR è negativa e l’emocromo non orienta verso un quadro infettivo evidente.</p>
     
-    <div class="clinical-label-clean">🩺 Segni e sintomi</div>
+    <div class="symptom-reveal-bar">
+      <span>🩺 Segni e sintomi</span>
+      <button type="button" class="symptom-reveal-btn">Mostra progressivamente</button>
+    </div>
 <div class="metric-grid">
       <div class="metric-card danger"><span>🧪</span><b>BNP 1980</b><small>Stress cardiaco</small></div>
       <div class="metric-card danger"><span>💊</span><b>Tac 1.9</b><small>Sotto range</small></div>
@@ -4085,22 +5917,103 @@ body, body *{
 
 
 <section class="slide smart-scene" data-index="7">
-  <div class="image-box smart-left">
-    <div class="artifact-title">🫀 ECOCARDIOGRAMMA TRANSTORACICO</div>
-    <div class="echo-viewer">
-      <div class="echo-black">
-        <div class="echo-meta left">Adult Echo<br>S5-1<br>20Hz<br>2D</div>
-        <div class="echo-meta right">TIS 0.7&nbsp;&nbsp; MI 1.4<br><br>FE 35%<br>GLS -10%</div>
-        <div class="echo-sector"><div class="echo-heart-shape"></div><div class="echo-doppler red"></div><div class="echo-doppler blue"></div><div class="echo-scan-line"></div></div>
-        <div class="echo-ecg"></div>
-        <div class="echo-controls"><span>▶</span><div><i></i></div><b>00:06 / 00:12</b></div>
+  
+  
+  <div class="image-box smart-left echo-real-left">
+    <div class="svg-echo-monitor">
+      <div class="svg-echo-top">
+        <span>ECHOCARDIOGRAMMA TRANSTORACICO · A4C</span>
+        <span>LIVE LOOP · DISFUNZIONE VS</span>
+      </div>
+
+      <svg class="echo-svg" viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Loop ecocardiografico simulato con frazione di eiezione ridotta">
+        <defs>
+          <clipPath id="sectorClip">
+            <path d="M450 38 L815 560 L85 560 Z"></path>
+          </clipPath>
+          <radialGradient id="speckle" cx="50%" cy="15%" r="95%">
+            <stop offset="0%" stop-color="#eef7ff" stop-opacity=".38"/>
+            <stop offset="45%" stop-color="#9ab4c9" stop-opacity=".22"/>
+            <stop offset="100%" stop-color="#0a1424" stop-opacity=".04"/>
+          </radialGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="4" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+
+        <rect width="900" height="620" rx="28" fill="#020814"/>
+        <g clip-path="url(#sectorClip)">
+          <rect x="70" y="25" width="760" height="555" fill="url(#speckle)"/>
+          <g opacity=".28">
+            <circle cx="450" cy="38" r="70" fill="none" stroke="#dbeafe" stroke-width="5"/>
+            <circle cx="450" cy="38" r="115" fill="none" stroke="#dbeafe" stroke-width="5"/>
+            <circle cx="450" cy="38" r="160" fill="none" stroke="#dbeafe" stroke-width="5"/>
+            <circle cx="450" cy="38" r="205" fill="none" stroke="#dbeafe" stroke-width="5"/>
+            <circle cx="450" cy="38" r="250" fill="none" stroke="#dbeafe" stroke-width="5"/>
+            <circle cx="450" cy="38" r="295" fill="none" stroke="#dbeafe" stroke-width="5"/>
+            <circle cx="450" cy="38" r="340" fill="none" stroke="#dbeafe" stroke-width="5"/>
+            <circle cx="450" cy="38" r="385" fill="none" stroke="#dbeafe" stroke-width="5"/>
+            <circle cx="450" cy="38" r="430" fill="none" stroke="#dbeafe" stroke-width="5"/>
+          </g>
+          <g class="echo-speckles" opacity=".40">
+            <circle cx="280" cy="360" r="2" fill="#ffffff"/><circle cx="310" cy="405" r="1.7" fill="#dff7ff"/>
+            <circle cx="525" cy="370" r="2" fill="#ffffff"/><circle cx="590" cy="440" r="1.8" fill="#dff7ff"/>
+            <circle cx="430" cy="310" r="1.8" fill="#ffffff"/><circle cx="490" cy="465" r="2.1" fill="#dff7ff"/>
+            <circle cx="360" cy="500" r="1.6" fill="#ffffff"/><circle cx="640" cy="520" r="1.9" fill="#ffffff"/>
+          </g>
+
+          <g class="heart-loop" filter="url(#glow)">
+            <ellipse cx="450" cy="405" rx="112" ry="78" fill="rgba(210,235,255,.28)" stroke="rgba(240,250,255,.70)" stroke-width="6"/>
+            <ellipse cx="448" cy="410" rx="58" ry="86" fill="rgba(2,8,20,.62)" stroke="rgba(240,250,255,.58)" stroke-width="4"/>
+            <path d="M394 380 C430 345 500 345 535 382" fill="none" stroke="rgba(240,250,255,.42)" stroke-width="5"/>
+            <path d="M370 425 C410 465 500 470 540 425" fill="none" stroke="rgba(240,250,255,.34)" stroke-width="5"/>
+          </g>
+
+          <g class="doppler-loop" opacity=".83">
+            <ellipse cx="480" cy="418" rx="55" ry="38" fill="#ef4444" opacity=".78"/>
+            <ellipse cx="425" cy="432" rx="54" ry="42" fill="#2563eb" opacity=".78"/>
+            <ellipse cx="455" cy="410" rx="32" ry="22" fill="#f97316" opacity=".55"/>
+          </g>
+
+          <line class="scanline-svg" x1="450" y1="38" x2="450" y2="585" stroke="#6be4ff" stroke-width="3" opacity=".9"/>
+        </g>
+
+        <path d="M450 38 L815 560 L85 560 Z" fill="none" stroke="#7aa4c8" stroke-opacity=".40" stroke-width="3"/>
+
+        <text x="28" y="42" fill="#fff" font-size="23" font-family="monospace" font-weight="800">Pediatric Echo</text>
+        <text x="28" y="72" fill="#fff" font-size="19" font-family="monospace">A4C · 2D/Color</text>
+        <text x="28" y="101" fill="#fff" font-size="19" font-family="monospace">Depth 14 cm</text>
+        <text x="28" y="130" fill="#fff" font-size="19" font-family="monospace">HR 125 bpm</text>
+
+        <text x="760" y="42" text-anchor="end" fill="#fff" font-size="20" font-family="monospace">FE Simpson</text>
+        <text x="760" y="84" text-anchor="end" fill="#ff416c" font-size="42" font-family="monospace" font-weight="900">35%</text>
+        <text x="760" y="122" text-anchor="end" fill="#fff" font-size="20" font-family="monospace">GLS -10%</text>
+        <text x="760" y="154" text-anchor="end" fill="#fff" font-size="20" font-family="monospace">VS dilatato</text>
+        <text x="760" y="186" text-anchor="end" fill="#fff" font-size="20" font-family="monospace">Ipocinesia globale</text>
+
+        <polyline class="ecg-svg" points="40,585 80,585 94,550 110,602 128,585 180,585 195,565 214,585 270,585 310,585 324,548 340,603 358,585 418,585 435,562 455,585 520,585 560,585 575,550 592,602 610,585 670,585 688,565 708,585 780,585 820,585 835,550 850,602 870,585"
+          fill="none" stroke="#43e0a9" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+
+      <div class="svg-echo-footer">
+        <b>Conclusione:</b> FE 35%, ventricolo sinistro dilatato, ipocinesia globale. Integrare con clinica, BNP, Tacrolimus e biopsia.
       </div>
     </div>
-    <div class="smart-prompt">Osserva attentamente il video ecocardiografico e rispondi alla domanda.</div>
   </div>
+
+
   <div class="text-box smart-right">
     <div class="scene-top"><div><div class="tag">SCENA 07 · ECOCARDIOGRAMMA</div><h2>Ecocardiogramma</h2></div><div class="alert-pill">📉 FE 35%</div></div>
-    <div class="metric-grid four">
+    
+    <div class="symptom-reveal-bar">
+      <span>🩺 Segni e sintomi</span>
+      <button type="button" class="symptom-reveal-btn">Mostra progressivamente</button>
+    </div>
+<div class="metric-grid four">
       <div class="metric-card danger"><span>🫀</span><b>FE ridotta</b><small>35%</small></div>
       <div class="metric-card"><span>📊</span><b>Dilatazione VS</b><small>Sì</small></div>
       <div class="metric-card"><span>〰️</span><b>Ipocinesia</b><small>Globale</small></div>
@@ -4119,11 +6032,252 @@ body, body *{
   </div>
 </section>
 
+<section class="slide smart-scene dh-steroid-scene" data-index="8">
+  <div class="image-box smart-left">
+    <div class="dh-therapy-board day1">
+      <div class="dh-board-head">
+        <div><b>DAY HOSPITAL CARDIO-TRAPIANTI</b><small>Giorno 1 · trattamento corticosteroideo EV</small></div>
+        <span>DH 1/3</span>
+      </div>
+      <div class="dh-prescription">
+        <h3>📋 Prescrizione specialistica</h3>
+        <div class="dh-rx-row red"><b>Metilprednisolone EV</b><span>Bolo EV secondo protocollo del Centro Trapianti</span></div>
+        <div class="dh-rx-row"><b>Monitoraggio pre/post bolo</b><span>PA · FC · FR · SpO₂ · glicemia · temperatura</span></div>
+        <div class="dh-rx-row"><b>Bilancio e congestione</b><span>Peso · diuresi · edemi · dispnea · ortopnea</span></div>
+        <div class="dh-rx-row amber"><b>Sicurezza</b><span>Rischio ipertensione, iperglicemia, infezione, peggioramento emodinamico</span></div>
+      </div>
+      <div class="dh-mini-monitor">
+        <div><label>FC</label><strong>118</strong><small>bpm</small></div>
+        <div><label>PA</label><strong>100/65</strong><small>mmHg</small></div>
+        <div><label>SpO₂</label><strong>95</strong><small>%</small></div>
+        <div><label>Peso</label><strong>+2.3</strong><small>kg</small></div>
+      </div>
+      <div class="dh-note"><b>Obiettivo didattico</b><p>Ridurre infiammazione/edema miocardico associato al sospetto rigetto e osservare la risposta clinica.</p></div>
+    </div>
+  </div>
+  <div class="text-box smart-right">
+    <div class="scene-top">
+      <div><div class="tag">SCENA 08 · DH GIORNO 1</div><h2>Trattamento in Day Hospital</h2></div>
+      <div class="alert-pill">💉 Bolo EV</div>
+    </div>
+    <p class="narr">Dopo l’ecocardiogramma, il team decide un trattamento corticosteroideo EV in Day Hospital Cardio-Trapianti per tre giorni consecutivi, con rivalutazione clinica quotidiana.</p>
+    <div class="symptom-reveal-bar"><span>🩺 Segni e sintomi</span><button type="button" class="symptom-reveal-btn">Mostra progressivamente</button></div>
+    <div class="metric-grid">
+      <div class="metric-card warn"><span>😓</span><b>Stanchezza</b><small>persistente</small></div>
+      <div class="metric-card danger"><span>🛏️</span><b>Ortopnea</b><small>non risolta</small></div>
+      <div class="metric-card danger"><span>⚖️</span><b>Peso ↑</b><small>ritenzione</small></div>
+      <div class="metric-card"><span>💉</span><b>Steroide EV</b><small>dose 1/3</small></div>
+    </div>
+    <div class="clinical-message"><b>Ragionamento clinico</b><p>Il trattamento non è “solo una somministrazione”: richiede monitoraggio della risposta, sicurezza farmacologica e identificazione precoce del peggioramento.</p></div>
+    <div class="quiz">
+      <h3>Quale monitoraggio è prioritario durante il bolo EV di corticosteroide?</h3>
+      <div class="answers">
+        <button class="answer" data-correct="false">Solo la temperatura a fine trattamento</button>
+        <button class="answer" data-correct="true">Parametri vitali, glicemia, bilancio, sintomi e risposta clinica</button>
+        <button class="answer" data-correct="false">Solo il dolore in sede di accesso venoso</button>
+      </div>
+      <div class="feedback" data-feedback="Corretto: il bolo EV richiede monitoraggio clinico e di sicurezza." data-rationale="Nel paziente trapiantato il bolo corticosteroideo richiede controllo di parametri, glicemia, bilancio idrico, segni di congestione e risposta clinica."></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide smart-scene dh-steroid-scene" data-index="9">
+  <div class="image-box smart-left">
+    <div class="dh-therapy-board day2">
+      <div class="dh-board-head">
+        <div><b>DAY HOSPITAL CARDIO-TRAPIANTI</b><small>Giorno 2 · rivalutazione dopo primo bolo</small></div>
+        <span>DH 2/3</span>
+      </div>
+      <div class="dh-trend">
+        <h3>📈 Trend clinico 24 ore</h3>
+        <div class="trend-row"><label>FC</label><i style="--v:70%"></i><b>122 bpm</b></div>
+        <div class="trend-row"><label>FR</label><i style="--v:62%"></i><b>28/min</b></div>
+        <div class="trend-row"><label>Peso</label><i style="--v:86%"></i><b>+2.5 kg</b></div>
+        <div class="trend-row"><label>Diuresi</label><i style="--v:38%"></i><b>ridotta</b></div>
+      </div>
+      <div class="dh-prescription compact">
+        <div class="dh-rx-row red"><b>Metilprednisolone EV</b><span>Secondo bolo EV</span></div>
+        <div class="dh-rx-row amber"><b>Rivalutazione ravvicinata</b><span>Il miglioramento clinico non è evidente</span></div>
+        <div class="dh-rx-row"><b>Educazione breve</b><span>Red flags da riferire immediatamente</span></div>
+      </div>
+      <div class="dh-note amber"><b>Alert di traiettoria</b><p>I parametri non precipitano, ma il trend non migliora: il docente può far ragionare gli studenti sul concetto di “peggioramento silenzioso”.</p></div>
+    </div>
+  </div>
+  <div class="text-box smart-right">
+    <div class="scene-top">
+      <div><div class="tag">SCENA 09 · DH GIORNO 2</div><h2>Risposta clinica non convincente</h2></div>
+      <div class="alert-pill">📈 Trend</div>
+    </div>
+    <p class="narr">Martina torna per il secondo bolo. Riferisce ancora affaticamento e dispnea al minimo sforzo. La madre nota che durante la notte ha dormito quasi seduta.</p>
+    <div class="symptom-reveal-bar"><span>🩺 Segni e sintomi</span><button type="button" class="symptom-reveal-btn">Mostra progressivamente</button></div>
+    <div class="metric-grid">
+      <div class="metric-card danger"><span>❤️</span><b>FC 122</b><small>persistente</small></div>
+      <div class="metric-card warn"><span>🫁</span><b>FR 28</b><small>dispnea</small></div>
+      <div class="metric-card danger"><span>⚖️</span><b>+2.5 kg</b><small>peggiora</small></div>
+      <div class="metric-card warn"><span>🚽</span><b>Diuresi ↓</b><small>attenzione</small></div>
+    </div>
+    <div class="clinical-message"><b>Ragionamento clinico</b><p>L’assenza di miglioramento dopo il primo bolo deve aumentare la sorveglianza: il rischio non si misura solo dal valore assoluto, ma dalla traiettoria.</p></div>
+    <div class="quiz">
+      <h3>Qual è l’elemento più preoccupante al Giorno 2?</h3>
+      <div class="answers">
+        <button class="answer" data-correct="false">La presenza di un accesso venoso periferico</button>
+        <button class="answer" data-correct="true">Il mancato miglioramento del trend clinico e l’aumento del peso</button>
+        <button class="answer" data-correct="false">La temperatura normale</button>
+      </div>
+      <div class="feedback" data-feedback="Corretto: il trend non migliora e il peso aumenta." data-rationale="Nel sospetto rigetto/disfunzione del graft, la traiettoria clinica è fondamentale: peso in aumento, tachicardia e diuresi ridotta richiedono sorveglianza ravvicinata."></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide smart-scene trend-rejection-scene" data-index="10">
+  <div class="image-box smart-left">
+    <div class="trend-dashboard">
+      <div class="trend-head">
+        <div>
+          <b>📈 TREND CLINICO DH · GIORNO 1 → GIORNO 2</b>
+          <small>Parametri da attenzionare nel sospetto rigetto/disfunzione del graft</small>
+        </div>
+        <span>Pattern in peggioramento</span>
+      </div>
+
+      <div class="trend-chart">
+        <svg viewBox="0 0 920 430" preserveAspectRatio="none" aria-label="Grafico trend parametri day hospital">
+          <defs>
+            <linearGradient id="dangerGrad" x1="0" x2="1">
+              <stop offset="0%" stop-color="#ffb22c"/>
+              <stop offset="100%" stop-color="#ff416c"/>
+            </linearGradient>
+            <linearGradient id="safeGrad" x1="0" x2="1">
+              <stop offset="0%" stop-color="#6be4ff"/>
+              <stop offset="100%" stop-color="#2f80ed"/>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="920" height="430" rx="28" fill="#ffffff"/>
+          <g class="grid-lines">
+            <line x1="90" y1="70" x2="850" y2="70"/><line x1="90" y1="140" x2="850" y2="140"/>
+            <line x1="90" y1="210" x2="850" y2="210"/><line x1="90" y1="280" x2="850" y2="280"/>
+            <line x1="90" y1="350" x2="850" y2="350"/>
+          </g>
+          <text x="180" y="395" class="axis-label">Giorno 1</text>
+          <text x="710" y="395" class="axis-label">Giorno 2</text>
+          <line x1="180" y1="60" x2="180" y2="360" class="axis-day"/>
+          <line x1="710" y1="60" x2="710" y2="360" class="axis-day"/>
+
+          <polyline points="180,190 710,160" class="trend-line red-line"/>
+          <circle cx="180" cy="190" r="10" class="dot red-dot"/><circle cx="710" cy="160" r="10" class="dot red-dot"/>
+          <text x="112" y="194" class="label-red">FC 118</text><text x="725" y="164" class="label-red">FC 122</text>
+
+          <polyline points="180,220 710,195" class="trend-line orange-line"/>
+          <circle cx="180" cy="220" r="10" class="dot orange-dot"/><circle cx="710" cy="195" r="10" class="dot orange-dot"/>
+          <text x="106" y="224" class="label-orange">FR 26</text><text x="725" y="199" class="label-orange">FR 28</text>
+
+          <polyline points="180,250 710,230" class="trend-line red-line"/>
+          <circle cx="180" cy="250" r="10" class="dot red-dot"/><circle cx="710" cy="230" r="10" class="dot red-dot"/>
+          <text x="102" y="254" class="label-red">Peso +2.3</text><text x="725" y="234" class="label-red">Peso +2.5</text>
+
+          <polyline points="180,275 710,318" class="trend-line blue-line"/>
+          <circle cx="180" cy="275" r="10" class="dot blue-dot"/><circle cx="710" cy="318" r="10" class="dot blue-dot"/>
+          <text x="96" y="279" class="label-blue">Diuresi 0.8</text><text x="725" y="322" class="label-blue">Diuresi 0.6</text>
+
+          <rect x="575" y="72" width="260" height="78" rx="20" fill="#fff3f5" stroke="#ffc6d1"/>
+          <text x="600" y="104" class="warning-title">⚠️ Dati convergenti</text>
+          <text x="600" y="130" class="warning-text">FC ↑ · FR ↑ · peso ↑ · diuresi ↓</text>
+        </svg>
+      </div>
+
+      <div class="trend-legend">
+        <div><span class="legend-dot red"></span><b>FC / peso</b><small>aumento progressivo</small></div>
+        <div><span class="legend-dot orange"></span><b>FR</b><small>dispnea persistente</small></div>
+        <div><span class="legend-dot blue"></span><b>Diuresi</b><small>riduzione da attenzionare</small></div>
+        <div><span class="legend-dot green"></span><b>Decisione</b><small>aumentare sorveglianza</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-box smart-right">
+    <div class="scene-top">
+      <div><div class="tag">SCENA 10 · TREND DH</div><h2>Il trend anticipa il peggioramento</h2></div>
+      <div class="alert-pill">📈 Pattern recognition</div>
+    </div>
+    <p class="narr">Dopo due accessi in Day Hospital non emerge un miglioramento clinico convincente. I parametri non sono ancora drammatici, ma la loro direzione è coerente con congestione e possibile disfunzione del graft.</p>
+    <div class="symptom-reveal-bar"><span>🩺 Dati da attenzionare</span><button type="button" class="symptom-reveal-btn">Mostra progressivamente</button></div>
+    <div class="metric-grid">
+      <div class="metric-card danger"><span>❤️</span><b>FC ↑</b><small>118 → 122 bpm</small></div>
+      <div class="metric-card warn"><span>🫁</span><b>FR ↑</b><small>26 → 28/min</small></div>
+      <div class="metric-card danger"><span>⚖️</span><b>Peso ↑</b><small>+2.3 → +2.5 kg</small></div>
+      <div class="metric-card danger"><span>🚽</span><b>Diuresi ↓</b><small>0.8 → 0.6 ml/kg/h</small></div>
+    </div>
+    <div class="clinical-message"><b>Ragionamento clinico</b><p>Nel sospetto rigetto, la traiettoria vale più della fotografia: piccoli peggioramenti coerenti tra loro devono aumentare il livello di attenzione.</p></div>
+    <div class="quiz">
+      <h3>Quale interpretazione del trend è più corretta?</h3>
+      <div class="answers">
+        <button class="answer" data-correct="false">Il quadro è rassicurante perché i valori non sono ancora estremi</button>
+        <button class="answer" data-correct="true">Il trend è sfavorevole e richiede maggiore sorveglianza</button>
+        <button class="answer" data-correct="false">Il peso non è utile nel follow-up cardiologico</button>
+      </div>
+      <div class="feedback" data-feedback="Corretto: il trend è sfavorevole." data-rationale="FC e FR in aumento, peso in crescita e diuresi in riduzione sono dati convergenti che nel trapiantato devono far aumentare la sorveglianza."></div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="slide smart-scene dh-deterioration-scene" data-index="11">
+  <div class="image-box smart-left">
+    <div class="critical-monitor">
+      <div class="critical-top">
+        <span>MONITOR DH CARDIO-TRAPIANTI · GIORNO 3</span>
+        <strong>ALLARME ROSSO</strong>
+      </div>
+      <div class="critical-screen">
+        <div class="crit-param red"><label>FC</label><strong>148</strong><small>bpm</small></div>
+        <div class="crit-param red"><label>PA</label><strong>82/48</strong><small>mmHg</small></div>
+        <div class="crit-param red"><label>SpO₂</label><strong>89</strong><small>% AA</small></div>
+        <div class="crit-param amber"><label>FR</label><strong>36</strong><small>/min</small></div>
+        <div class="crit-param red"><label>Diuresi</label><strong>0.4</strong><small>ml/kg/h</small></div>
+        <div class="crit-param amber"><label>Lattato</label><strong>3.2</strong><small>mmol/L</small></div>
+        <div class="critical-ecg">
+          <svg viewBox="0 0 900 120" preserveAspectRatio="none">
+            <polyline class="crit-ecg-line" points="0,72 35,72 45,30 58,98 75,72 110,72 124,45 140,72 178,72 210,72 220,24 235,104 252,72 290,72 305,42 320,72 370,72 398,72 410,28 428,106 445,72 480,72 495,48 512,72 558,72 590,72 600,28 615,105 632,72 668,72 686,42 704,72 750,72 780,72 792,26 810,104 828,72 865,72 882,42 900,72" />
+          </svg>
+        </div>
+        <div class="alarm-banner">⚠️ Peggioramento emodinamico: attivare ricovero urgente</div>
+      </div>
+    </div>
+  </div>
+  <div class="text-box smart-right">
+    <div class="scene-top">
+      <div><div class="tag">SCENA 10 · DH GIORNO 3</div><h2>Peggioramento clinico improvviso</h2></div>
+      <div class="alert-pill">🚨 Urgenza</div>
+    </div>
+    <p class="narr">Durante il terzo accesso in Day Hospital, prima del bolo EV, Martina appare più pallida, dispnoica, sudata e riferisce senso di “cuore che corre”. Il monitor mostra valori di allarme.</p>
+    <div class="symptom-reveal-bar"><span>🩺 Segni e sintomi</span><button type="button" class="symptom-reveal-btn">Mostra progressivamente</button></div>
+    <div class="metric-grid">
+      <div class="metric-card danger"><span>❤️</span><b>FC 148</b><small>tachicardia</small></div>
+      <div class="metric-card danger"><span>🩸</span><b>PA 82/48</b><small>ipotensione</small></div>
+      <div class="metric-card danger"><span>🫁</span><b>SpO₂ 89%</b><small>desaturazione</small></div>
+      <div class="metric-card danger"><span>🚽</span><b>Diuresi ↓</b><small>ipoperfusione</small></div>
+    </div>
+    <div class="clinical-message danger-message"><b>Decisione assistenziale</b><p>Il quadro non è più compatibile con trattamento ambulatoriale: serve attivazione del team, stabilizzazione e ricovero urgente.</p></div>
+    <div class="quiz">
+      <h3>Qual è la decisione più appropriata?</h3>
+      <div class="answers">
+        <button class="answer" data-correct="false">Somministrare il bolo e dimettere se la paziente si sente meglio</button>
+        <button class="answer" data-correct="true">Attivare il team, monitorizzare, stabilizzare e ricoverare urgentemente</button>
+        <button class="answer" data-correct="false">Rinviare il controllo al giorno successivo</button>
+      </div>
+      <div class="feedback" data-feedback="Corretto: i valori giustificano ricovero urgente." data-rationale="Tachicardia marcata, ipotensione, desaturazione, lattato elevato e oliguria indicano possibile instabilità emodinamica/ipoperfusione. Il trattamento ambulatoriale non è sicuro."></div>
+    </div>
+  </div>
+</section>
 
 
 
 
-<section class="slide" data-index="8">
+
+
+
+<section class="slide" data-index="12">
   <div class="image-box">
     <div class="scene-img f8"></div>
     <div class="image-label">📷 8/12</div>
@@ -4138,9 +6292,12 @@ body, body *{
     </div>
     <p class="narr">Martina viene ricoverata in Cardiologia Pediatrica. Vengono avviati monitoraggio ECG continuo, controllo della saturazione, PA seriata, bilancio idrico accurato, peso quotidiano, terapia diuretica e rivalutazione dell’immunosoppressione.</p>
     
-    <div class="reveal-control"><span><span class="pulse-dot"></span> Modalità docente: fai uscire gli segni e sintomi progressivamente</span><button class="reveal-btn" type="button">Mostra prossimo segni e sintomio</button></div>
+    <div class="reveal-control"><span><span class="pulse-dot"></span> </span><button class="reveal-btn" type="button"></button></div>
     
-    <div class="clinical-label-clean">🩺 Segni e sintomi</div>
+    <div class="symptom-reveal-bar">
+      <span>🩺 Segni e sintomi</span>
+      <button type="button" class="symptom-reveal-btn">Mostra progressivamente</button>
+    </div>
 <div class="info-grid"><div class="info-card"><span>📟</span>ECG continuo</div><div class="info-card"><span>💧</span>Bilancio idrico</div><div class="info-card"><span>⚖️</span>Peso quotidiano</div><div class="info-card"><span>🫁</span>SpO₂ e FR</div></div>
     <div class="quiz">
       <h3>Quale monitoraggio infermieristico è prioritario?</h3>
@@ -4152,7 +6309,7 @@ body, body *{
 
 
 
-<section class="slide smart-scene" data-index="9">
+<section class="slide smart-scene" data-index="13">
   <div class="image-box smart-left">
     <div class="artifact-title">📄 REFERTO ISTOLOGICO – BIOPSIA ENDOMIOCARDICA</div>
     <div class="pathology-report">
@@ -4169,7 +6326,12 @@ body, body *{
   <div class="text-box smart-right">
     <div class="scene-top"><div><div class="tag">SCENA 09 · BIOPSIA</div><h2>Biopsia endomiocardica</h2></div><div class="alert-pill">🔬 Diagnosi</div></div>
     <p class="narr">Il referto della biopsia conferma il sospetto clinico: rigetto cellulare acuto di grado ISHLT 2R.</p>
-    <div class="metric-grid four">
+    
+    <div class="symptom-reveal-bar">
+      <span>🩺 Segni e sintomi</span>
+      <button type="button" class="symptom-reveal-btn">Mostra progressivamente</button>
+    </div>
+<div class="metric-grid four">
       <div class="metric-card"><span>🧫</span><b>Rigetto cellulare</b><small>Infiltrato linfocitario</small></div>
       <div class="metric-card danger"><span>2R</span><b>Grado ISHLT</b><small>Moderato</small></div>
       <div class="metric-card"><span>🫀</span><b>Graft coinvolto</b><small>Danno miocitario</small></div>
@@ -4187,22 +6349,61 @@ body, body *{
 
 
 
-<section class="slide smart-scene" data-index="10">
+<section class="slide smart-scene" data-index="14">
+  
   <div class="image-box smart-left">
-    <div class="artifact-title">💉 PRESCRIZIONE E MONITORAGGIO</div>
-    <div class="therapy-board">
-      <div class="therapy-row red"><span>💉</span><div><b>Metilprednisolone EV</b><small>bolo secondo prescrizione specialistica</small></div></div>
-      <div class="therapy-row"><span>💊</span><div><b>Ottimizzazione Tacrolimus</b><small>controllo livelli e aderenza</small></div></div>
-      <div class="therapy-row"><span>📟</span><div><b>Monitor ECG e parametri</b><small>trend FC, PA, FR, SpO₂</small></div></div>
-      <div class="therapy-row"><span>💧</span><div><b>Bilancio idrico</b><small>introiti, diuresi, peso quotidiano</small></div></div>
-      <div class="therapy-row amber"><span>🫘</span><div><b>Sorveglianza sicurezza</b><small>glicemia, pressione, funzione renale</small></div></div>
+    <div class="therapy-sheet">
+      <div class="therapy-sheet-head">
+        <b>💉 Scheda terapia · fase acuta</b>
+        <span>Prescrizione specialistica</span>
+      </div>
+      <table class="med-table">
+        <thead>
+          <tr><th>Farmaco / Azione</th><th>Obiettivo</th><th>Monitoraggio infermieristico</th></tr>
+        </thead>
+        <tbody>
+          <tr class="high">
+            <td>Metilprednisolone EV</td>
+            <td>Trattamento antirigetto</td>
+            <td>PA, glicemia, temperatura, segni infettivi</td>
+          </tr>
+          <tr>
+            <td>Tacrolimus</td>
+            <td>Raggiungere target terapeutico</td>
+            <td>Livelli C0, creatinina, aderenza, interazioni</td>
+          </tr>
+          <tr>
+            <td>Micofenolato</td>
+            <td>Immunosoppressione di mantenimento</td>
+            <td>Emocromo, disturbi GI, rischio infettivo</td>
+          </tr>
+          <tr class="monitor">
+            <td>Bilancio idrico</td>
+            <td>Controllo congestione</td>
+            <td>Diuresi, peso quotidiano, edemi, introiti</td>
+          </tr>
+          <tr class="monitor">
+            <td>Monitor ECG + parametri</td>
+            <td>Sicurezza clinica</td>
+            <td>FC, PA, FR, SpO₂, aritmie, peggioramento</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="therapy-note">
+        <span>🧠</span>
+        <div><b>Focus infermieristico</b><small>La terapia antirigetto richiede sorveglianza continua: efficacia, sicurezza, effetti collaterali e comunicazione tempestiva al team.</small></div>
+      </div>
     </div>
   </div>
+
   <div class="text-box smart-right">
     <div class="scene-top"><div><div class="tag">SCENA 10 · TERAPIA</div><h2>Trattamento antirigetto</h2></div><div class="alert-pill">💉 Terapia</div></div>
     <p class="narr">Viene avviato trattamento antirigetto secondo prescrizione specialistica, con metilprednisolone EV e ottimizzazione dell’immunosoppressione. Il monitoraggio infermieristico diventa centrale.</p>
     
-    <div class="clinical-label-clean">🩺 Segni e sintomi</div>
+    <div class="symptom-reveal-bar">
+      <span>🩺 Segni e sintomi</span>
+      <button type="button" class="symptom-reveal-btn">Mostra progressivamente</button>
+    </div>
 <div class="metric-grid">
       <div class="metric-card danger"><span>💉</span><b>Steroidi EV</b><small>fase acuta</small></div>
       <div class="metric-card"><span>💊</span><b>Tacrolimus</b><small>target terapeutico</small></div>
@@ -4219,11 +6420,27 @@ body, body *{
 </section>
 
 
-<section class="slide" data-index="11">
-  <div class="image-box">
-    <div class="scene-img f11"></div>
-    <div class="image-label">📷 11/12</div>
+<section class="slide" data-index="15">
+  
+  <div class="image-box smart-left">
+    <div class="teachback-card">
+      <div class="teachback-head"><span>🗣️</span>Teach-back alla dimissione</div>
+      <div class="dialogue">
+        <div class="bubble nurse"><b>Infermiere:</b> “Martina torna a casa. Mi raccontate con parole vostre quando dovete chiamare subito il Centro Trapianti?”</div>
+        <div class="bubble family"><b>Famiglia:</b> “Se aumenta rapidamente di peso, se ha fiato corto, se dorme con più cuscini o compaiono edemi.”</div>
+        <div class="bubble nurse"><b>Infermiere:</b> “Perfetto. E cosa fate se dimentica una dose di Tacrolimus?”</div>
+        <div class="bubble family"><b>Famiglia:</b> “Non modifichiamo da soli la terapia: contattiamo il Centro e seguiamo le indicazioni ricevute.”</div>
+        <div class="bubble nurse"><b>Infermiere:</b> “Ottimo. Qual è il vostro piano per evitare dimenticanze?”</div>
+        <div class="bubble family"><b>Martina:</b> “Uso organizzatore terapeutico, sveglia sul telefono e controllo con mamma la terapia della sera.”</div>
+      </div>
+      <div class="teachback-check">
+        <div>✅ Red flags riconosciute</div>
+        <div>✅ Terapia compresa</div>
+        <div>✅ Piano pratico definito</div>
+      </div>
+    </div>
   </div>
+
   <div class="text-box">
     <div class="scene-top">
       <div>
@@ -4232,12 +6449,15 @@ body, body *{
       </div>
       <div class="alert-pill">🎓 Counselling</div>
     </div>
-    <p class="narr">Prima della dimissione l’infermiere rinforza l’importanza dell’aderenza terapeutica, del monitoraggio del peso, del riconoscimento precoce di dispnea, ortopnea, edema, stanchezza anomala e riduzione dell’appetito. Martina e la madre costruiscono una strategia con promemoria, pilloliera e comunicazione con la scuola.</p>
+    <p class="narr">Prima della dimissione l’infermiere rinforza l’importanza dell’aderenza terapeutica, del monitoraggio del peso, del riconoscimento precoce di dispnea, ortopnea, edema, stanchezza anomala e riduzione dell’appetito. Martina e la madre costruiscono una strategia con promemoria, organizzatore terapeutico e comunicazione con la scuola.</p>
     
-    <div class="reveal-control"><span><span class="pulse-dot"></span> Modalità docente: fai uscire gli segni e sintomi progressivamente</span><button class="reveal-btn" type="button">Mostra prossimo segni e sintomio</button></div>
+    <div class="reveal-control"><span><span class="pulse-dot"></span> </span><button class="reveal-btn" type="button"></button></div>
     
-    <div class="clinical-label-clean">🩺 Segni e sintomi</div>
-<div class="info-grid"><div class="info-card"><span>⏰</span>Allarme farmaci</div><div class="info-card"><span>📦</span>Pilloliera</div><div class="info-card"><span>⚖️</span>Peso quotidiano</div><div class="info-card"><span>📞</span>Contatto Centro</div></div>
+    <div class="symptom-reveal-bar">
+      <span>🩺 Segni e sintomi</span>
+      <button type="button" class="symptom-reveal-btn">Mostra progressivamente</button>
+    </div>
+<div class="info-grid"><div class="info-card"><span>⏰</span>Allarme farmaci</div><div class="info-card"><span>📦</span>Organizzatore terapeutico</div><div class="info-card"><span>⚖️</span>Peso quotidiano</div><div class="info-card"><span>📞</span>Contatto Centro</div></div>
     <div class="quiz">
       <h3>Quale messaggio educativo è più importante?</h3>
       <div class="answers"><button class="answer" data-correct="false">Sospendere i controlli se Martina sta meglio</button><button class="answer" data-correct="true">Non saltare la terapia e avvisare il Centro se compaiono segni di scompenso</button><button class="answer" data-correct="false">Pesarsi solo quando gli edemi sono importanti</button></div>
@@ -4247,7 +6467,7 @@ body, body *{
 </section>
 
 
-<section class="slide smart-scene" data-index="12">
+<section class="slide smart-scene" data-index="16">
   <div class="image-box smart-left">
     <div class="artifact-title">📈 TIMELINE CLINICA</div>
     <div class="timeline-card">
@@ -4266,7 +6486,10 @@ body, body *{
     <div class="scene-top"><div><div class="tag">SCENA 12 · OUTCOME</div><h2>Dimissione e badge finale</h2></div><div class="alert-pill">🏆 Competenza</div></div>
     <p class="narr">Martina migliora progressivamente: si riducono dispnea ed edemi, il peso torna verso il baseline e la famiglia riceve indicazioni per riconoscere precocemente i segni di allarme.</p>
     
-    <div class="clinical-label-clean">🩺 Segni e sintomi</div>
+    <div class="symptom-reveal-bar">
+      <span>🩺 Segni e sintomi</span>
+      <button type="button" class="symptom-reveal-btn">Mostra progressivamente</button>
+    </div>
 <div class="metric-grid">
       <div class="metric-card ok"><span>✅</span><b>Dispnea ↓</b><small>miglioramento</small></div>
       <div class="metric-card ok"><span>💧</span><b>Edemi ↓</b><small>congestione ridotta</small></div>
@@ -4304,10 +6527,10 @@ body, body *{
     </section>
   </main>
 
-  <footer class="footer clean-footer">
+  <footer class="footer fresh-footer">
   <button class="btn secondary" id="prevBtn">← Indietro</button>
+  <div class="fresh-footer-note">🩺 Osserva · interpreta · decidi</div>
   <button class="btn" id="nextBtn">Continua →</button>
-  <div class="hint" id="hint" aria-hidden="true"></div>
 </footer>
 </div>
 <div class="xp-pop" id="xpPop">+50 XP</div>
@@ -4426,17 +6649,62 @@ body, body *{
   }
 
 
+
+  function setupSymptomReveal(slide) {
+    if (!slide) return;
+    const bar = slide.querySelector('.symptom-reveal-bar');
+    if (!bar) return;
+    const btn = bar.querySelector('.symptom-reveal-btn');
+    const targets = Array.from(slide.querySelectorAll('.info-card, .metric-card, .receipt, .mini-report, .report-card, .clinical-message, .biopsy-report-true, .therapy-sheet, .teachback-card'));
+    if (!targets.length) return;
+    if (!slide.dataset.symptomInit) {
+      targets.forEach(el => {
+        el.classList.remove('symptom-visible');
+        el.classList.add('symptom-hidden');
+      });
+      slide.dataset.symptomStep = '0';
+      slide.dataset.symptomInit = '1';
+    }
+    if (btn && !btn.dataset.bound) {
+      btn.dataset.bound = '1';
+      btn.addEventListener('click', function() {
+        let step = parseInt(slide.dataset.symptomStep || '0', 10);
+        if (step < targets.length) {
+          targets[step].classList.remove('symptom-hidden');
+          targets[step].classList.add('symptom-visible');
+          step += 1;
+          slide.dataset.symptomStep = String(step);
+          btn.textContent = step >= targets.length ? 'Tutti visibili' : 'Mostra prossimo dato';
+          if (step >= targets.length) bar.classList.add('done');
+          try { beep('click'); } catch(e) {}
+        }
+      });
+    }
+  }
+
+
+  function toggleHuddleVisibility() {
+    try {
+      document.body.classList.toggle('show-huddle', Number(current) === 1);
+    } catch(e) {}
+  }
+
   function show(index) {
     finalScreen.classList.remove('active');
+    document.body.classList.remove('show-huddle');
     debriefPage.classList.remove('active');
     inDebrief = false;
     waitingDebrief = false;
     slides.forEach(s => s.classList.remove('active'));
     current = Math.max(0, Math.min(index, slides.length - 1));
     slides[current].classList.add('active');
+    toggleHuddleVisibility();
+    /* close huddle when changing slide */
+    try { document.getElementById('huddleModal')?.classList.remove('open'); } catch(e) {}
     prepareProgressiveReveal(slides[current]);
+    setupSymptomReveal(slides[current]);
     soundForScene();
-    sceneCounter.textContent = current === 0 ? 'Prologo' : 'Scena ' + current + '/12';
+    sceneCounter.textContent = current === 0 ? 'Prologo' : 'Scena ' + current + '/' + (slides.length - 1);
     progressFill.style.width = ((current + 1) / slides.length * 100) + '%';
     prevBtn.style.visibility = current === 0 ? 'hidden' : 'visible';
     nextBtn.textContent = current === slides.length - 1 ? 'Badge finale →' : 'Continua →';
@@ -4450,22 +6718,214 @@ body, body *{
 
   function infographicForScene(title) {
     const t = (title || '').toLowerCase();
-    function pearl(icon, title, text) {
-      return '<div class="pearl"><span>' + icon + '</span><div><b>' + title + '</b><p>' + text + '</p></div></div>';
+
+    function row(icon, segno, significa) {
+      return '<tr><td><div class="sign-chip"><span>' + icon + '</span>' + segno + '</div></td><td>' + significa + '</td></tr>';
     }
-    function pearls(mainTitle, subtitle, p1, p2, p3, p4, takehome) {
-      return '<div class="pearls-card"><div class="pearls-head"><span>💡</span><div><h3>' + mainTitle + '</h3><small>' + subtitle + '</small></div></div><div class="pearls-grid">' + p1 + p2 + p3 + p4 + '</div><div class="pearls-takehome"><b>Take home message</b><p>' + takehome + '</p></div></div>';
+    function flow(icon, title, text) {
+      return '<div class="flow-step"><span>' + icon + '</span><div><b>' + title + '</b><small>' + text + '</small></div></div>';
     }
-    if (t.includes('parametri')) return pearls('Parametri vitali: leggere il pattern','Il deterioramento emerge dalla combinazione dei dati, non da un singolo valore.',pearl('❤️','Perché è importante','FC 125 bpm indica compenso tachicardico in un quadro di possibile ridotta portata.'),pearl('🫁','Cosa osservare','FR 30/min e affaticamento suggeriscono aumento del lavoro respiratorio.'),pearl('⚖️','Errore frequente','Sottovalutare +2,2 kg: nel cardiopatico può indicare ritenzione idrica rapida.'),pearl('🩺','Cosa fa l’infermiere','Monitora trend, bilancio idrico, diuresi, perfusione ed eventuale peggioramento.'),'Tachicardia + tachipnea + incremento ponderale rapido orientano verso congestione e richiedono escalation valutativa.');
-    if (t.includes('ecocardiogramma')) return pearls('Eco: disfunzione del graft','La FE ridotta nel trapiantato non va interpretata come dato isolato.',pearl('📉','Perché è importante','FE 35% indica compromissione della funzione sistolica e ridotta efficacia di pompa.'),pearl('🫀','Cosa significa','Ipocinesia globale e VS dilatato sono compatibili con disfunzione del graft.'),pearl('⚠️','Errore frequente','Concludere subito “rigetto” senza integrare Tacrolimus, BNP, clinica e biopsia.'),pearl('🔬','Prossimo passo','Integrare dati clinici, laboratorio, ecocardio e indicazione a biopsia endomiocardica.'),'Nel trapiantato una nuova riduzione della FE richiede esclusione di rigetto, vasculopatia, infezione o scarsa aderenza.');
-    if (t.includes('biopsia')) return pearls('Biopsia: conferma diagnostica','La biopsia endomiocardica orienta il trattamento antirigetto.',pearl('🔬','Perché è importante','Documenta istologicamente infiltrato linfocitario e danno miocitario.'),pearl('2R','Significato','Il grado ISHLT 2R indica rigetto cellulare acuto moderato.'),pearl('⚠️','Errore frequente','Pensare che la biopsia sostituisca il monitoraggio: il follow-up resta essenziale.'),pearl('💉','Cosa fa il team','Avvia trattamento prescritto e monitora risposta clinica, emodinamica e laboratoristica.'),'Riconoscere precocemente il rigetto e trattarlo tempestivamente protegge la funzione del graft.');
-    if (t.includes('ematici') || t.includes('laboratorio')) return pearls('Laboratorio: integrare i dati','BNP, creatinina e Tacrolimus aiutano a costruire l’ipotesi clinica.',pearl('🧪','BNP elevato','Supporta stress cardiaco e possibile scompenso.'),pearl('💊','Tacrolimus basso','Indica immunosoppressione insufficiente e aumenta il rischio di rigetto.'),pearl('🫘','Creatinina','Va monitorata perché terapia e congestione possono influenzare la funzione renale.'),pearl('🧠','Ragionamento','Nessun esame da solo basta: serve integrare clinica, eco e biopsia.'),'Il valore del laboratorio è massimo quando viene letto insieme al quadro clinico e al trend del paziente.');
-    if (t.includes('aderenza')) return pearls('Aderenza terapeutica','Nel trapianto la continuità dell’immunosoppressione protegge il graft.',pearl('💊','Perché è importante','Dosi dimenticate possono portare a livelli sotto range.'),pearl('🏫','Barriere pratiche','Scuola, orari e autonomia adolescenziale possono ostacolare la terapia.'),pearl('⚠️','Errore frequente','Colpevolizzare la famiglia invece di cercare ostacoli concreti.'),pearl('🧑‍⚕️','Cosa fa l’infermiere','Costruisce strategie: promemoria, pilloliera, piano condiviso, follow-up ravvicinato.'),'L’aderenza va esplorata con approccio educativo, non giudicante.');
-    if (t.includes('racconto') || t.includes('madre')) return pearls('Il racconto familiare è un dato clinico','La famiglia spesso intercetta il cambiamento prima dei referti.',pearl('😴','Stanchezza','Può indicare ridotta tolleranza allo sforzo e minore riserva cardiaca.'),pearl('🛏️','Ortopnea','È un segno suggestivo di congestione e difficoltà respiratoria in posizione supina.'),pearl('⚖️','Peso in aumento','Nel cardiopatico suggerisce ritenzione idrica fino a prova contraria.'),pearl('🦶','Edemi','Rafforzano il sospetto di congestione sistemica.'),'Nel follow-up del trapianto, il racconto del caregiver deve guidare la priorità di valutazione.');
-    if (t.includes('valutazione') || t.includes('osservazione')) return pearls('Valutazione infermieristica strutturata','Osservare bene significa anticipare il deterioramento.',pearl('👀','Primo sguardo','Pallore, postura, respiro e reattività orientano la priorità.'),pearl('A/B','Respirazione','Valutare FR, SpO₂, lavoro respiratorio e tolleranza al decubito.'),pearl('C','Circolo','FC, PA, perfusione, edemi, diuresi e peso sono dati centrali.'),pearl('🚨','Escalation','Se i dati convergono, attivare rapidamente il percorso medico-assistenziale.'),'La valutazione infermieristica trasforma segni sfumati in decisioni tempestive.');
-    if (t.includes('trattamento')) return pearls('Trattamento antirigetto','La terapia controlla la risposta immunitaria e sostiene il graft.',pearl('💉','Steroidi EV','Metilprednisolone ad alte dosi secondo prescrizione.'),pearl('💊','Immunosoppressione','Ottimizzazione del regime terapeutico e controllo livelli farmaco.'),pearl('📟','Monitoraggio','ECG, parametri, bilancio idrico, diuresi e trend clinico.'),pearl('⚠️','Sicurezza','Sorvegliare effetti collaterali e funzione renale/metabolica.'),'Il trattamento è efficace solo se associato a monitoraggio infermieristico continuo e rivalutazione del trend.');
-    if (t.includes('educazione') || t.includes('dimissione')) return pearls('Dimissione protetta','Il follow-up continua a casa con famiglia e Centro Trapianti.',pearl('⏰','Terapia','Orari, promemoria e gestione scolastica devono essere sostenibili.'),pearl('⚖️','Peso','Controllo quotidiano e attenzione a incrementi rapidi.'),pearl('🫁','Red flags','Dispnea, ortopnea, edemi, stanchezza insolita o dosi saltate.'),pearl('📞','Contatto','Sapere quando chiamare il Centro riduce i ritardi.'),'Educare significa trasformare il rischio clinico in azioni quotidiane semplici e ripetibili.');
-    return pearls('Ragionamento clinico','Integrare progressivamente dati soggettivi, oggettivi e strumentali.',pearl('🔎','Osserva','Parti da segni, sintomi e racconto familiare.'),pearl('📊','Misura','Parametri vitali, peso, bilancio e trend.'),pearl('🧪','Integra','Laboratorio, ecocardio, immunosoppressione e biopsia.'),pearl('🧑‍⚕️','Decidi','Stabilisci priorità assistenziale e attiva il percorso corretto.'),'Il clinical reasoning nasce dalla convergenza dei dati, non dalla singola informazione.');
+    function check(text) {
+      return '<div><span>✓</span>' + text + '</div>';
+    }
+    function side(activeNum) {
+      const items = [
+        ['01','Presentazione','Inquadramento'],
+        ['02','Ragionamento','Approfondimento'],
+        ['03','Parametri','Monitoraggio'],
+        ['04','Laboratorio','Dati clinici'],
+        ['05','Ecocardiogramma','Funzione graft'],
+        ['06','Biopsia','Diagnosi'],
+        ['07','Terapia','Intervento'],
+        ['08','Educazione','Follow-up']
+      ];
+      return '<aside class="science-sidebar"><div class="side-title"><span>🫀</span>SCENE DEL CASO</div>' + items.map(function(it, i){
+        const active = String(i+1).padStart(2,'0') === activeNum ? ' active' : '';
+        const done = i < Number(activeNum)-1 ? ' done' : '';
+        return '<div class="side-step' + active + done + '"><span class="num">' + it[0] + '</span><div><b>' + it[1] + '</b><small>' + it[2] + '</small></div><span class="lock">' + (done ? '✓' : (active ? '●' : '○')) + '</span></div>';
+      }).join('') + '<div class="side-back">← Torna al caso</div></aside>';
+    }
+    function dash(o) {
+      return '<div class="science-dashboard">' + side(o.num || '02') + '<main class="science-main">' +
+        '<div class="science-toolbar"><div class="tool-pill">⬇ Scarica scheda</div><div class="tool-pill">🖨 Stampa</div><div class="tool-pill">♡ Preferiti</div></div>' +
+        '<div class="science-head"><div class="science-head-icon">' + o.icon + '</div><div><h2>' + o.title + '</h2><p>' + o.quote + '</p></div><div class="evidence-level"><span>Livello di evidenza</span><strong>' + (o.level || 'Applicato') + '</strong></div></div>' +
+        '<div class="science-grid">' +
+          '<section class="dash-card"><div class="dash-card-head">🩺 Pattern clinico</div><div class="dash-card-body"><table class="pattern-table"><thead><tr><th>Dato osservato</th><th>Significato clinico</th></tr></thead><tbody>' + o.pattern + '</tbody></table></div></section>' +
+          '<section class="dash-card"><div class="dash-card-head">📈 Evoluzione tipica</div><div class="dash-card-body"><div class="flow-steps">' + o.flow + '</div></div></section>' +
+          '<section class="dash-card"><div class="dash-card-head">📚 Evidenze scientifiche</div><div class="dash-card-body"><div class="evidence-card"><h3>' + o.evidenceTitle + '</h3><ul>' + o.evidence.map(function(x){return '<li>' + x + '</li>';}).join('') + '</ul></div></div></section>' +
+          '<section class="dash-card"><div class="dash-card-head">👩‍⚕️ Interpretazione infermieristica</div><div class="dash-card-body"><div class="nursing-list">' + o.nursing.map(check).join('') + '</div></div></section>' +
+          '<section class="dash-card wide"><div class="dash-card-head">💡 Take home & cosa fare in pratica</div><div class="dash-card-body"><div class="take-home-panel"><div class="take-quote">“' + o.takehome + '”</div><div class="take-practice"><h3>Cosa fare in pratica</h3><ol>' + o.practice.map(function(x){return '<li>' + x + '</li>';}).join('') + '</ol></div></div></div></section>' +
+        '</div>' +
+        '<div class="references-box">' + o.refs.map(function(r){return '<div><b>' + r[0] + '</b> ' + r[1] + '</div>';}).join('') + '</div>' +
+      '</main></div>';
+    }
+
+    const refs = [
+      ['ISHLT 2004.', 'Standardized cardiac biopsy grading for acute cellular rejection.'],
+      ['AHA.', 'Warning signs of heart failure: dyspnea, fatigue, edema and weight changes.'],
+      ['NCBI Bookshelf.', 'Heart transplantation rejection: clinical and histological interpretation.'],
+      ['Clinical nursing surveillance.', 'Trend, escalation and communication in pediatric deterioration.']
+    ];
+
+    if (t.includes('racconto') || t.includes('madre')) return dash({
+      num:'02', icon:'👩‍👧', level:'Clinico',
+      title:'Il racconto della famiglia è un dato clinico',
+      quote:'“Mamma riferisce affaticamento, aumento del peso e necessità di dormire con due cuscini.”',
+      pattern: row('😴','Affaticamento','Ridotta tolleranza allo sforzo e possibile ridotta riserva cardiaca.') +
+               row('🛏️','Ortopnea','Congestione polmonare e aumento delle pressioni di riempimento.') +
+               row('⚖️','Aumento ponderale','Ritenzione idrica e sovraccarico di volume.') +
+               row('🦶','Edemi declivi','Congestione sistemica e ritenzione idrosalina.'),
+      flow: flow('🏃','Attività normale','Baseline riferito dalla famiglia.') +
+            flow('😓','Affaticamento','Ridotta tolleranza allo sforzo.') +
+            flow('🛏️','Ortopnea','Necessità di dormire con più cuscini.') +
+            flow('⚠️','Sospetto scompenso/rigetto','Richiede valutazione clinica.'),
+      evidenceTitle:'Raccomandazioni applicate al follow-up',
+      evidence:['I sintomi riferiti dal caregiver sono essenziali per riconoscere cambiamenti rispetto al baseline.','Dispnea, ortopnea, edema e rapido aumento ponderale sono segnali compatibili con congestione.','Nel trapiantato, sintomi sfumati possono anticipare disfunzione del graft o rigetto.'],
+      nursing:['Ascolta il caregiver in modo attivo e non giudicante.','Documenta accuratamente il cambiamento rispetto al baseline.','Integra il racconto con parametri vitali, peso, edemi e diuresi.','Segnala tempestivamente qualsiasi peggioramento al team.'],
+      takehome:'Nel follow-up del trapianto cardiaco, il caregiver riconosce spesso il deterioramento prima degli esami strumentali.',
+      practice:['Formula domande aperte sui cambiamenti recenti.','Confronta i sintomi con il controllo precedente.','Oggettiva subito peso, segni respiratori e perfusione.','Comunica il pattern, non solo il singolo sintomo.'],
+      refs:refs
+    });
+
+    if (t.includes('parametri')) return dash({
+      num:'03', icon:'📟', level:'Trend',
+      title:'Parametri vitali: leggere il pattern',
+      quote:'“FC 125, FR 30 e +2,2 kg non sono tre dati isolati: insieme raccontano congestione.”',
+      pattern: row('❤️','FC 125 bpm','Tachicardia compensatoria e possibile ridotta portata.') +
+               row('🫁','FR 30/min','Aumento del lavoro respiratorio e possibile congestione.') +
+               row('⚖️','Peso +2,2 kg','Indicatore sensibile di ritenzione idrica rapida.') +
+               row('🩺','PA 95/60','Dato da interpretare nel trend di perfusione.'),
+      flow: flow('📌','Rileva','Parametri vitali, peso e saturazione.') +
+            flow('📈','Confronta','Valuta differenza dal controllo precedente.') +
+            flow('🧩','Integra','FC + FR + peso + sintomi.') +
+            flow('🚨','Escala','Attiva valutazione medica se il pattern converge.'),
+      evidenceTitle:'Pattern recognition nella congestione',
+      evidence:['La valutazione dello scompenso richiede interpretazione integrata di dispnea, edema, peso e segni vitali.','Il peso seriato è un indicatore pratico di sovraccarico di volume.','Il trend è più informativo del singolo valore isolato.'],
+      nursing:['Rileva parametri in modo standardizzato.','Registra peso e confronto con baseline.','Controlla diuresi, bilancio idrico ed edemi.','Comunica il pattern clinico al team.'],
+      takehome:'Leggi sempre il trend e la convergenza dei dati, non il valore isolato.',
+      practice:['Usa una scheda parametri unica.','Evidenzia valori alterati e trend.','Rivaluta dopo interventi o peggioramento.','Prepara escalation se il quadro evolve.'],
+      refs:refs
+    });
+
+    if (t.includes('laboratorio') || t.includes('ematici')) return dash({
+      num:'04', icon:'🧪', level:'Integrato',
+      title:'Laboratorio: dati che convergono',
+      quote:'“BNP elevato e Tacrolimus basso aumentano il sospetto quando la clinica peggiora.”',
+      pattern: row('📈','BNP/NT-proBNP elevato','Stress miocardico e possibile congestione, da interpretare nel contesto.') +
+               row('💊','Tacrolimus basso','Possibile immunosoppressione insufficiente.') +
+               row('🫘','Creatinina','Dato di sicurezza per perfusione, terapia e funzione renale.') +
+               row('✅','PCR negativa','Riduce il sospetto infettivo sistemico, ma non lo esclude del tutto.'),
+      flow: flow('🧪','Leggi i valori','Identifica alterazioni rilevanti.') +
+            flow('🫀','Collega al quadro','BNP + sintomi + eco.') +
+            flow('💊','Valuta aderenza','Livelli immunosoppressivi e rischio rigetto.') +
+            flow('🔬','Conferma','Biopsia se indicata.'),
+      evidenceTitle:'Uso clinico dei biomarcatori',
+      evidence:['I peptidi natriuretici sono indicatori di stress miocardico e congestione.','I livelli di immunosoppressore sono centrali nella valutazione del rischio di rigetto.','I referti hanno massimo valore se integrati con parametri e quadro clinico.'],
+      nursing:['Controlla tempestività e completezza del prelievo.','Riconosci valori critici o fuori target.','Comunica BNP elevato e livelli immunosoppressivi bassi.','Integra laboratorio con osservazione e monitoraggio.'],
+      takehome:'Il laboratorio non sostituisce il ragionamento clinico: lo rafforza quando converge con i dati osservati.',
+      practice:['Prepara un riepilogo dei valori alterati.','Evidenzia trend rispetto ai controlli precedenti.','Verifica terapia assunta e timing dei prelievi.','Segnala precocemente valori critici.'],
+      refs:refs
+    });
+
+    if (t.includes('ecocardiogramma')) return dash({
+      num:'05', icon:'🫀', level:'Strumentale',
+      title:'Ecocardiogramma: disfunzione del graft',
+      quote:'“FE 35%, ventricolo sinistro dilatato e ipocinesia globale richiedono conferma della causa.”',
+      pattern: row('📉','FE 35%','Riduzione significativa della funzione sistolica.') +
+               row('🫀','VS dilatato','Rimodellamento e possibile compromissione del graft.') +
+               row('〰️','Ipocinesia globale','Contrattilità ridotta in modo diffuso.') +
+               row('🔬','Biopsia','Indicata se il sospetto di rigetto resta elevato.'),
+      flow: flow('🎥','Osserva il loop','Movimento parietale e funzione globale.') +
+            flow('📉','Quantifica','FE e dimensioni ventricolari.') +
+            flow('🧩','Integra','Clinica + BNP + Tacrolimus + eco.') +
+            flow('🔬','Conferma','Biopsia secondo indicazione specialistica.'),
+      evidenceTitle:'Ecocardiografia nel follow-up',
+      evidence:['Una nuova riduzione della funzione sistolica nel trapiantato richiede ricerca eziologica.','L’eco orienta, ma non identifica sempre la causa della disfunzione.','Rigetto, vasculopatia, infezione e tossicità devono essere considerati nel differenziale.'],
+      nursing:['Prepara la paziente e garantisci comfort durante l’esame.','Osserva segni di instabilità durante la procedura.','Collega il referto al trend clinico.','Prepara eventuale percorso diagnostico successivo.'],
+      takehome:'Nel trapiantato, una nuova FE ridotta è un allarme: va integrata e confermata.',
+      practice:['Raccogli parametri prima e dopo l’esame.','Confronta FE con ecografie precedenti.','Prepara documentazione per il team trapianti.','Sorveglia peggioramento clinico.'],
+      refs:refs
+    });
+
+    if (t.includes('biopsia')) return dash({
+      num:'06', icon:'🔬', level:'Diagnostico',
+      title:'Biopsia endomiocardica: conferma diagnostica',
+      quote:'“Il grado ISHLT 2R documenta rigetto cellulare acuto moderato.”',
+      pattern: row('🔬','Infiltrato linfocitario','Risposta immune cellulare contro il graft.') +
+               row('🫀','Danno miocitario','Coinvolgimento tissutale, non solo infiammazione.') +
+               row('2R','Grado moderato','Richiede trattamento secondo prescrizione specialistica.') +
+               row('📟','Monitoraggio','La diagnosi non sostituisce sorveglianza clinica.'),
+      flow: flow('🔎','Sospetta','Clinica, parametri, BNP, Tacrolimus ed eco.') +
+            flow('🔬','Conferma','Campione endomiocardico e classificazione.') +
+            flow('💉','Tratta','Terapia antirigetto prescritta.') +
+            flow('📈','Rivaluta','Risposta clinica e sicurezza.'),
+      evidenceTitle:'Classificazione ISHLT',
+      evidence:['La classificazione ISHLT 2004 distingue 0R, 1R, 2R e 3R.','Il grado 2R indica rigetto cellulare moderato con infiltrati e danno miocitario.','La biopsia resta riferimento diagnostico per il rigetto cellulare acuto.'],
+      nursing:['Verifica preparazione e sicurezza procedurale.','Monitora parametri e complicanze post-procedura.','Interpreta il referto nel percorso clinico.','Collabora all’avvio della terapia prescritta.'],
+      takehome:'La biopsia conferma il sospetto e orienta il trattamento, ma il trend clinico resta fondamentale.',
+      practice:['Controlla accesso, parametri e sanguinamento.','Registra dolore, aritmie o peggioramento.','Prepara terapia e monitoraggio post-referto.','Comunica in modo chiaro il significato del grado 2R.'],
+      refs:refs
+    });
+
+    if (t.includes('trattamento')) return dash({
+      num:'07', icon:'💉', level:'Safety',
+      title:'Trattamento antirigetto: terapia e monitoraggio',
+      quote:'“La terapia farmacologica è efficace solo se accompagnata da sorveglianza infermieristica continua.”',
+      pattern: row('💉','Steroidi EV','Intervento intensivo nella fase acuta, secondo protocollo.') +
+               row('💊','Immunosoppressione','Ottimizzazione dose e controllo dei livelli.') +
+               row('📟','Monitoraggio','Parametri, ECG, bilancio, peso e sintomi.') +
+               row('🧪','Sicurezza','Glicemia, PA, funzione renale ed effetti collaterali.'),
+      flow: flow('📋','Prepara','Prescrizione, accesso, tempi e sicurezza.') +
+            flow('💉','Somministra','Terapia secondo protocollo e verifica doppia.') +
+            flow('📟','Sorveglia','Parametri e risposta clinica.') +
+            flow('🗣️','Comunica','Peggioramento o effetti collaterali.'),
+      evidenceTitle:'Terapia del rigetto',
+      evidence:['Il rigetto moderato richiede trattamento tempestivo definito dal team specialistico.','Steroidi e immunosoppressori richiedono sorveglianza metabolica, pressoria, renale e infettiva.','La sicurezza terapeutica dipende da monitoraggio e comunicazione precoce.'],
+      nursing:['Verifica prescrizione, dose, diluizione e tempi.','Monitora glicemia, PA, bilancio e funzione renale.','Osserva risposta clinica e segni di peggioramento.','Educa paziente e famiglia sulla continuità della terapia.'],
+      takehome:'Trattamento e monitoraggio sono processi inseparabili.',
+      practice:['Prepara checklist di somministrazione.','Registra parametri prima/dopo terapia.','Sorveglia effetti collaterali.','Rivaluta quotidianamente trend e sintomi.'],
+      refs:refs
+    });
+
+    if (t.includes('educazione') || t.includes('dimissione')) return dash({
+      num:'08', icon:'🏠', level:'Continuità',
+      title:'Dimissione protetta e teach-back',
+      quote:'“La sicurezza continua a casa con famiglia, aderenza e riconoscimento delle red flags.”',
+      pattern: row('💊','Aderenza','Orari, organizzatore terapeutico e promemoria per evitare dosi saltate.') +
+               row('⚖️','Peso quotidiano','Incrementi rapidi richiedono contatto con il Centro.') +
+               row('🫁','Dispnea/ortopnea','Red flag di congestione o peggioramento funzionale.') +
+               row('📞','Contatto rapido','Sapere chi chiamare riduce i ritardi terapeutici.'),
+      flow: flow('🎓','Educa','Terapia, orari e segnali di allarme.') +
+            flow('🔁','Teach-back','La famiglia ripete cosa fare.') +
+            flow('📆','Pianifica','Follow-up, esami e contatti chiari.') +
+            flow('🤝','Sostieni','Adatta il piano a scuola e routine.'),
+      evidenceTitle:'Continuità assistenziale',
+      evidence:['La transizione ospedale-casa è una fase critica nel paziente pediatrico complesso.','Il teach-back migliora comprensione e sicurezza delle indicazioni.','Famiglia e paziente devono conoscere red flags e contatti del Centro.'],
+      nursing:['Valuta comprensione della famiglia.','Costruisci un piano pratico di aderenza.','Spiega segni di allarme e quando chiamare.','Documenta educazione e follow-up.'],
+      takehome:'La dimissione è sicura quando la famiglia sa cosa osservare, cosa fare e quando chiamare.',
+      practice:['Usa linguaggio semplice e concreto.','Fai ripetere alla famiglia le red flags.','Consegna un piano scritto.','Verifica barriere scolastiche e familiari.'],
+      refs:refs
+    });
+
+    return dash({
+      num:'01', icon:'🧠', level:'Metodo',
+      title:'Ragionamento clinico integrato',
+      quote:'“Osserva, misura, interpreta, decidi: la sicurezza nasce dalla convergenza dei dati.”',
+      pattern: row('🔎','Osserva','Segni, sintomi e racconto familiare.') +
+               row('📟','Misura','Parametri vitali, peso, bilancio e trend.') +
+               row('🧪','Integra','Laboratorio, ecocardio, immunosoppressione e biopsia.') +
+               row('👩‍⚕️','Decidi','Priorità assistenziali e attivazione del team.'),
+      flow: flow('1','Raccogli','Non fermarti al primo dato.') +
+            flow('2','Collega','Cerca coerenza tra dati diversi.') +
+            flow('3','Conferma','Usa referti e trend oggettivi.') +
+            flow('4','Agisci','Comunica e rivaluta.'),
+      evidenceTitle:'Metodo clinico',
+      evidence:['La valutazione strutturata riduce il rischio di ritardo nel riconoscimento del deterioramento.','La convergenza di più dati aumenta la solidità dell’ipotesi clinica.','La comunicazione tempestiva è parte della sicurezza assistenziale.'],
+      nursing:['Osserva in modo sistematico.','Documenta dati oggettivi e soggettivi.','Comunica il pattern clinico.','Rivaluta dopo ogni intervento.'],
+      takehome:'Il clinical reasoning nasce dalla convergenza dei dati, non dalla singola informazione.',
+      practice:['Raccogli sempre baseline e trend.','Usa una sintesi SBAR.','Verifica comprensione del team/famiglia.','Trasforma i dati in priorità assistenziali.'],
+      refs:refs
+    });
   }
 
   function showFinal() {
@@ -4534,7 +6994,7 @@ body, body *{
   });
 
 
-  // CLICK FIX PULITO: garantisce clic su tutte le risposte, anche nelle scene con animazioni.
+  // CLICK FIX FRESCO: rende cliccabili tutte le risposte anche se ci sono animazioni o overlay.
   document.addEventListener('click', function(e) {
     const btn = e.target.closest && e.target.closest('.answer');
     if (!btn) return;
@@ -4542,7 +7002,6 @@ body, body *{
     if (!slide) return;
     const index = Number(slide.dataset.index);
     const feedback = slide.querySelector('.feedback');
-
     if (btn.dataset.correct === 'true') {
       slide.querySelectorAll('.answer').forEach(a => {
         a.disabled = true;
@@ -4582,6 +7041,7 @@ body, body *{
       debriefTitle.textContent = 'Approfondimento del ragionamento clinico';
       debriefText.innerHTML = '<div class="debrief-layout"><div class="debrief-copy-card"><h3>Motivazione clinica</h3><p>' + currentDebrief + '</p><div class="clinical-thinking-box"><div class="clinical-thinking-title">💡 Ragionamento clinico</div>Quali elementi osservati supportano questa ipotesi? Quali dati raccoglieresti per confermarla prima di proseguire?</div></div>' + infographicForScene(title) + '</div>';
       debriefQuestion.style.display = 'none';
+      document.body.classList.remove('show-huddle');
       debriefPage.classList.add('active');
       inDebrief = true;
       nextBtn.disabled = false;
@@ -4620,5 +7080,50 @@ body, body *{
   show(0);
 })();
 </script>
+
+<button class="huddle-fab" id="huddleFab" type="button">🎤 Team Huddle</button>
+<div class="huddle-modal" id="huddleModal" aria-hidden="true">
+  <div class="huddle-card">
+    <div class="huddle-head"><div><h2 id="huddleTitle">Team Huddle</h2><p id="huddleSubtitle">30 secondi per ragionare insieme prima di rispondere.</p></div><button class="huddle-close" id="huddleClose" type="button">×</button></div>
+    <div class="huddle-body">
+      <div class="huddle-block radar"><b>📡 Radar clinico</b><p>Valutate il rischio prima di scegliere la risposta: storia + segni + dati oggettivi.</p><div class="radar-bars"><div><label>Graft</label><i id="riskGraft" style="--v:55%"></i><span id="riskGraftVal">55</span></div><div><label>Congestione</label><i id="riskCong" style="--v:45%"></i><span id="riskCongVal">45</span></div><div><label>Aderenza</label><i id="riskAdh" style="--v:35%"></i><span id="riskAdhVal">35</span></div></div></div>
+      <div class="huddle-block challenge"><b>🧩 Domanda al gruppo</b><ul id="huddleQuestions"><li>Quale dato ti preoccupa di più?</li><li>Quale informazione manca?</li><li>Che cosa comunicheresti al medico?</li></ul></div>
+      <div class="huddle-block action"><b>👩‍⚕️ SBAR rapido</b><p id="huddleSbar"><b>S</b> situazione: paziente trapiantata con peggioramento.<br><b>B</b> background: storia complessa.<br><b>A</b> assessment: integrare dati.<br><b>R</b> recommendation: rivalutare e attivare team.</p></div>
+    </div>
+    <div class="huddle-foot"><div class="huddle-question">Prima di proseguire: fai votare gli studenti sulla priorità clinica.</div><div class="huddle-timer" id="huddleTimer">00:30</div><button class="huddle-start" id="huddleStart" type="button">Avvia 30 secondi</button></div>
+  </div>
+</div>
+<div class="challenge-toast" id="challengeToast">✅ Risposta corretta: ottimo ragionamento clinico!</div>
+
+
+<script>
+(function(){
+ const fab=document.getElementById('huddleFab'), modal=document.getElementById('huddleModal'), closeBtn=document.getElementById('huddleClose'), startBtn=document.getElementById('huddleStart'), timerEl=document.getElementById('huddleTimer'), toast=document.getElementById('challengeToast');
+ let timer=null;
+ const data={
+  1:[55,30,30,'Briefing iniziale',['Quali elementi rendono Martina fragile?','Quale rischio vuoi tenere in mente già dall’inizio?','Che cosa rende diverso questo accesso da un controllo programmato?'],'<b>S</b> Martina arriva senza appuntamento.<br><b>B</b> Berlin Heart, trapianto, rigetto, retrapianto.<br><b>A</b> paziente ad alta complessità.<br><b>R</b> avvia valutazione strutturata.'],
+  2:[62,72,35,'Racconto familiare',['Quale parola della madre è un red flag?','Quale sintomo suggerisce congestione?','Che dato misureresti subito?'],'<b>S</b> caregiver riferisce peggioramento.<br><b>B</b> trapiantata ad alto rischio.<br><b>A</b> ortopnea, edemi e peso orientano a congestione.<br><b>R</b> oggettivare con parametri, peso e bilancio.'],
+  6:[82,78,85,'Laboratorio',['Quale dato converge con la clinica?','BNP e Tacrolimus raccontano la stessa storia?','Quale esame conferma il sospetto?'],'<b>S</b> referti alterati.<br><b>B</b> sintomi e parametri preoccupanti.<br><b>A</b> BNP alto + Tac basso aumentano sospetto.<br><b>R</b> integrare con eco e biopsia.'],
+  7:[92,70,70,'Ecocardiogramma',['Che cosa osservi nel movimento ventricolare?','La FE ridotta basta per dire rigetto?','Quale passo diagnostico viene dopo?'],'<b>S</b> FE 35%.<br><b>B</b> paziente trapiantata.<br><b>A</b> disfunzione del graft da spiegare.<br><b>R</b> correlare con clinica, laboratorio e biopsia.'],
+  8:[88,74,80,'DH Giorno 1',['Quali dati controlli prima del bolo?','Quali effetti collaterali sorvegli?','Come capisci se il trattamento sta funzionando?'],'<b>S</b> primo bolo corticosteroideo EV.<br><b>B</b> sospetto rigetto/disfunzione graft.<br><b>A</b> serve monitorare risposta e sicurezza.<br><b>R</b> parametri, glicemia, bilancio e sintomi.'],
+  9:[90,82,84,'DH Giorno 2',['Il trend sta migliorando?','Quale dato ti preoccupa di più?','Quando aumenti il livello di sorveglianza?'],'<b>S</b> secondo accesso in DH.<br><b>B</b> nessun miglioramento evidente.<br><b>A</b> peso e diuresi peggiorano.<br><b>R</b> rivalutazione ravvicinata e allerta team.'],
+  10:[90,84,86,'Trend DH',['Quale parametro sta peggiorando?','Quali dati convergono?','Quando aumenti la sorveglianza?'],'<b>S</b> trend sfavorevole dopo due accessi DH.<br><b>B</b> sospetto rigetto/disfunzione graft.<br><b>A</b> FC, FR e peso aumentano; diuresi diminuisce.<br><b>R</b> aumentare sorveglianza e prepararsi a escalation.'],
+  11:[98,92,88,'Peggioramento in DH',['Quale parametro giustifica l’urgenza?','Perché non è più gestibile in DH?','Quale SBAR comunichi al medico?'],'<b>S</b> peggioramento improvviso in DH.<br><b>B</b> trapiantata con sospetto rigetto.<br><b>A</b> tachicardia, ipotensione, desaturazione, lattato e oliguria.<br><b>R</b> ricovero urgente e stabilizzazione.'],
+  9:[96,64,80,'Biopsia',['Che significa 2R?','Perché cambia la priorità assistenziale?','Che cosa monitori dopo la diagnosi?'],'<b>S</b> biopsia positiva.<br><b>B</b> sospetto clinico confermato.<br><b>A</b> rigetto cellulare moderato.<br><b>R</b> trattamento e monitoraggio ravvicinato.'],
+  10:[86,55,88,'Terapia',['Quale parametro controlli dopo steroidi EV?','Quale rischio metabolico sorvegli?','Come documenti la risposta?'],'<b>S</b> trattamento antirigetto avviato.<br><b>B</b> terapia ad alto impatto.<br><b>A</b> serve monitorare efficacia e sicurezza.<br><b>R</b> PA, glicemia, bilancio, sintomi e comunicazione.'],
+  11:[60,45,92,'Teach-back',['Quali red flags deve ripetere la famiglia?','Come prevenire dimenticanze?','Come adattare il piano alla scuola?'],'<b>S</b> dimissione protetta.<br><b>B</b> rischio di ricaduta e non aderenza.<br><b>A</b> famiglia deve sapere cosa fare.<br><b>R</b> teach-back, piano scritto, contatti chiari.']
+ };
+ function activeIndex(){const s=document.querySelector('.slide.active');return s?Number(s.dataset.index||0):0}
+ function setRisk(id,val){const b=document.getElementById(id), l=document.getElementById(id+'Val'); if(b)b.style.setProperty('--v',val+'%'); if(l)l.textContent=val}
+ function update(){const idx=activeIndex(), d=data[idx]||data[1], title=document.querySelector('.slide.active h2')?.textContent?.trim()||d[3]; document.getElementById('huddleTitle').textContent='Team Huddle · '+d[3]; document.getElementById('huddleSubtitle').textContent='Scena attiva: '+title; setRisk('riskGraft',d[0]); setRisk('riskCong',d[1]); setRisk('riskAdh',d[2]); document.getElementById('huddleQuestions').innerHTML=d[4].map(x=>'<li>'+x+'</li>').join(''); document.getElementById('huddleSbar').innerHTML=d[5];}
+ function open(){update(); modal.classList.add('open'); modal.setAttribute('aria-hidden','false');}
+ function close(){modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); if(timer)clearInterval(timer); timerEl.textContent='00:30'}
+ function start(){let n=30; if(timer)clearInterval(timer); timerEl.textContent='00:30'; timer=setInterval(()=>{n--; timerEl.textContent='00:'+String(n).padStart(2,'0'); if(n<=0){clearInterval(timer); timerEl.textContent='DISCUSSIONE'}},1000)}
+ function confetti(){const colors=['#ec4899','#7c5cff','#2f80ed','#18a66a','#ffb22c','#ff416c']; for(let i=0;i<44;i++){const el=document.createElement('div'); el.className='confetti-piece'; el.style.left=Math.random()*100+'vw'; el.style.background=colors[Math.floor(Math.random()*colors.length)]; el.style.animationDelay=Math.random()*0.35+'s'; document.body.appendChild(el); setTimeout(()=>el.remove(),2100)} if(toast){toast.classList.remove('show'); void toast.offsetWidth; toast.classList.add('show')}}
+ fab?.addEventListener('click',open); closeBtn?.addEventListener('click',close); modal?.addEventListener('click',e=>{if(e.target===modal)close()}); startBtn?.addEventListener('click',start);
+ document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('.answer'); if(a&&(a.dataset.correct==='true'||a.classList.contains('correct'))) setTimeout(confetti,80)},true);
+})();
+</script>
+
 </body>
 </html>
